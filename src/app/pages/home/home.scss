@@ -1,0 +1,86 @@
+.page { // page wrapper
+  display: grid; // vertical stacking
+  gap: 22px; // spacing between sections
+  padding: 18px; // page padding
+  max-width: 1200px; // container width
+  margin: 0 auto; // center page
+}
+
+.header { // top header
+  display: grid; // grid layout
+  grid-template-columns: 140px 1fr auto 80px; // logo, search, nav, icons
+  gap: 14px; // spacing
+  align-items: center; // align vertically
+
+  .logo { // logo text
+    font-weight: 900; // bold
+    font-size: 22px; // size
+  }
+
+  .search { // search placeholder
+    height: 42px; // height
+    border-radius: 999px; // pill
+    background: #f3f3f3; // grey background
+    display: grid; // center text
+    align-items: center; // center vertically
+    padding: 0 16px; // inner padding
+    color: #777; // muted text
+  }
+
+  .nav { // nav links
+    display: flex; // horizontal
+    gap: 14px; // spacing
+
+    a { // each link
+      text-decoration: none; // no underline
+      color: #222; // dark text
+      font-weight: 600; // semi-bold
+    }
+  }
+
+  .icons { // icons placeholder
+    text-align: right; // align right
+  }
+}
+
+.products { // products section
+  display: grid; // vertical
+  gap: 14px; // spacing
+
+  .products-bar { // title row
+    display: flex; // horizontal
+    justify-content: space-between; // split
+    align-items: center; // aligned
+
+    h2 { // title
+      margin: 0; // remove default margin
+    }
+
+    .actions { // right side actions
+      opacity: 0.75; // subtle
+    }
+  }
+
+  .state { // loading/error box
+    padding: 18px; // spacing
+    border: 1px solid #eee; // border
+    border-radius: 14px; // rounding
+    background: #fff; // background
+
+    &.error { // error style
+      border-color: #ffd2d2; // red-ish border
+      background: #fff5f5; // soft red background
+    }
+  }
+
+  .grid { // products grid
+    display: grid; // grid
+    grid-template-columns: repeat(4, 1fr); // 4 columns
+    gap: 14px; // spacing
+  }
+}
+
+.footer { // footer placeholder
+  padding: 24px 0; // spacing
+  opacity: 0.7; // muted
+}

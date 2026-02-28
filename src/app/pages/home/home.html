@@ -1,0 +1,40 @@
+<div class="page">
+  <!-- header placeholder -->
+  <header class="header">
+    <div class="logo">SHOP.CO</div>
+    <div class="search">Search bar placeholder</div>
+    <nav class="nav">
+      <a href="#">Products</a>
+      <a href="#">About Us</a>
+    </nav>
+    <div class="icons">🛒 👤</div>
+  </header>
+
+  <!-- HERO: full carousel with overlay content inside it -->
+  <app-hero-carousel></app-hero-carousel>
+
+  <!-- products -->
+  <section class="products">
+    <div class="products-bar">
+      <h2>Best Selling</h2>
+      <div class="actions">Dropdown ▾ Filter ⛃</div>
+    </div>
+
+    @if (loading()) {
+      <div class="state">Loading products...</div>
+    } @else if (error()) {
+      <div class="state error">{{ error() }}</div>
+    } @else {
+      <div class="grid">
+        @for (p of products(); track p.id) {
+          <app-product-card [product]="p"></app-product-card>
+        }
+      </div>
+    }
+  </section>
+
+  <!-- footer placeholder -->
+  <footer class="footer">
+    <div>Footer placeholder</div>
+  </footer>
+</div>

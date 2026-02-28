@@ -1,0 +1,118 @@
+.hero { // whole hero carousel container
+  position: relative; // allows overlay layers
+  height: 420px; // control how “huge” it is (change to 380/520 as you want)
+  border-radius: 18px; // rounded corners
+  overflow: hidden; // crop image edges
+}
+
+.bg { // background image
+  position: absolute; // fill container
+  inset: 0; // stretch to all sides
+  width: 100%; // full width
+  height: 100%; // full height
+  object-fit: cover; // ✅ makes it look correct, not stretched
+  object-position: center; // focus center
+}
+
+.shade { // readability overlay
+  position: absolute; // full overlay
+  inset: 0; // stretch
+  background: linear-gradient( // nicer than a flat dark layer
+    90deg,
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.25) 45%,
+    rgba(0, 0, 0, 0.05) 100%
+  );
+}
+
+.content { // left text overlay
+  position: absolute; // on top of image
+  inset: 0; // use whole area
+  display: grid; // vertical layout
+  align-content: center; // center vertically
+  padding: 42px; // spacing
+  max-width: 720px; // keep left block width
+  color: #fff; // white text
+  gap: 14px; // spacing
+}
+
+.content h1 { // headline
+  margin: 0;
+  font-size: 44px;
+  line-height: 1.05;
+  font-weight: 900;
+}
+
+.content p { // subtitle
+  margin: 0;
+  max-width: 520px;
+  opacity: 0.92;
+}
+
+.cta { // button
+  width: fit-content;
+  padding: 12px 18px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.stats { // stats row
+  margin-top: 18px;
+  display: flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+
+.stat { // one stat box
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 12px 14px;
+  border-radius: 14px;
+  min-width: 180px;
+}
+
+.num { font-size: 20px; font-weight: 900; } // stat number
+.lbl { font-size: 12px; opacity: 0.9; } // stat label
+
+.nav { // arrow buttons
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  font-size: 26px;
+}
+
+.nav.left { left: 14px; } // left arrow position
+.nav.right { right: 14px; } // right arrow position
+
+.dots { // dots container
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.dot { // one dot
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.dot.active { // active dot
+  background: rgba(255, 255, 255, 0.95);
+  width: 22px;
+}

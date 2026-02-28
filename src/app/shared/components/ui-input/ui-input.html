@@ -1,0 +1,22 @@
+<label class="field">
+  <!-- whole input row -->
+  <span class="icon">
+    <!-- left icon -->
+    @switch (icon()) {
+      @case ('user') {
+        <span class="i">👤</span>
+      }
+      <!-- simple icon placeholder -->
+      @case ('mail') {
+        <span class="i">✉️</span>
+      }
+      <!-- simple icon placeholder -->
+      @case ('lock') {
+        <span class="i">🔒</span>
+      }
+      <!-- simple icon placeholder -->
+    }
+  </span>
+
+  <input class="control" [type]="type()" [placeholder]="placeholder()" [formControl]="control()" />
+</label>

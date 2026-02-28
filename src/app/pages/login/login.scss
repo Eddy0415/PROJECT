@@ -1,0 +1,36 @@
+.auth {
+  width: min(320px, 100%); // centered form width
+  display: grid; // vertical layout
+  gap: 18px; // spacing
+  text-align: center; // match mockup
+}
+
+.title {
+  font-size: 14px; // small heading like mockup
+  margin: 0; // reset
+  font-weight: 600; // clean
+}
+
+.fields {
+  display: grid; // stack inputs
+  gap: 10px; // spacing
+}
+
+.actions {
+  display: grid; // stack button + hint
+  gap: 8px; // spacing
+  justify-items: center; // center hint
+}
+
+.hint {
+  margin: 0; // reset
+  font-size: 9px; // tiny text like mockup
+  opacity: 0.6; // subtle
+}
+
+.link {
+  color: #000; // black like mockup
+  text-decoration: none; // clean
+  font-weight: 600; // emphasis
+  opacity: 1; // visible
+}

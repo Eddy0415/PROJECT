@@ -1,0 +1,61 @@
+<ui-modal [imageUrl]="'/hero/1.jpg'">
+  <!-- popup overlay -->
+
+  <form class="auth" [formGroup]="form">
+    <!-- form block -->
+    <h2 class="title">Sign Up</h2>
+    <!-- title -->
+
+    <div class="fields">
+      <!-- fields grid -->
+      <div class="row2">
+        <!-- two inputs in one row -->
+        <ui-input
+          [control]="form.controls.fullName"
+          [placeholder]="'Full Name'"
+          [type]="'text'"
+          [icon]="'user'"
+        ></ui-input>
+
+        <ui-input
+          [control]="form.controls.username"
+          [placeholder]="'Username'"
+          [type]="'text'"
+          [icon]="'user'"
+        ></ui-input>
+      </div>
+
+      <ui-input
+        [control]="form.controls.email"
+        [placeholder]="'Email Address'"
+        [type]="'email'"
+        [icon]="'mail'"
+      ></ui-input>
+
+      <div class="row2">
+        <ui-input
+          [control]="form.controls.password"
+          [placeholder]="'Password'"
+          [type]="'password'"
+          [icon]="'lock'"
+        ></ui-input>
+
+        <ui-input
+          [control]="form.controls.confirmPassword"
+          [placeholder]="'Confirm Password'"
+          [type]="'password'"
+          [icon]="'lock'"
+        ></ui-input>
+      </div>
+    </div>
+
+    <div class="actions">
+      <ui-button [text]="'Create Account'" [type]="'button'"></ui-button>
+      <!-- no logic yet -->
+      <p class="hint">
+        Already have an account?
+        <a routerLink="/login" class="link">Login</a>
+      </p>
+    </div>
+  </form>
+</ui-modal>

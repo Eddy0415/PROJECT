@@ -1,0 +1,24 @@
+.field {
+  width: 100%; // full width inside form
+  display: grid; // icon + input
+  grid-template-columns: 34px 1fr; // icon space + input
+  align-items: center; // vertical alignment
+  gap: 10px; // spacing
+  padding: 10px 14px; // inner padding like mockup
+  border-radius: 999px; // pill shape
+  background: #f7f7f7; // soft fill
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.06) inset; // subtle inset
+}
+
+.icon .i {
+  font-size: 14px; // small icon
+  opacity: 0.7; // subtle like mockup
+}
+
+.control {
+  width: 100%; // fill
+  border: 0; // clean
+  outline: none; // clean
+  background: transparent; // use parent bg
+  font-size: 12px; // close to mockup
+}

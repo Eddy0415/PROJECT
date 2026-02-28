@@ -1,0 +1,18 @@
+<p>ui-modal works!</p>
+<div class="overlay">
+  <!-- full-screen dim background -->
+  <section class="modal">
+    <!-- popup container -->
+    <div class="left">
+      <!-- 2/3 popup width -->
+      <ng-content></ng-content>
+      <!-- page injects its form here -->
+    </div>
+
+    <div class="right">
+      <!-- 1/3 popup width -->
+      <img class="right-img" [src]="imageUrl()" alt="" />
+      <!-- image panel -->
+    </div>
+  </section>
+</div>

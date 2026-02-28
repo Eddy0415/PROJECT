@@ -1,0 +1,51 @@
+.card { // card container
+  border: 1px solid #eee; // light border
+  border-radius: 14px; // rounded corners
+  padding: 12px; // inner spacing
+  background: #fff; // white background
+  display: grid; // simple layout
+  gap: 10px; // spacing between sections
+
+  .img { // image wrapper
+    height: 170px; // fixed height
+    border-radius: 12px; // rounded wrapper
+    background: #f7f7f7; // soft background
+    display: grid; // center image
+    place-items: center; // center image
+    overflow: hidden; // crop overflow
+
+    img { // product image
+      max-height: 160px; // keep inside
+      max-width: 100%; // keep inside
+      object-fit: contain; // show full image
+    }
+  }
+
+  .body { // info area
+    display: grid; // vertical layout
+    gap: 8px; // spacing
+
+    .title { // product title
+      font-weight: 700; // bold
+      font-size: 14px; // size
+      line-height: 1.2; // tight
+      height: 34px; // clamp height
+      overflow: hidden; // hide overflow
+    }
+
+    .row { // category + price row
+      display: flex; // horizontal
+      justify-content: space-between; // split
+      align-items: center; // align center
+      font-size: 13px; // small text
+
+      .cat { // category
+        opacity: 0.7; // subtle
+      }
+
+      .price { // price
+        font-weight: 800; // strong
+      }
+    }
+  }
+}

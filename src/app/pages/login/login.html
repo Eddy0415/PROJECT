@@ -1,0 +1,35 @@
+<ui-modal [imageUrl]="'/hero/1.jpg'">
+  <!-- popup overlay -->
+
+  <form class="auth" [formGroup]="form">
+    <!-- form block -->
+    <h2 class="title">Log in</h2>
+    <!-- title -->
+
+    <div class="fields">
+      <!-- spacing container -->
+      <ui-input
+        [control]="form.controls.username"
+        [placeholder]="'Username'"
+        [type]="'text'"
+        [icon]="'user'"
+      ></ui-input>
+
+      <ui-input
+        [control]="form.controls.password"
+        [placeholder]="'Password'"
+        [type]="'password'"
+        [icon]="'lock'"
+      ></ui-input>
+    </div>
+
+    <div class="actions">
+      <ui-button [text]="'Log in'" [type]="'button'"></ui-button>
+      <!-- no logic yet -->
+      <p class="hint">
+        Don’t have an account?
+        <a routerLink="/signup" class="link">Sign up</a>
+      </p>
+    </div>
+  </form>
+</ui-modal>

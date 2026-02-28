@@ -1,0 +1,42 @@
+.auth {
+  width: min(360px, 100%); // a bit wider than login (more fields)
+  display: grid; // vertical layout
+  gap: 14px; // spacing
+  text-align: center; // match mockup
+}
+
+.title {
+  font-size: 14px; // small heading
+  margin: 0; // reset
+  font-weight: 600; // clean
+}
+
+.fields {
+  display: grid; // stack groups
+  gap: 10px; // spacing
+}
+
+.row2 {
+  display: grid; // 2 columns
+  grid-template-columns: 1fr 1fr; // side by side like mockup
+  gap: 10px; // spacing
+}
+
+.actions {
+  display: grid; // stack button + hint
+  gap: 8px; // spacing
+  justify-items: center; // center hint
+}
+
+.hint {
+  margin: 0; // reset
+  font-size: 9px; // tiny hint text
+  opacity: 0.6; // subtle
+}
+
+.link {
+  color: #000; // black
+  text-decoration: none; // clean
+  font-weight: 600; // emphasis
+  opacity: 1; // visible
+}
