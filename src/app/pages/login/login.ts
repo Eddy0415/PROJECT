@@ -77,14 +77,7 @@ export class Login {
   }
 
   private parseLoginError(err: unknown): { message: string } {
-    const http = err as { status?: number; error?: Partial<IAuthError> }; // HttpError-like
-
-    const status = http?.status ?? 0; // status code
-    const backendMsg = (http?.error?.message ?? http?.error?.error ?? '').toString(); // message
-    const backendErrors = Array.isArray(http?.error?.errors) ? http.error.errors : []; // list
-    const combined = [backendMsg, ...backendErrors].filter(Boolean).join(' • '); // join into one
-    const msg = combined || 'Login failed. Please try again.'; // fallback
-    const lower = msg.toLowerCase(); // for matching
+    const msg = 'Login failed. Please try again.'; // fallback
     return { message: msg };
   }
 }

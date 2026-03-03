@@ -34,3 +34,10 @@
   font-weight: 600; // emphasis
   opacity: 1; // visible
 }
+.error {
+  margin: 0; // keep grid spacing clean
+  font-size: 10px; // close to your hint size but clearer
+  font-weight: 600; // readable
+  color: #d32f2f; // red error
+  opacity: 0.9; // visible but not aggressive
+}

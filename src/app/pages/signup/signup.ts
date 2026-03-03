@@ -129,18 +129,16 @@ export class Signup {
   }
 
   private parseSignupError(err: unknown): { message: string; shouldGoLogin: boolean } {
-    const http = err as { status?: number; error?: Partial<IAuthError> }; // HttpError-like
-
-    const status = http?.status ?? 0; // status code
-    const backendMsg = (http?.error?.message ?? http?.error?.error ?? '').toString(); // message
-    const backendErrors = Array.isArray(http?.error?.errors) ? http.error.errors : []; // list
-    const combined = [backendMsg, ...backendErrors].filter(Boolean).join(' • '); // join into one
-
-    const msg = combined || 'Signup failed. Please try again.'; // fallback
-    const lower = msg.toLowerCase(); // for simple matching
-
-    const shouldGoLogin = status === 409 || lower.includes('already'); // account exists patterns
-
-    return { message: msg, shouldGoLogin }; // output
+    const http = err as { status?: number };
+    if (http?.status === 409) {
+      return {
+        message: 'Account already exists. Please login.',
+        shouldGoLogin: true,
+      };
+    }
+    return {
+      message: 'Signup failed. Please check your information.',
+      shouldGoLogin: false,
+    };
   }
 }

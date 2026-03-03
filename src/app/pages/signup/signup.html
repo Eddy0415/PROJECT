@@ -1,16 +1,12 @@
 <ui-modal [imageUrl]="'/hero/1.jpg'">
-  <!-- popup overlay -->
-
   <form class="auth" [formGroup]="form" (ngSubmit)="submit()">
-    <!-- form block -->
     <h2 class="title">Sign Up</h2>
-    <!-- title -->
 
     <div class="fields">
-      <!-- fields grid -->
       <div class="row2">
         <ui-input
           [control]="form.controls.firstName"
+          [submitted]="submitted()"
           [placeholder]="'First Name'"
           [type]="'text'"
           [icon]="'user'"
@@ -18,6 +14,7 @@
 
         <ui-input
           [control]="form.controls.lastName"
+          [submitted]="submitted()"
           [placeholder]="'Last Name'"
           [type]="'text'"
           [icon]="'user'"
@@ -26,6 +23,7 @@
 
       <ui-input
         [control]="form.controls.username"
+        [submitted]="submitted()"
         [placeholder]="'Username'"
         [type]="'text'"
         [icon]="'user'"
@@ -33,6 +31,7 @@
 
       <ui-input
         [control]="form.controls.email"
+        [submitted]="submitted()"
         [placeholder]="'Email Address'"
         [type]="'email'"
         [icon]="'mail'"
@@ -41,6 +40,7 @@
       <div class="row2">
         <ui-input
           [control]="form.controls.password"
+          [submitted]="submitted()"
           [placeholder]="'Password'"
           [type]="'password'"
           [icon]="'lock'"
@@ -48,6 +48,7 @@
 
         <ui-input
           [control]="form.controls.confirmPassword"
+          [submitted]="submitted()"
           [placeholder]="'Confirm Password'"
           [type]="'password'"
           [icon]="'lock'"
@@ -56,8 +57,12 @@
     </div>
 
     <div class="actions">
+      @if (apiError()) {
+        <p class="error">{{ apiError() }}</p>
+      }
+
       <ui-button [text]="'Create Account'" [type]="'submit'"></ui-button>
-      <!-- no logic yet -->
+
       <p class="hint">
         Already have an account?
         <a routerLink="/login" class="link">Login</a>

@@ -1,42 +1,50 @@
 .auth {
-  width: min(360px, 100%); // a bit wider than login (more fields)
-  display: grid; // vertical layout
-  gap: 14px; // spacing
-  text-align: center; // match mockup
+  width: min(360px, 100%);
+  display: grid;
+  gap: 14px;
+  text-align: center;
 }
 
 .title {
-  font-size: 14px; // small heading
-  margin: 0; // reset
-  font-weight: 600; // clean
+  font-size: 14px;
+  margin: 0;
+  font-weight: 600;
 }
 
 .fields {
-  display: grid; // stack groups
-  gap: 10px; // spacing
+  display: grid;
+  gap: 10px;
 }
 
 .row2 {
-  display: grid; // 2 columns
-  grid-template-columns: 1fr 1fr; // side by side like mockup
-  gap: 10px; // spacing
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
 }
 
 .actions {
-  display: grid; // stack button + hint
-  gap: 8px; // spacing
-  justify-items: center; // center hint
+  display: grid;
+  gap: 8px;
+  justify-items: center;
 }
 
 .hint {
-  margin: 0; // reset
-  font-size: 9px; // tiny hint text
-  opacity: 0.6; // subtle
+  margin: 0;
+  font-size: 9px;
+  opacity: 0.6;
 }
 
 .link {
-  color: #000; // black
-  text-decoration: none; // clean
-  font-weight: 600; // emphasis
-  opacity: 1; // visible
+  color: #000;
+  text-decoration: none;
+  font-weight: 600;
+  opacity: 1;
+}
+
+.error {
+  margin: 0;
+  font-size: 10px;
+  font-weight: 600;
+  color: #d32f2f;
+  opacity: 0.95;
 }
