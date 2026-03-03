@@ -38,37 +38,37 @@ export class AuthService {
     this._currentUser.set(this.loadUser());
   }
 
-  register(userData: ISignupRequ): Observable<IResp> {
+  register(userData: ISignupRequ): Observable<void> {
     return this.http.post<IResp>(`${this.API_BASE}/auth/register`, userData).pipe(
-      catchError((err) => {
-        return throwError(() => err);
-      }),
+      tap((res) => this.handleAuthResponse(res)),
+      map(() => void 0),
+      catchError((err) => throwError(() => err)),
     );
   }
 
   login(credentials: ILoginRequ): Observable<void> {
     return this.http.post<IResp>(`${this.API_BASE}/auth/login`, credentials).pipe(
-      tap((res) => {
-        const token = res?.token;
-        if (!token) return;
-        this.persistToken(token);
-        if (res.user) {
-          const user: IUser = {
-            username: res.user.username,
-            email: res.user.email,
-            firstName: res.user.firstName,
-            lastName: res.user.lastName,
-            dateOfBirth: res.user.dateOfBirth,
-            imageUrl: res.user.imageUrl,
-          };
-          this.persistUser(user);
-        }
-      }),
+      tap((res) => this.handleAuthResponse(res)),
       map(() => void 0),
-      catchError((err) => {
-        return throwError(() => err);
-      }),
+      catchError((err) => throwError(() => err)),
     );
+  }
+
+  private handleAuthResponse(res: IResp): void {
+    const token = res?.token;
+    if (token) this.persistToken(token);
+
+    if (res?.user) {
+      const user: IUser = {
+        username: res.user.username,
+        email: res.user.email,
+        firstName: res.user.firstName,
+        lastName: res.user.lastName,
+        dateOfBirth: res.user.dateOfBirth,
+        imageUrl: res.user.imageUrl,
+      };
+      this.persistUser(user);
+    }
   }
 
   logout(): void {

@@ -1,7 +1,7 @@
 <ui-modal [imageUrl]="'/hero/1.jpg'">
   <!-- popup overlay -->
 
-  <form class="auth" [formGroup]="form">
+  <form class="auth" [formGroup]="form" (ngSubmit)="submit()">
     <!-- form block -->
     <h2 class="title">Sign Up</h2>
     <!-- title -->
@@ -9,21 +9,27 @@
     <div class="fields">
       <!-- fields grid -->
       <div class="row2">
-        <!-- two inputs in one row -->
         <ui-input
-          [control]="form.controls.fullName"
-          [placeholder]="'Full Name'"
+          [control]="form.controls.firstName"
+          [placeholder]="'First Name'"
           [type]="'text'"
           [icon]="'user'"
         ></ui-input>
 
         <ui-input
-          [control]="form.controls.username"
-          [placeholder]="'Username'"
+          [control]="form.controls.lastName"
+          [placeholder]="'Last Name'"
           [type]="'text'"
           [icon]="'user'"
         ></ui-input>
       </div>
+
+      <ui-input
+        [control]="form.controls.username"
+        [placeholder]="'Username'"
+        [type]="'text'"
+        [icon]="'user'"
+      ></ui-input>
 
       <ui-input
         [control]="form.controls.email"
@@ -50,7 +56,7 @@
     </div>
 
     <div class="actions">
-      <ui-button [text]="'Create Account'" [type]="'button'"></ui-button>
+      <ui-button [text]="'Create Account'" [type]="'submit'"></ui-button>
       <!-- no logic yet -->
       <p class="hint">
         Already have an account?
