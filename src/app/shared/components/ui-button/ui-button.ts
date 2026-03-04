@@ -9,5 +9,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core'; // st
 })
 export class UiButton {
   readonly text = input<string>('Button'); // label
-  readonly type = input<'button' | 'submit'>('button'); // button type
+  readonly type = input<'button' | 'submit'>('button');
+  readonly disabled = input<boolean>(false);
 }
