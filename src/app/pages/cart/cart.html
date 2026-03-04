@@ -1,0 +1,73 @@
+<section class="cart">
+  <div class="top">
+    <h1 class="title">My Cart</h1>
+    <p class="hint">{{ itemsCount() }} item(s)</p>
+  </div>
+
+  @if (!hasItems()) {
+    <div class="empty">
+      <h2>Your cart is empty</h2>
+      <p>Add some products first, then come back here.</p>
+      <a routerLink="/" class="back">Back to Home</a>
+    </div>
+  } @else {
+    <div class="grid">
+      <!-- LEFT: items -->
+      <div class="items">
+        @for (line of lines(); track line.entry.id) {
+          <div class="item">
+            <img
+              class="img"
+              [src]="line.product?.image ?? ''"
+              [alt]="line.product?.title ?? 'Product'"
+            />
+
+            <div class="meta">
+              <h3 class="name">{{ line.product?.title ?? 'Loading...' }}</h3>
+              <p class="cat">{{ line.product?.category ?? '' }}</p>
+
+              <div class="row">
+                <span class="price">
+                  {{ line.product?.price ?? 0 | currency: 'USD' }}
+                </span>
+
+                <ui-counter-pill
+                  [value]="line.entry.qty"
+                  [min]="1"
+                  (decClick)="dec(line.entry.id)"
+                  (incClick)="inc(line.entry.id)"
+                ></ui-counter-pill>
+              </div>
+            </div>
+
+            <div class="actions">
+              <cart-bin-button (removeClick)="remove(line.entry.id)"></cart-bin-button>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- RIGHT: summary -->
+      <aside class="summary">
+        <h2 class="summaryTitle">Order Summary</h2>
+
+        <div class="sumRow">
+          <span>Subtotal</span>
+          <strong>{{ subtotal() | currency: 'USD' }}</strong>
+        </div>
+
+        <div class="sumRow total">
+          <span>Total</span>
+          <strong>{{ subtotal() | currency: 'USD' }}</strong>
+        </div>
+
+        <!-- promo code ignored as requested -->
+
+        <div class="cta">
+          <ui-button [text]="'Go To Checkout'" [type]="'button'"></ui-button>
+          <button type="button" class="overlayBtn" (click)="checkout()"></button>
+        </div>
+      </aside>
+    </div>
+  }
+</section>

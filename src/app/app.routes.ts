@@ -7,6 +7,10 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home/home').then((m) => m.HomeComponent), // why: existing home
   },
   {
+    path: 'cart', // ✅ cart page                                                                                         // why: new feature
+    loadChildren: () => import('./pages/cart/routes').then((m) => m.CART_ROUTES), // why: lazy feature routes
+  },
+  {
     path: 'products/:id', // ✅ product details                                                                           // why: dynamic route
     loadChildren: () =>
       import('./pages/product-detail/routes').then((m) => m.PRODUCT_DETAIL_ROUTES), // why: lazy feature routes

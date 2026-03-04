@@ -1,29 +1,17 @@
 <div class="page">
-  <!-- page container -->
-  <!-- why: centered width -->
   @if (loadingProduct()) {
-    <!-- why: loading state -->
     <div class="state">Loading product...</div>
-    <!-- why: feedback -->
   } @else if (productError()) {
-    <!-- why: error state -->
     <div class="state error">{{ productError() }}</div>
-    <!-- why: show error -->
   } @else {
-    <!-- why: non-loading branch -->
     @if (product()) {
-      <!-- why: ensure product exists -->
       <div class="crumbs">
         Home / Products / <span>{{ product()!.category }}</span>
       </div>
-      <!-- why: breadcrumb -->
 
       <section class="top">
-        <!-- why: main layout -->
         <div class="gallery">
-          <!-- why: images area -->
           <div class="thumbs">
-            <!-- why: thumbnails column -->
             <div class="thumb active">
               <img [src]="product()!.image" [alt]="product()!.title" />
             </div>
@@ -36,115 +24,77 @@
           </div>
 
           <div class="main">
-            <!-- why: main image -->
             <img [src]="product()!.image" [alt]="product()!.title" />
           </div>
         </div>
 
         <div class="info">
-          <!-- why: right details -->
           <h1 class="title">{{ product()!.title }}</h1>
-          <!-- why: product title -->
 
           <div class="meta">
-            <!-- why: rating + category -->
             <span class="rating">★ ★ ★ ★ ☆</span>
-            <!-- why: placeholder rating -->
             <span class="cat">{{ product()!.category }}</span>
-            <!-- why: category -->
           </div>
 
           <div class="priceRow">
-            <!-- why: price row -->
             <div class="price">{{ product()!.price | currency }}</div>
-            <!-- why: price -->
             <div class="old">{{ product()!.price * 1.2 | currency }}</div>
-            <!-- why: fake old price -->
             <div class="badge">-20%</div>
-            <!-- why: discount badge -->
           </div>
 
           <p class="desc">{{ product()!.description }}</p>
-          <!-- why: description -->
 
           <div class="divider"></div>
-          <!-- why: section divider -->
 
           <div class="pick">
-            <!-- why: colors -->
             <div class="label">Select Colors</div>
-            <!-- why: label -->
             <div class="colors">
               <button class="dot a" type="button"></button>
-              <!-- why: placeholder -->
               <button class="dot b" type="button"></button>
-              <!-- why: placeholder -->
               <button class="dot c" type="button"></button>
-              <!-- why: placeholder -->
             </div>
           </div>
 
           <div class="pick">
-            <!-- why: sizes -->
             <div class="label">Choose Size</div>
-            <!-- why: label -->
             <div class="sizes">
               <button class="pill" type="button">Small</button>
-              <!-- why: placeholder -->
               <button class="pill active" type="button">Medium</button>
-              <!-- why: placeholder -->
               <button class="pill" type="button">Large</button>
-              <!-- why: placeholder -->
               <button class="pill" type="button">X-Large</button>
-              <!-- why: placeholder -->
             </div>
           </div>
 
           <div class="actions">
-            <!-- why: qty + add -->
-            <div class="qty">
-              <!-- why: qty stepper -->
-              <button type="button" (click)="decQty()">−</button>
-              <!-- why: decrease -->
-              <span>{{ qty() }}</span>
-              <!-- why: show qty -->
-              <button type="button" (click)="incQty()">+</button>
-              <!-- why: increase -->
-            </div>
+            <ui-counter-pill
+              [value]="qty()"
+              [min]="1"
+              (decClick)="decQty()"
+              (incClick)="incQty()"
+            ></ui-counter-pill>
 
             <ui-button [text]="'Add to Cart'" [type]="'button'"></ui-button>
-            <!-- why: reuse button -->
           </div>
         </div>
       </section>
 
       <section class="related">
-        <!-- why: related section -->
         <h2>You might also like</h2>
-        <!-- why: title -->
 
         @if (loadingRelated()) {
-          <!-- why: loading -->
           <div class="state">Loading related products...</div>
-          <!-- why: feedback -->
         } @else if (relatedError()) {
-          <!-- why: error -->
           <div class="state error">{{ relatedError() }}</div>
-          <!-- why: show error -->
         } @else {
-          <!-- why: loaded -->
           <div class="grid">
             @for (rp of relatedProducts(); track rp.id) {
               <app-product-card [product]="rp"></app-product-card>
-              <!-- why: reuse cards -->
             }
           </div>
         }
       </section>
     } @else {
-      <!-- why: product null edge case -->
       <div class="state error">Product not found.</div>
-      <!-- why: safe fallback -->
     }
   }
 </div>
