@@ -1,0 +1,12 @@
+.footer { // footer wrapper                                                                                              // why: global
+  border-top: 1px solid #eee; // divider                                                                                // why: separation
+  background: #fff; // clean                                                                                             // why: consistent
+  margin-top: 22px; // spacing from content                                                                             // why: layout
+}
+
+.inner { // centered container                                                                                           // why: align with site width
+  max-width: 1200px; // same as pages                                                                                   // why: consistency
+  margin: 0 auto; // center                                                                                              // why: layout
+  padding: 24px 18px; // padding                                                                                         // why: spacing
+  opacity: 0.7; // muted                                                                                                 // why: placeholder
+}

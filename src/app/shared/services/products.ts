@@ -1,20 +1,25 @@
-import { Injectable, inject } from '@angular/core'; // DI helpers
-import { HttpClient } from '@angular/common/http'; // HTTP client
-import { Observable } from 'rxjs'; // observable type
-import { IProduct } from '../interfaces/product'; // product interface
+import { HttpClient } from '@angular/common/http'; // http client                                                         // why: API calls
+import { Injectable, inject } from '@angular/core'; // DI                                                                 // why: rules
+import { Observable } from 'rxjs'; // observable                                                                           // why: HttpClient returns it
+import { IProduct } from '../interfaces/product'; // typing                                                                // why: type safety
 
-@Injectable({ providedIn: 'root' }) // singleton service
+@Injectable({ providedIn: 'root' }) // singleton service                                                                   // why: shared data access
 export class ProductsService {
-  private readonly http = inject(HttpClient); // inject HttpClient
-  private readonly baseUrl = 'https://fakestoreapi.com/products'; // FakeStore endpoint
+  private readonly http = inject(HttpClient); // inject http                                                              // why: rules
+  private readonly API = 'https://fakestoreapi.com'; // base                                                               // why: fake store
 
   getAll(): Observable<IProduct[]> {
-    // fetch all products
-    return this.http.get<IProduct[]>(this.baseUrl); // typed GET
+    // fetch all products                                                                 // why: home + related
+    return this.http.get<IProduct[]>(`${this.API}/products`); // GET /products                                            // why: API call
   }
 
   getById(id: number): Observable<IProduct> {
-    // fetch one product
-    return this.http.get<IProduct>(`${this.baseUrl}/${id}`); // typed GET
+    // fetch single product                                                      // why: detail page
+    return this.http.get<IProduct>(`${this.API}/products/${id}`); // GET /products/:id                                    // why: API call
+  }
+
+  getByCategory(category: string): Observable<IProduct[]> {
+    // fetch products by category                                  // why: related products
+    return this.http.get<IProduct[]>(`${this.API}/products/category/${category}`); // GET /products/category/:cat         // why: API call
   }
 }

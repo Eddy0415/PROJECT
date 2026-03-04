@@ -1,0 +1,4 @@
+.shell { // content wrapper under fixed navbar                                                                           // why: prevent overlap
+  padding-top: 74px; // navbar height + breathing room                                                                   // why: fixed header offset
+  min-height: calc(100vh - 74px); // ensures footer sits after content                                                   // why: layout stability
+}

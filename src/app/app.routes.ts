@@ -1,9 +1,15 @@
-import { Routes } from '@angular/router'; // routes type
-import { Admin } from './pages/admin/admin';
+import { Routes } from '@angular/router'; // routes type                                                                  // why: routing
+import { Admin } from './pages/admin/admin'; // admin                                                                     // why: existing
+
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./pages/home/home').then((m) => m.HomeComponent), // lazy home
+    loadComponent: () => import('./pages/home/home').then((m) => m.HomeComponent), // why: existing home
+  },
+  {
+    path: 'products/:id', // ✅ product details                                                                           // why: dynamic route
+    loadChildren: () =>
+      import('./pages/product-detail/routes').then((m) => m.PRODUCT_DETAIL_ROUTES), // why: lazy feature routes
   },
   {
     path: 'admin',
@@ -11,11 +17,11 @@ export const routes: Routes = [
     title: 'Admin Page',
   },
   {
-    path: 'login', // /login
-    loadChildren: () => import('./pages/login/routes').then((m) => m.LOGIN_ROUTES), // lazy
+    path: 'login',
+    loadChildren: () => import('./pages/login/routes').then((m) => m.LOGIN_ROUTES),
   },
   {
-    path: 'signup', // /signup
-    loadChildren: () => import('./pages/signup/routes').then((m) => m.SIGNUP_ROUTES), // lazy
+    path: 'signup',
+    loadChildren: () => import('./pages/signup/routes').then((m) => m.SIGNUP_ROUTES),
   },
 ];

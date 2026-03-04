@@ -1,86 +1,44 @@
-.page { // page wrapper
-  display: grid; // vertical stacking
-  gap: 22px; // spacing between sections
-  padding: 18px; // page padding
-  max-width: 1200px; // container width
-  margin: 0 auto; // center page
+.page { // page wrapper                                                                                                   // why: page layout
+  display: grid; // vertical stacking                                                                                     // why: sections
+  gap: 22px; // spacing between sections                                                                                  // why: design
+  padding: 18px; // page padding                                                                                          // why: consistent
+  max-width: 1200px; // container width                                                                                   // why: align with navbar/footer
+  margin: 0 auto; // center page                                                                                          // why: layout
 }
 
-.header { // top header
-  display: grid; // grid layout
-  grid-template-columns: 140px 1fr auto 80px; // logo, search, nav, icons
-  gap: 14px; // spacing
-  align-items: center; // align vertically
+.products { // products section                                                                                            // why: section styles
+  display: grid; // vertical                                                                                                // why: layout
+  gap: 14px; // spacing                                                                                                   // why: rhythm
 
-  .logo { // logo text
-    font-weight: 900; // bold
-    font-size: 22px; // size
-  }
+  .products-bar { // title row                                                                                             // why: header row
+    display: flex; // horizontal                                                                                            // why: split row
+    justify-content: space-between; // split                                                                               // why: layout
+    align-items: center; // align                                                                                          // why: polish
 
-  .search { // search placeholder
-    height: 42px; // height
-    border-radius: 999px; // pill
-    background: #f3f3f3; // grey background
-    display: grid; // center text
-    align-items: center; // center vertically
-    padding: 0 16px; // inner padding
-    color: #777; // muted text
-  }
+    h2 { // title                                                                                                          // why: reset margin
+      margin: 0; // remove default                                                                                         // why: clean
+    }
 
-  .nav { // nav links
-    display: flex; // horizontal
-    gap: 14px; // spacing
-
-    a { // each link
-      text-decoration: none; // no underline
-      color: #222; // dark text
-      font-weight: 600; // semi-bold
+    .actions { // right side actions                                                                                       // why: placeholder
+      opacity: 0.75; // subtle                                                                                             // why: UI
     }
   }
 
-  .icons { // icons placeholder
-    text-align: right; // align right
-  }
-}
+  .state { // loading/error box                                                                                             // why: feedback
+    padding: 18px; // spacing                                                                                              // why: UI
+    border: 1px solid #eee; // border                                                                                      // why: separation
+    border-radius: 14px; // rounding                                                                                       // why: design
+    background: #fff; // background                                                                                        // why: clean
 
-.products { // products section
-  display: grid; // vertical
-  gap: 14px; // spacing
-
-  .products-bar { // title row
-    display: flex; // horizontal
-    justify-content: space-between; // split
-    align-items: center; // aligned
-
-    h2 { // title
-      margin: 0; // remove default margin
-    }
-
-    .actions { // right side actions
-      opacity: 0.75; // subtle
+    &.error { // error style                                                                                                // why: error differentiation
+      border-color: #ffd2d2; // red-ish border                                                                              // why: error
+      background: #fff5f5; // soft red background                                                                           // why: error
     }
   }
 
-  .state { // loading/error box
-    padding: 18px; // spacing
-    border: 1px solid #eee; // border
-    border-radius: 14px; // rounding
-    background: #fff; // background
-
-    &.error { // error style
-      border-color: #ffd2d2; // red-ish border
-      background: #fff5f5; // soft red background
-    }
+  .grid { // products grid                                                                                                  // why: layout
+    display: grid; // grid                                                                                                  // why: cards
+    grid-template-columns: repeat(4, 1fr); // 4 columns                                                                     // why: like your current
+    gap: 14px; // spacing                                                                                                   // why: design
   }
-
-  .grid { // products grid
-    display: grid; // grid
-    grid-template-columns: repeat(4, 1fr); // 4 columns
-    gap: 14px; // spacing
-  }
-}
-
-.footer { // footer placeholder
-  padding: 24px 0; // spacing
-  opacity: 0.7; // muted
 }

@@ -1,0 +1,51 @@
+.nav { // fixed navbar                                                                                                 // why: immune to scroll
+  position: fixed; // stick to viewport                                                                                // why: always visible
+  top: 0; // at top                                                                                                    // why: header
+  left: 0; // full width                                                                                                // why: full bar
+  right: 0; // full width                                                                                               // why: full bar
+  z-index: 1000; // above content                                                                                       // why: overlays
+  background: #fff; // white                                                                                            // why: clean
+  border-bottom: 1px solid #eee; // subtle divider                                                                      // why: separation
+}
+
+.inner { // centered container                                                                                          // why: align with pages
+  max-width: 1200px; // same as home container                                                                           // why: consistent layout
+  margin: 0 auto; // center                                                                                             // why: layout
+  padding: 14px 18px; // breathing room                                                                                 // why: spacing
+  display: grid; // columns                                                                                             // why: layout
+  grid-template-columns: 140px 1fr auto 80px; // logo, search, links, icons                                             // why: same as your home header
+  gap: 14px; // spacing                                                                                                 // why: readability
+  align-items: center; // vertical align                                                                               // why: polish
+}
+
+.logo { // brand                                                                                                        // why: identity
+  font-weight: 900; // bold                                                                                             // why: matches your style
+  font-size: 22px; // size                                                                                              // why: match
+  color: #111; // dark                                                                                                  // why: contrast
+  text-decoration: none; // no underline                                                                                // why: clean
+}
+
+.search { // search placeholder                                                                                         // why: matches mockups
+  height: 42px; // consistent height                                                                                    // why: UI rhythm
+  border-radius: 999px; // pill                                                                                         // why: design
+  background: #f3f3f3; // grey                                                                                          // why: placeholder
+  display: grid; // center                                                                                              // why: alignment
+  align-items: center; // center text                                                                                   // why: alignment
+  padding: 0 16px; // inner padding                                                                                     // why: spacing
+  color: #777; // muted                                                                                                 // why: placeholder
+}
+
+.links { // nav links                                                                                                   // why: navigation
+  display: flex; // horizontal                                                                                          // why: layout
+  gap: 14px; // spacing                                                                                                 // why: design
+}
+
+.links a { // each link                                                                                                 // why: styling
+  text-decoration: none; // no underline                                                                                // why: clean
+  color: #222; // dark text                                                                                             // why: readable
+  font-weight: 600; // semi bold                                                                                        // why: emphasis
+}
+
+.icons { // icons placeholder                                                                                           // why: top right icons
+  text-align: right; // align right                                                                                     // why: layout
+}

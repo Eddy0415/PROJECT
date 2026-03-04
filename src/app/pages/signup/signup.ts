@@ -47,6 +47,7 @@ export class Signup {
 
   readonly isSubmitting = signal(false); // loading
   readonly apiError = signal<string | null>(null); // error message
+  readonly submitted = signal(false); // ✅ used to show validation errors after submit attempt                         // why: fix template binding
 
   readonly form = this.fb.nonNullable.group<SignupFormModel>(
     {
@@ -76,6 +77,7 @@ export class Signup {
   }
 
   async submit(): Promise<void> {
+    this.submitted.set(true);
     this.apiError.set(null); // clear
 
     if (this.isSubmitting()) return; // avoid double submit

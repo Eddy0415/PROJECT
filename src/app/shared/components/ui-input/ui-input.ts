@@ -14,4 +14,5 @@ export class UiInput {
   readonly placeholder = input<string>(''); // placeholder text
   readonly type = input<'text' | 'password' | 'email'>('text'); // input type
   readonly icon = input<'user' | 'mail' | 'lock'>('user'); // left icon variant
+  readonly submitted = input<boolean>(false);
 }

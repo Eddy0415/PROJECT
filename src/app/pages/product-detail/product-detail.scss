@@ -1,0 +1,225 @@
+.page { // page wrapper                                                                                                   // why: layout
+  max-width: 1200px; // align with site width                                                                             // why: consistency
+  margin: 0 auto; // center                                                                                               // why: layout
+  padding: 18px; // padding                                                                                               // why: spacing
+  display: grid; // vertical                                                                                              // why: sections
+  gap: 18px; // spacing                                                                                                   // why: rhythm
+}
+
+.crumbs { // breadcrumb                                                                                                   // why: top info
+  opacity: 0.7; // subtle                                                                                                 // why: hierarchy
+  font-size: 13px; // small                                                                                                // why: UI
+  span { // last part                                                                                                      // why: emphasis
+    opacity: 1; // full                                                                                                    // why: readable
+    font-weight: 700; // bold                                                                                              // why: hierarchy
+  }
+}
+
+.state { // loading/error                                                                                                  // why: feedback
+  padding: 18px; // spacing                                                                                                // why: UI
+  border: 1px solid #eee; // border                                                                                        // why: separation
+  border-radius: 14px; // rounding                                                                                         // why: design
+  background: #fff; // white                                                                                               // why: clean
+  &.error { // error                                                                                                       // why: error styling
+    border-color: #ffd2d2; // red-ish                                                                                       // why: signal error
+    background: #fff5f5; // soft red                                                                                       // why: signal error
+  }
+}
+
+.top { // main section                                                                                                      // why: two columns
+  display: grid; // grid                                                                                                    // why: layout
+  grid-template-columns: 1.1fr 0.9fr; // gallery + info                                                                     // why: similar to mockup
+  gap: 22px; // spacing                                                                                                     // why: rhythm
+}
+
+.gallery { // images area                                                                                                   // why: layout
+  display: grid; // grid                                                                                                    // why: thumbs + main
+  grid-template-columns: 90px 1fr; // thumbs + main                                                                         // why: mockup
+  gap: 14px; // spacing                                                                                                     // why: design
+}
+
+.thumbs { // thumbnails column                                                                                               // why: mockup
+  display: grid; // stack                                                                                                    // why: layout
+  gap: 10px; // spacing                                                                                                      // why: UI
+}
+
+.thumb { // thumb box                                                                                                       // why: style
+  border: 1px solid #eee; // border                                                                                         // why: card look
+  border-radius: 14px; // rounded                                                                                            // why: design
+  background: #f7f7f7; // grey                                                                                                // why: placeholder background
+  height: 90px; // size                                                                                                      // why: consistent
+  display: grid; // center                                                                                                   // why: alignment
+  place-items: center; // center                                                                                             // why: alignment
+  overflow: hidden; // crop                                                                                                  // why: neat
+  img { // image                                                                                                            // why: fit
+    max-height: 80px; // fit                                                                                                 // why: fit
+    max-width: 100%; // fit                                                                                                  // why: fit
+    object-fit: contain; // show full                                                                                        // why: ecommerce
+  }
+  &.active { // selected thumb                                                                                                // why: UX
+    border-color: #ccc; // highlight                                                                                         // why: selection
+  }
+}
+
+.main { // main image box                                                                                                    // why: hero image
+  border: 1px solid #eee; // border                                                                                          // why: card look
+  border-radius: 18px; // bigger rounding                                                                                    // why: mockup vibe
+  background: #f7f7f7; // grey                                                                                                // why: placeholder
+  height: 520px; // tall                                                                                                      // why: detail page feel
+  display: grid; // center                                                                                                   // why: alignment
+  place-items: center; // center                                                                                             // why: alignment
+  overflow: hidden; // crop                                                                                                  // why: neat
+  img { // image                                                                                                             // why: fit
+    max-height: 480px; // fit                                                                                                 // why: fit
+    max-width: 100%; // fit                                                                                                  // why: fit
+    object-fit: contain; // show full                                                                                        // why: ecommerce
+  }
+}
+
+.info { // right panel                                                                                                       // why: product info
+  display: grid; // vertical                                                                                                 // why: layout
+  gap: 12px; // spacing                                                                                                      // why: rhythm
+}
+
+.title { // product title                                                                                                    // why: typography
+  margin: 0; // reset                                                                                                        // why: clean
+  font-size: 26px; // big                                                                                                    // why: detail page
+  font-weight: 900; // strong                                                                                                 // why: emphasis
+  line-height: 1.15; // tight                                                                                                 // why: style
+}
+
+.meta { // rating/category row                                                                                               // why: info row
+  display: flex; // horizontal                                                                                                // why: layout
+  gap: 12px; // spacing                                                                                                      // why: UI
+  align-items: center; // align                                                                                              // why: polish
+  .rating { // stars                                                                                                         // why: placeholder
+    letter-spacing: 1px; // spacing                                                                                          // why: look
+  }
+  .cat { // category                                                                                                         // why: secondary info
+    opacity: 0.7; // subtle                                                                                                   // why: hierarchy
+    font-weight: 700; // bold                                                                                                 // why: readability
+  }
+}
+
+.priceRow { // price area                                                                                                    // why: mockup price display
+  display: flex; // row                                                                                                      // why: layout
+  gap: 12px; // spacing                                                                                                      // why: rhythm
+  align-items: center; // align                                                                                              // why: polish
+  .price { // current                                                                                                        // why: emphasis
+    font-size: 24px; // big                                                                                                  // why: pricing
+    font-weight: 900; // bold                                                                                                 // why: emphasis
+  }
+  .old { // old price                                                                                                        // why: discount
+    opacity: 0.5; // muted                                                                                                    // why: hierarchy
+    text-decoration: line-through; // strike                                                                                 // why: old price
+    font-weight: 700; // bold                                                                                                 // why: readable
+  }
+  .badge { // discount badge                                                                                                 // why: mockup pill
+    padding: 6px 10px; // padding                                                                                             // why: pill
+    border-radius: 999px; // pill                                                                                             // why: style
+    background: #ffe7e7; // soft red                                                                                          // why: discount vibe
+    color: #b30000; // red text                                                                                                // why: contrast
+    font-weight: 800; // bold                                                                                                 // why: emphasis
+    font-size: 12px; // small                                                                                                 // why: UI
+  }
+}
+
+.desc { // description                                                                                                       // why: body text
+  margin: 0; // reset                                                                                                        // why: clean
+  opacity: 0.75; // subtle                                                                                                   // why: hierarchy
+  line-height: 1.55; // readable                                                                                              // why: UX
+}
+
+.divider { // divider                                                                                                       // why: sections separation
+  height: 1px; // line                                                                                                       // why: divider
+  background: #eee; // grey                                                                                                  // why: subtle
+  margin: 6px 0; // spacing                                                                                                   // why: rhythm
+}
+
+.pick { // selection blocks                                                                                                  // why: options
+  display: grid; // vertical                                                                                                  // why: layout
+  gap: 10px; // spacing                                                                                                      // why: design
+  .label { // label                                                                                                          // why: UX
+    font-weight: 800; // bold                                                                                                 // why: hierarchy
+    opacity: 0.8; // subtle                                                                                                   // why: style
+  }
+}
+
+.colors { // colors row                                                                                                      // why: mockup dots
+  display: flex; // horizontal                                                                                                // why: layout
+  gap: 10px; // spacing                                                                                                      // why: style
+}
+
+.dot { // color dot                                                                                                          // why: UI
+  width: 24px; // size                                                                                                       // why: dot
+  height: 24px; // size                                                                                                      // why: dot
+  border-radius: 999px; // circle                                                                                            // why: dot
+  border: 1px solid #ddd; // border                                                                                          // why: contrast
+  background: #eee; // default                                                                                                // why: placeholder
+  &.a { background: #2b2b2b; } // dark                                                                                        // why: placeholder colors
+  &.b { background: #1a6cff; } // blue                                                                                        // why: placeholder colors
+  &.c { background: #6b3d2e; } // brown                                                                                       // why: placeholder colors
+}
+
+.sizes { // sizes row                                                                                                       // why: mockup pills
+  display: flex; // horizontal                                                                                                // why: layout
+  flex-wrap: wrap; // wrap                                                                                                   // why: responsive
+  gap: 10px; // spacing                                                                                                      // why: style
+}
+
+.pill { // size pill                                                                                                        // why: UI
+  padding: 10px 14px; // pill padding                                                                                        // why: design
+  border-radius: 999px; // pill                                                                                              // why: style
+  border: 1px solid #eee; // border                                                                                          // why: separation
+  background: #f6f6f6; // soft                                                                                                // why: neutral
+  font-weight: 700; // bold                                                                                                  // why: readability
+  cursor: pointer; // click                                                                                                   // why: UX
+  &.active { // selected                                                                                                      // why: UX
+    background: #111; // dark                                                                                                 // why: emphasis
+    color: #fff; // white text                                                                                                // why: contrast
+    border-color: #111; // match                                                                                              // why: cohesive
+  }
+}
+
+.actions { // qty + add to cart                                                                                              // why: main CTA
+  display: grid; // layout                                                                                                   // why: consistent
+  grid-template-columns: 160px 1fr; // qty + button                                                                          // why: mockup structure
+  gap: 12px; // spacing                                                                                                       // why: rhythm
+  align-items: center; // align                                                                                                // why: polish
+}
+
+.qty { // quantity stepper                                                                                                  // why: UI control
+  height: 44px; // same as button-ish                                                                                        // why: alignment
+  border-radius: 999px; // pill                                                                                              // why: design
+  border: 1px solid #eee; // border                                                                                          // why: separation
+  background: #f6f6f6; // soft                                                                                                // why: neutral
+  display: grid; // 3 columns                                                                                                // why: stepper
+  grid-template-columns: 44px 1fr 44px; // -, value, +                                                                        // why: stepper
+  align-items: center; // align                                                                                              // why: polish
+  button { // +/- buttons                                                                                                    // why: UI
+    height: 44px; // full height                                                                                             // why: alignment
+    border: 0; // no border                                                                                                  // why: clean
+    background: transparent; // transparent                                                                                  // why: style
+    font-size: 18px; // bigger symbol                                                                                         // why: UI
+    font-weight: 900; // bold                                                                                                 // why: emphasis
+    cursor: pointer; // click                                                                                                 // why: UX
+  }
+  span { // qty value                                                                                                        // why: display
+    text-align: center; // center                                                                                             // why: alignment
+    font-weight: 900; // bold                                                                                                 // why: emphasis
+  }
+}
+
+.related { // related section                                                                                               // why: bottom section
+  display: grid; // vertical                                                                                                 // why: layout
+  gap: 14px; // spacing                                                                                                      // why: rhythm
+  margin-top: 10px; // spacing                                                                                               // why: separation
+  h2 { // title                                                                                                             // why: section title
+    margin: 0; // reset                                                                                                      // why: clean
+  }
+  .grid { // card grid                                                                                                      // why: similar to home
+    display: grid; // grid                                                                                                   // why: cards
+    grid-template-columns: repeat(4, 1fr); // 4 columns                                                                      // why: matches home
+    gap: 14px; // spacing                                                                                                    // why: design
+  }
+}
