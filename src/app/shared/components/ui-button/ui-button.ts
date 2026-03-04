@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core'; // standalone + signal inputs
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core'; // standalone + signal inputs
 
 @Component({
   selector: 'ui-button', // reusable button
@@ -11,4 +11,5 @@ export class UiButton {
   readonly text = input<string>('Button'); // label
   readonly type = input<'button' | 'submit'>('button');
   readonly disabled = input<boolean>(false);
+  readonly clicked = output<MouseEvent>();
 }

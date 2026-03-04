@@ -1,3 +1,9 @@
-<button class="btn" [attr.type]="type()" [disabled]="disabled()">
+<button
+  class="btn"
+  [attr.type]="type()"
+  [disabled]="disabled()"
+  [class.isDisabled]="disabled()"
+  (click)="clicked.emit($event)"
+>
   {{ text() }}
 </button>

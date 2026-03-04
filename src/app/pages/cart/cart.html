@@ -4,6 +4,14 @@
     <p class="hint">{{ itemsCount() }} item(s)</p>
   </div>
 
+  @if (orderSuccess()) {
+    <div class="banner ok">Order received ✅</div>
+  }
+
+  @if (orderError()) {
+    <div class="banner err">{{ orderError() }}</div>
+  }
+
   @if (!hasItems()) {
     <div class="empty">
       <h2>Your cart is empty</h2>
@@ -12,7 +20,6 @@
     </div>
   } @else {
     <div class="grid">
-      <!-- LEFT: items -->
       <div class="items">
         @for (line of lines(); track line.entry.id) {
           <div class="item">
@@ -27,9 +34,7 @@
               <p class="cat">{{ line.product?.category ?? '' }}</p>
 
               <div class="row">
-                <span class="price">
-                  {{ line.product?.price ?? 0 | currency: 'USD' }}
-                </span>
+                <span class="price">{{ line.product?.price ?? 0 | currency: 'USD' }}</span>
 
                 <ui-counter-pill
                   [value]="line.entry.qty"
@@ -47,7 +52,6 @@
         }
       </div>
 
-      <!-- RIGHT: summary -->
       <aside class="summary">
         <h2 class="summaryTitle">Order Summary</h2>
 
@@ -61,11 +65,17 @@
           <strong>{{ subtotal() | currency: 'USD' }}</strong>
         </div>
 
-        <!-- promo code ignored as requested -->
-
         <div class="cta">
-          <ui-button [text]="'Go To Checkout'" [type]="'button'"></ui-button>
-          <button type="button" class="overlayBtn" (click)="checkout()"></button>
+          <ui-button
+            [text]="placingOrder() ? 'Ordering...' : 'Order'"
+            [type]="'button'"
+            [disabled]="!canOrder()"
+            (clicked)="checkout()"
+          ></ui-button>
+
+          @if (!placingOrder() && !canOrder() && !orderSuccess()) {
+            <p class="tinyHint">Login is required to order.</p>
+          }
         </div>
       </aside>
     </div>

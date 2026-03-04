@@ -1,41 +1,76 @@
-import { CommonModule, CurrencyPipe } from '@angular/common'; // common + pipe                                             // why: template + money
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core'; // signals + DI                      // why: rules
-import { RouterLink } from '@angular/router'; // link                                                                       // why: navigation later
+import { CommonModule, CurrencyPipe } from '@angular/common'; // common + pipe
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core'; // signals + DI
+import { Router, RouterLink } from '@angular/router'; // ✅ router for redirect
+import { firstValueFrom } from 'rxjs'; // ✅ promise bridge (no subscriptions)
 
-import { CartStore } from '../../shared/services/cart.store'; // cart state                                                 // why: single source of truth
-import { UiButton } from '../../shared/components/ui-button/ui-button'; // shared button                                   // why: requirement
-import { UiCounterPill } from '../../shared/components/ui-counter-pill/ui-counter-pill'; // shared pill                     // why: requirement
-import { CartBinButton } from './components/bin-button/bin-button'; // local component                                     // why: requirement
+import { CartStore } from '../../shared/services/cart.store'; // cart state
+import { OrdersService } from '../../shared/services/orders'; // ✅ order api
+import { AuthService } from '../../core/auth/auth-service'; // ✅ auth state
+import { UiButton } from '../../shared/components/ui-button/ui-button'; // button
+import { UiCounterPill } from '../../shared/components/ui-counter-pill/ui-counter-pill'; // pill
+import { CartBinButton } from './components/bin-button/bin-button'; // bin
 
 @Component({
-  selector: 'app-cart', // page                                                                                             // why: routing
-  standalone: true, // no module                                                                                            // why: rules
-  imports: [CommonModule, RouterLink, CurrencyPipe, UiButton, UiCounterPill, CartBinButton], // deps                       // why: template uses them
-  templateUrl: './cart.html', // html                                                                                      // why: clean
-  styleUrl: './cart.scss', // scss                                                                                         // why: rules
-  changeDetection: ChangeDetectionStrategy.OnPush, // perf                                                                  // why: optimization
+  selector: 'app-cart',
+  standalone: true,
+  imports: [CommonModule, RouterLink, CurrencyPipe, UiButton, UiCounterPill, CartBinButton],
+  templateUrl: './cart.html',
+  styleUrl: './cart.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartPage {
-  readonly cart = inject(CartStore); // DI                                                                                  // why: rules
-  readonly lines = this.cart.cartLines; // view model                                                                       // why: template reads
-  readonly subtotal = this.cart.subtotal; // computed sum from API price                                                    // why: requirement
-  readonly itemsCount = this.cart.totalItems; // qty total                                                                  // why: UI
-  readonly hasItems = computed(() => this.cart.entries().length > 0); // empty check                                        // why: conditional UI
+  private readonly router = inject(Router); // DI router
+  private readonly auth = inject(AuthService); // DI auth
+  private readonly orders = inject(OrdersService); // DI orders
+
+  readonly cart = inject(CartStore); // DI cart store
+  readonly lines = this.cart.cartLines; // view model
+  readonly subtotal = this.cart.subtotal; // totals
+  readonly itemsCount = this.cart.totalItems; // badge
+  readonly hasItems = computed(() => this.cart.entries().length > 0); // empty check
+
+  readonly placingOrder = signal(false); // ui loading
+  readonly orderSuccess = signal(false); // ui success banner
+  readonly orderError = signal<string | null>(null); // ui error banner
+
+  readonly canOrder = computed(
+    () => this.hasItems() && this.auth.isAuthenticated() && !this.placingOrder(),
+  ); // button state
 
   remove(id: number): void {
-    this.cart.remove(id); // drop line                                                                                      // why: bin
+    this.cart.remove(id); // drop line
   }
 
   inc(id: number): void {
-    this.cart.inc(id); // +1                                                                                                // why: counter
+    this.cart.inc(id); // +1
   }
 
   dec(id: number): void {
-    this.cart.dec(id); // -1                                                                                                // why: counter
+    this.cart.dec(id); // -1 (min 1 in store)
   }
 
-  checkout(): void {
-    // no logic yet (later route + auth guard)                                                                              // why: your request
-    alert('Checkout not implemented yet'); // placeholder                                                                   // why: visible feedback
+  async checkout(): Promise<void> {
+    this.orderSuccess.set(false); // reset success
+    this.orderError.set(null); // reset error
+
+    if (!this.auth.isAuthenticated()) {
+      this.router.navigate(['/login'], { queryParams: { returnUrl: '/cart' } }); // ✅ force login
+      return; // stop
+    }
+
+    if (!this.hasItems()) return; // guard
+
+    this.placingOrder.set(true); // start loading
+
+    try {
+      const entries = this.cart.entries(); // current entries snapshot
+      await firstValueFrom(this.orders.createCartOrder({ userId: 1, entries })); // ✅ POST /carts (FakeStore)
+      this.cart.clear(); // ✅ empty cart after success
+      this.orderSuccess.set(true); // ✅ show "order received"
+    } catch {
+      this.orderError.set('Order failed. Please try again.'); // show error
+    } finally {
+      this.placingOrder.set(false); // stop loading
+    }
   }
 }

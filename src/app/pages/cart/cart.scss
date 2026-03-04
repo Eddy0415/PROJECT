@@ -1,0 +1,23 @@
+.banner {
+  margin: 0 0 14px; // spacing
+  padding: 12px 14px; // padding
+  border-radius: 14px; // rounded
+  font-weight: 700; // bold
+  background: #f6f6f6; // base
+
+  &.ok {
+    background: #ecfff1; // greenish
+    border: 1px solid #b9f2c4; // border
+  }
+
+  &.err {
+    background: #fff1f1; // reddish
+    border: 1px solid #ffcccc; // border
+  }
+}
+
+.tinyHint {
+  margin: 10px 0 0; // spacing
+  font-size: 12px; // small
+  opacity: 0.7; // muted
+}
