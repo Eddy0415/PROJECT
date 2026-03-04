@@ -1,12 +1,24 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'; // component + perf mode                          // why: standalone + OnPush
-import { RouterLink } from '@angular/router'; // routerLink directive                                                 // why: nav links
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core'; // standalone + DI
+import { Router, RouterLink } from '@angular/router'; // routing
+import { AuthService } from '../../../core/auth/auth-service'; // auth signals
+import { UiButton } from '../ui-button/ui-button'; // shared button component
 
 @Component({
-  selector: 'ui-navbar', // shared navbar                                                                             // why: used globally
-  standalone: true, // no NgModule                                                                                    // why: rules
-  imports: [RouterLink], // allow routerLink in template                                                               // why: navigation
-  templateUrl: './ui-navbar.html', // template                                                                         // why: split files
-  styleUrl: './ui-navbar.scss', // scss                                                                                // why: rules
-  changeDetection: ChangeDetectionStrategy.OnPush, // optimized change detection                                       // why: performance
+  selector: 'ui-navbar',
+  standalone: true,
+  imports: [RouterLink, UiButton], // import shared button
+  templateUrl: './ui-navbar.html',
+  styleUrl: './ui-navbar.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UiNavbarComponent {} // purely presentational for now                                                     // why: no state yet
+export class UiNavbarComponent {
+  private readonly router = inject(Router); // router instance
+  private readonly auth = inject(AuthService); // auth service
+
+  readonly isAuthenticated = this.auth.isAuthenticated; // computed signal
+  readonly currentUser = this.auth.currentUser; // readonly signal
+
+  goProfile(): void {
+    this.router.navigate(['/profile']); // navigate to profile
+  }
+}

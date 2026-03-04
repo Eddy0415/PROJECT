@@ -28,4 +28,8 @@ export const routes: Routes = [
     path: 'signup',
     loadChildren: () => import('./pages/signup/routes').then((m) => m.SIGNUP_ROUTES),
   },
+  {
+    path: 'profile', // profile page                                                                                    // why: user page
+    loadChildren: () => import('./pages/profile/routes').then((m) => m.PROFILE_ROUTES), // lazy                          // why: optimize
+  },
 ];

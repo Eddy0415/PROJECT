@@ -1,25 +1,33 @@
 <header class="nav">
-  <!-- fixed navbar wrapper -->
-  <!-- why: global header -->
   <div class="inner">
-    <!-- centered container -->
-    <!-- why: same max width as pages -->
     <a class="logo" [routerLink]="['/']">SHOP.CO</a>
-    <!-- why: go home -->
 
     <div class="search">Search bar placeholder</div>
-    <!-- why: matches your current placeholder -->
 
     <nav class="links">
-      <!-- nav links -->
-      <!-- why: top navigation -->
       <a [routerLink]="['/']">Products</a>
-      <!-- why: wire later -->
       <a [routerLink]="['/']">About Us</a>
-      <!-- why: wire later -->
     </nav>
 
-    <div class="icons">🛒 👤</div>
-    <!-- why: matches mockup placeholders -->
+    <div class="right">
+      <a class="cart" [routerLink]="['/cart']">🛒</a>
+
+      @if (!isAuthenticated()) {
+        <!-- Shared UI Button used here -->
+        <ui-button [text]="'Log in'" [type]="'button'" [routerLink]="['/login']"></ui-button>
+      } @else {
+        <button class="profileBtn" type="button" (click)="goProfile()">
+          <span class="avatar">
+            @if (currentUser()?.imageUrl) {
+              <img [src]="currentUser()?.imageUrl!" alt="Profile" />
+            } @else {
+              <span class="initials">
+                {{ (currentUser()?.firstName?.[0] ?? 'U') + (currentUser()?.lastName?.[0] ?? '') }}
+              </span>
+            }
+          </span>
+        </button>
+      }
+    </div>
   </div>
 </header>
