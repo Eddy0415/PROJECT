@@ -1,0 +1,45 @@
+.page { // wrapper
+  display: grid; // layout
+  gap: 22px; // spacing
+  padding: 18px; // padding
+  max-width: 1200px; // container width
+  margin: 0 auto; // center
+}
+
+.products { // section
+  display: grid; // layout
+  gap: 14px; // spacing
+
+  .products-bar { // title + toolbar row
+    display: flex; // row
+    justify-content: space-between; // split
+    align-items: center; // align
+    gap: 12px; // spacing
+
+    h2 { // title
+      margin: 0; // reset
+    }
+
+    .toolbar { // toolbar sizing
+      min-width: 260px; // room for dropdown
+    }
+  }
+
+  .state { // feedback box
+    padding: 18px; // spacing
+    border: 1px solid #eee; // border
+    border-radius: 14px; // rounding
+    background: #fff; // bg
+
+    &.error { // error state
+      border-color: #ffd2d2; // border color
+      background: #fff5f5; // bg color
+    }
+  }
+
+  .grid { // product grid
+    display: grid; // grid
+    grid-template-columns: repeat(4, 1fr); // 4 columns
+    gap: 14px; // spacing
+  }
+}

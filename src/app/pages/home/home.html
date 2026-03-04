@@ -1,35 +1,33 @@
 <div class="page">
-  <!-- page wrapper -->
-  <!-- why: container -->
   <app-hero-carousel></app-hero-carousel>
-  <!-- why: hero stays -->
 
   <section class="products">
-    <!-- why: products section -->
     <div class="products-bar">
-      <!-- why: title row -->
       <h2>Best Selling</h2>
-      <!-- why: title -->
-      <div class="actions">Dropdown ▾ Filter ⛃</div>
-      <!-- why: placeholder -->
+
+      <app-products-toolbar
+        class="toolbar"
+        [categories]="categories()"
+        [selectedCategory]="selectedCategory()"
+        [sortMode]="sortMode()"
+        [minPrice]="minPrice()"
+        [maxPrice]="maxPrice()"
+        (selectedCategoryChange)="setCategory($event)"
+        (sortModeChange)="setSortMode($event)"
+        (minPriceChange)="setMinPrice($event)"
+        (maxPriceChange)="setMaxPrice($event)"
+      ></app-products-toolbar>
+      <!-- why: real sorting/filtering UI -->
     </div>
 
     @if (loading()) {
-      <!-- why: modern control flow -->
       <div class="state">Loading products...</div>
-      <!-- why: feedback -->
     } @else if (error()) {
-      <!-- why: error state -->
       <div class="state error">{{ error() }}</div>
-      <!-- why: display error -->
     } @else {
-      <!-- why: loaded state -->
       <div class="grid">
-        <!-- why: grid layout -->
-        @for (p of products(); track p.id) {
-          <!-- why: track by id -->
+        @for (p of visibleProducts(); track p.id) {
           <app-product-card [product]="p"></app-product-card>
-          <!-- why: shared card -->
         }
       </div>
     }
