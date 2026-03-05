@@ -1,0 +1,50 @@
+.page {
+  padding: 18px; // spacing
+}
+
+.head {
+  margin-bottom: 14px; // spacing
+}
+
+.title {
+  margin: 0; // reset
+  font-size: 22px; // heading
+  font-weight: 700; // bold
+}
+
+.sub {
+  margin: 6px 0 0; // spacing
+  color: rgba(0, 0, 0, 0.6); // muted
+}
+
+.q {
+  font-weight: 700; // highlight
+}
+
+.state {
+  padding: 14px; // spacing
+  border-radius: 12px; // rounded
+  background: rgba(0, 0, 0, 0.04); // soft bg
+}
+
+.state.err {
+  background: rgba(255, 0, 0, 0.06); // soft red
+}
+
+.grid {
+  display: grid; // grid layout
+  grid-template-columns: repeat(4, minmax(0, 1fr)); // 4 columns desktop
+  gap: 14px; // spacing
+}
+
+@media (max-width: 1000px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)); // 2 columns tablet
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr; // 1 column mobile
+  }
+}

@@ -32,4 +32,8 @@ export const routes: Routes = [
     path: 'profile', // profile page                                                                                    // why: user page
     loadChildren: () => import('./pages/profile/routes').then((m) => m.PROFILE_ROUTES), // lazy                          // why: optimize
   },
+  {
+    path: 'search',
+    loadChildren: () => import('./pages/search/routes').then((m) => m.SEARCH_ROUTES),
+  },
 ];

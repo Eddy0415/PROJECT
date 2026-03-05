@@ -47,3 +47,36 @@
   font-weight: 700;
   font-size: 12px;
 }
+
+.search {
+  flex: 1; // take middle space
+  display: flex; // row
+  align-items: center; // center
+  gap: 8px; // spacing
+  max-width: 520px; // match mockup vibe
+  margin: 0 10px; // spacing
+}
+
+.searchInput {
+  flex: 1; // fill
+  height: 42px; // pill height
+  border-radius: 999px; // pill
+  border: 1px solid rgba(0, 0, 0, 0.1); // soft border
+  padding: 0 14px; // inner spacing
+  outline: none; // remove default
+  background: rgba(0, 0, 0, 0.03); // light fill
+}
+
+.searchInput:focus {
+  border-color: rgba(0, 0, 0, 0.25); // clearer focus
+  background: rgba(0, 0, 0, 0.02); // subtle
+}
+
+.searchBtn {
+  height: 42px; // match input
+  width: 46px; // square-ish
+  border-radius: 999px; // pill
+  border: 1px solid rgba(0, 0, 0, 0.1); // soft border
+  background: #fff; // clean
+  cursor: pointer; // clickable
+}

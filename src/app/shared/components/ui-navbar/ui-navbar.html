@@ -2,7 +2,18 @@
   <div class="inner">
     <a class="logo" [routerLink]="['/']">SHOP.CO</a>
 
-    <div class="search">Search bar placeholder</div>
+    <div class="search">
+      <input
+        class="searchInput"
+        type="text"
+        [value]="searchText()"
+        (input)="onSearchInput($any($event.target).value)"
+        (keydown.enter)="submitSearch()"
+        placeholder="Search for products..."
+      />
+
+      <button class="searchBtn" type="button" (click)="submitSearch()">🔎</button>
+    </div>
 
     <nav class="links">
       <a [routerLink]="['/']">Products</a>
