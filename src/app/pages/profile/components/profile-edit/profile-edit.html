@@ -1,0 +1,82 @@
+<p>profile-edit works!</p>
+<section class="panel">
+  <h2 class="title">Edit profile</h2>
+
+  @if (apiError()) {
+    <div class="error">{{ apiError() }}</div>
+  }
+
+  <form class="grid" [formGroup]="form" (ngSubmit)="update()">
+    <div class="row2">
+      <ui-input
+        [control]="form.controls.firstName"
+        [placeholder]="'First name'"
+        [type]="'text'"
+        [icon]="'user'"
+      ></ui-input>
+      <ui-input
+        [control]="form.controls.lastName"
+        [placeholder]="'Last name'"
+        [type]="'text'"
+        [icon]="'user'"
+      ></ui-input>
+    </div>
+
+    <ui-input
+      [control]="form.controls.username"
+      [placeholder]="'Username'"
+      [type]="'text'"
+      [icon]="'user'"
+    ></ui-input>
+
+    <ui-input
+      [control]="form.controls.role"
+      [placeholder]="'Role'"
+      [type]="'text'"
+      [icon]="'user'"
+    ></ui-input>
+
+    <ui-input
+      [control]="form.controls.email"
+      [placeholder]="'Email'"
+      [type]="'email'"
+      [icon]="'mail'"
+    ></ui-input>
+
+    <div class="row2">
+      <label class="native">
+        <span class="lab">Date of birth</span>
+        <input class="date" type="date" [formControl]="form.controls.dateOfBirth" />
+      </label>
+
+      <ui-input
+        [control]="form.controls.password"
+        [placeholder]="'New password (optional)'"
+        [type]="'password'"
+        [icon]="'lock'"
+      ></ui-input>
+    </div>
+
+    <label class="native">
+      <span class="lab">Profile image (optional)</span>
+      <input class="file" type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </label>
+
+    <div class="actions">
+      <ui-button
+        [text]="'Update'"
+        [type]="'submit'"
+        [disabled]="isSaving() || isDeleting()"
+      ></ui-button>
+
+      <button
+        type="button"
+        class="dangerBtn"
+        [disabled]="isSaving() || isDeleting()"
+        (click)="deleteAccount()"
+      >
+        Delete account
+      </button>
+    </div>
+  </form>
+</section>

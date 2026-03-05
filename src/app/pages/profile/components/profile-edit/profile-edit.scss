@@ -1,0 +1,63 @@
+.panel { // right panel                                                                                                  // why: main content area
+  border: 1px solid rgba(0, 0, 0, 0.08); // border                                                                       // why: card style
+  border-radius: 18px; // rounded                                                                                        // why: modern
+  background: #fff; // white                                                                                            // why: clean
+  padding: 16px; // spacing                                                                                              // why: breathable
+}
+
+.title { // section title                                                                                                // why: hierarchy
+  font-size: 18px; // size                                                                                               // why: match mockup
+  font-weight: 800; // bold                                                                                              // why: title
+  margin: 0 0 12px; // spacing                                                                                           // why: layout
+}
+
+.error { // error box                                                                                                    // why: feedback
+  border: 1px solid rgba(220, 0, 0, 0.25); // red hint                                                                    // why: error
+  background: rgba(220, 0, 0, 0.06); // light red                                                                         // why: readable
+  border-radius: 12px; // round                                                                                           // why: modern
+  padding: 10px 12px; // padding                                                                                          // why: spacing
+  margin-bottom: 12px; // separation                                                                                      // why: layout
+}
+
+.grid { // form layout                                                                                                   // why: spacing
+  display: grid; // grid                                                                                                 // why: stack
+  gap: 12px; // spacing                                                                                                   // why: clean
+}
+
+.row2 { // two columns                                                                                                   // why: mockup
+  display: grid; // grid                                                                                                 // why: columns
+  grid-template-columns: 1fr 1fr; // 2 cols                                                                              // why: layout
+  gap: 12px; // spacing                                                                                                   // why: clean
+}
+
+.native { // native label + input                                                                                        // why: date/file
+  display: grid; // stack                                                                                                 // why: label above
+  gap: 6px; // spacing                                                                                                    // why: clean
+}
+
+.lab { // label text                                                                                                     // why: readability
+  font-size: 12px; // small                                                                                              // why: subtle label
+  opacity: 0.7; // soft                                                                                                   // why: hierarchy
+}
+
+.date, .file { // native inputs                                                                                          // why: consistent style
+  border: 1px solid rgba(0, 0, 0, 0.12); // border                                                                        // why: input
+  border-radius: 14px; // round                                                                                            // why: modern
+  padding: 12px 14px; // padding                                                                                          // why: match ui-input height
+  background: #fff; // white                                                                                              // why: clean
+}
+
+.actions { // buttons row                                                                                                // why: actions
+  display: flex; // row                                                                                                   // why: align
+  gap: 12px; // spacing                                                                                                   // why: clean
+  align-items: center; // center                                                                                          // why: align
+  margin-top: 6px; // spacing                                                                                             // why: separation
+}
+
+.dangerBtn { // delete button                                                                                            // why: destructive
+  border: 1px solid rgba(220, 0, 0, 0.25); // red hint                                                                    // why: destructive
+  background: #fff; // white                                                                                              // why: consistent
+  padding: 12px 14px; // padding                                                                                          // why: match
+  border-radius: 14px; // round                                                                                            // why: modern
+  cursor: pointer; // pointer                                                                                              // why: UX
+}

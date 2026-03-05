@@ -1,5 +1,5 @@
 .page { // page wrapper                                                                                                  // why: spacing
-  max-width: 980px; // container                                                                                         // why: align with app
+  max-width: 1100px; // container                                                                                        // why: wider for 2 cols
   margin: 0 auto; // center                                                                                              // why: layout
   padding: 18px; // padding                                                                                              // why: breathing room
 }
@@ -18,23 +18,19 @@
 }
 
 .title { // title                                                                                                        // why: hierarchy
-  font-size: 22px; // size                                                                                                // why: heading
+  font-size: 22px; // size                                                                                               // why: heading
   font-weight: 800; // bold                                                                                              // why: heading
 }
 
-.card { // main card                                                                                                     // why: mockup panel
-  border: 1px solid rgba(0, 0, 0, 0.08); // border                                                                       // why: separation
-  border-radius: 18px; // round                                                                                          // why: modern
-  background: #fff; // white                                                                                              // why: clean
-  padding: 16px; // padding                                                                                              // why: spacing
-}
-
-.head { // top profile area                                                                                              // why: layout
+.headerCard { // top mini card                                                                                            // why: profile summary
   display: flex; // row                                                                                                  // why: layout
   align-items: center; // center                                                                                         // why: align
   gap: 14px; // spacing                                                                                                  // why: clean
-  padding-bottom: 14px; // space                                                                                         // why: separation
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06); // divider                                                                // why: list separation
+  padding: 16px; // padding                                                                                              // why: card
+  border: 1px solid rgba(0, 0, 0, 0.08); // border                                                                        // why: separation
+  border-radius: 18px; // round                                                                                           // why: modern
+  background: #fff; // white                                                                                              // why: clean
+  margin-bottom: 14px; // space                                                                                           // why: separation
 }
 
 .avatar { // avatar circle                                                                                                // why: identity
@@ -63,25 +59,18 @@
 
 .email { // email                                                                                                        // why: secondary
   opacity: 0.7; // soft                                                                                                  // why: hierarchy
-  font-size: 13px; // small                                                                                                // why: secondary
+  font-size: 13px; // small                                                                                               // why: secondary
 }
 
-.list { // actions list                                                                                                  // why: options
-  display: grid; // stack                                                                                                 // why: vertical list
-  gap: 10px; // spacing                                                                                                   // why: clean
-  padding-top: 14px; // space                                                                                             // why: separation
+.layout { // 2-column layout                                                                                             // why: sidebar + content
+  display: grid; // grid                                                                                                  // why: layout
+  grid-template-columns: 280px 1fr; // sidebar + main                                                                     // why: mockup
+  gap: 14px; // spacing                                                                                                   // why: clean
+  align-items: start; // top align                                                                                        // why: layout
 }
 
-.item { // list item                                                                                                     // why: clickable rows
-  width: 100%; // full                                                                                                   // why: row
-  text-align: left; // left                                                                                                // why: menu style
-  border: 1px solid rgba(0, 0, 0, 0.08); // border                                                                       // why: card rows
-  background: #fff; // white                                                                                              // why: clean
-  padding: 12px 14px; // padding                                                                                          // why: touch target
-  border-radius: 14px; // round                                                                                            // why: modern
-  cursor: pointer; // pointer                                                                                            // why: UX
-}
-
-.logout { // logout emphasis                                                                                             // why: primary action
-  border-color: rgba(220, 0, 0, 0.25); // red hint                                                                        // why: destructive action
+@media (max-width: 900px) { // responsive                                                                                // why: mobile
+  .layout { // stack on small                                                                                             // why: responsive
+    grid-template-columns: 1fr; // one column                                                                             // why: fit
+  }
 }

@@ -1,57 +1,31 @@
-<p>profile works!</p>
 <section class="page">
   <div class="top">
     <a class="back" [routerLink]="['/']">← Back</a>
-    <!-- back -->
-    <!-- why: quick navigation -->
     <h1 class="title">Profile</h1>
-    <!-- title -->
-    <!-- why: page header -->
   </div>
 
-  <div class="card">
-    <div class="head">
-      <div class="avatar">
-        @if (user()?.imageUrl) {
-          <img [src]="user()?.imageUrl!" alt="Profile" />
-          <!-- avatar -->
-          <!-- why: show user -->
-        } @else {
-          <span class="initials">
-            {{ (user()?.firstName?.[0] ?? 'U') + (user()?.lastName?.[0] ?? '') }}
-          </span>
-          <!-- initials -->
-          <!-- why: fallback -->
-        }
-      </div>
-
-      <div class="meta">
-        <div class="name">{{ fullName() }}</div>
-        <!-- name -->
-        <!-- why: user identity -->
-        <div class="email">{{ user()?.email ?? 'No email' }}</div>
-        <!-- email -->
-        <!-- why: user info -->
-      </div>
+  <div class="headerCard">
+    <div class="avatar">
+      @if (user()?.imageUrl) {
+        <img [src]="user()?.imageUrl!" alt="Profile" />
+      } @else {
+        <span class="initials">
+          {{ (user()?.firstName?.[0] ?? 'U') + (user()?.lastName?.[0] ?? '') }}
+        </span>
+      }
     </div>
 
-    <div class="list">
-      <button type="button" class="item">Account details</button>
-      <!-- placeholder -->
-      <!-- why: mockup list -->
-      <button type="button" class="item">Orders</button>
-      <!-- placeholder -->
-      <!-- why: mockup list -->
-      <button type="button" class="item">Addresses</button>
-      <!-- placeholder -->
-      <!-- why: mockup list -->
-      <button type="button" class="item">Settings</button>
-      <!-- placeholder -->
-      <!-- why: mockup list -->
-
-      <button type="button" class="item logout" (click)="logout()">Log out</button>
-      <!-- action -->
-      <!-- why: required -->
+    <div class="meta">
+      <div class="name">{{ fullName() }}</div>
+      <div class="email">{{ user()?.email ?? 'No email' }}</div>
     </div>
+  </div>
+
+  <div class="layout">
+    <profile-sidebar [active]="active()" (action)="onSidebarAction($event)"></profile-sidebar>
+
+    @if (active() === 'edit') {
+      <profile-edit [user]="user()"></profile-edit>
+    }
   </div>
 </section>

@@ -1,0 +1,14 @@
+<aside class="side">
+  <!-- sidebar wrapper -->
+
+  <button
+    type="button"
+    class="item"
+    [class.active]="active() === 'edit'"
+    (click)="action.emit('edit')"
+  >
+    Edit profile
+  </button>
+
+  <button type="button" class="item danger" (click)="action.emit('logout')">Logout</button>
+</aside>

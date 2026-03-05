@@ -8,7 +8,7 @@ import { ProductCardComponent } from '../../shared/components/product-card/produ
 @Component({
   selector: 'app-search', // page component                                                                           // why: routing
   standalone: true, // no modules                                                                                      // why: rules
-  imports: [CommonModule, RouterLink, ProductCardComponent], // template deps                                          // why: render
+  imports: [CommonModule, ProductCardComponent], // template deps                                          // why: render
   templateUrl: './search.html', // html                                                                                // why: separation
   styleUrl: './search.scss', // scss                                                                                   // why: rules
   changeDetection: ChangeDetectionStrategy.OnPush, // optimized                                                        // why: perf

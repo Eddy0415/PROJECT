@@ -8,6 +8,7 @@ export interface IResp {
     username: string;
     dateOfBirth: Date;
     imageUrl: string;
+    role: string;
     createdAt: Date;
     updatedAt: Date;
   };
