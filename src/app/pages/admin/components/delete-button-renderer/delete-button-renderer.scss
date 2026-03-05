@@ -1,0 +1,12 @@
+.btn {
+  padding: 6px 10px; // size                                                                                              // why: compact
+  border-radius: 10px; // soft                                                                                            // why: UI
+  border: 1px solid rgba(244, 63, 94, 0.45); // red-ish                                                                   // why: destructive
+  background: rgba(244, 63, 94, 0.12); // red-ish                                                                         // why: destructive
+  color: #ffe4e6; // light                                                                                                 // why: contrast
+  cursor: pointer; // clickable                                                                                            // why: UX
+}
+
+.btn:hover {
+  background: rgba(244, 63, 94, 0.18); // hover                                                                           // why: feedback
+}

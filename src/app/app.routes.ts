@@ -1,5 +1,4 @@
 import { Routes } from '@angular/router'; // routes type                                                                  // why: routing
-import { Admin } from './pages/admin/admin'; // admin                                                                     // why: existing
 
 export const routes: Routes = [
   {
@@ -7,18 +6,17 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/home/home').then((m) => m.HomeComponent), // why: existing home
   },
   {
-    path: 'cart', // ✅ cart page                                                                                         // why: new feature
-    loadChildren: () => import('./pages/cart/routes').then((m) => m.CART_ROUTES), // why: lazy feature routes
+    path: 'cart',
+    loadChildren: () => import('./pages/cart/routes').then((m) => m.CART_ROUTES),
   },
   {
-    path: 'products/:id', // ✅ product details                                                                           // why: dynamic route
+    path: 'products/:id',
     loadChildren: () =>
-      import('./pages/product-detail/routes').then((m) => m.PRODUCT_DETAIL_ROUTES), // why: lazy feature routes
+      import('./pages/product-detail/routes').then((m) => m.PRODUCT_DETAIL_ROUTES),
   },
   {
     path: 'admin',
-    component: Admin,
-    title: 'Admin Page',
+    loadChildren: () => import('./pages/admin/routes').then((m) => m.ADMIN_ROUTES), // ✅ lazy admin                      // why: optimize
   },
   {
     path: 'login',
@@ -29,8 +27,8 @@ export const routes: Routes = [
     loadChildren: () => import('./pages/signup/routes').then((m) => m.SIGNUP_ROUTES),
   },
   {
-    path: 'profile', // profile page                                                                                    // why: user page
-    loadChildren: () => import('./pages/profile/routes').then((m) => m.PROFILE_ROUTES), // lazy                          // why: optimize
+    path: 'profile',
+    loadChildren: () => import('./pages/profile/routes').then((m) => m.PROFILE_ROUTES),
   },
   {
     path: 'search',

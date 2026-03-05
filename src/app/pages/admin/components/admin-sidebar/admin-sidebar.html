@@ -1,0 +1,16 @@
+<aside class="sidebar">
+  <div class="brand">Admin</div>
+
+  <nav class="nav">
+    <button type="button" class="item" [class.active]="isProducts()">
+      <span class="dot"></span>
+      <span class="label">Products</span>
+    </button>
+
+    <button type="button" class="item disabled" [disabled]="true" aria-disabled="true">
+      <span class="dot"></span>
+      <span class="label">Users</span>
+      <span class="tag">soon</span>
+    </button>
+  </nav>
+</aside>

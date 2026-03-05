@@ -22,4 +22,8 @@ export class ProductsService {
     // fetch products by category                                  // why: related products
     return this.http.get<IProduct[]>(`${this.API}/products/category/${category}`); // GET /products/category/:cat         // why: API call
   }
+
+  deleteById(id: number): Observable<IProduct> {
+    return this.http.delete<IProduct>(`${this.API}/products/${id}`); // DELETE /products/:id                              // why: admin delete
+  }
 }
