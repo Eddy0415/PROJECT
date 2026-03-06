@@ -2,7 +2,6 @@
 // Add to index.html if not already present:
 // <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-// ─── Nav Shell ───────────────────────────────────────────────────────────────
 .nav {
   position: sticky;
   top: 0;
@@ -14,14 +13,12 @@
 .inner {
   display: flex;
   align-items: center;
-  gap: 24px;
   max-width: 1500px;
   margin: 0 auto;
   padding: 0 32px;
   height: 64px;
 }
 
-// ─── Logo ─────────────────────────────────────────────────────────────────────
 .logo {
   font-family: 'Abril Fatface', 'Playfair Display', Georgia, serif;
   font-size: 1.35rem;
@@ -31,17 +28,18 @@
   text-decoration: none;
   white-space: nowrap;
   letter-spacing: -0.02em;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  margin-right: auto;
 }
 
-// ─── Search ───────────────────────────────────────────────────────────────────
 .search {
-  flex: 1;
-  max-width: 360px;
-  margin-left: auto;
+  width: 500px;
+  flex-shrink: 1 ;
   position: relative;
   display: flex;
   align-items: center;
+  // margin-inline: clamp(16px, 20%, 500px); // pushes links toward the right
+  margin-right: auto;
 
   &__icon {
     position: absolute;
@@ -75,12 +73,12 @@
   }
 }
 
-// ─── Nav Links ────────────────────────────────────────────────────────────────
 .links {
   display: flex;
   align-items: center;
   gap: 28px;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  margin-right: 16px;
 
   &__item {
     font-size: 0.9rem;
@@ -96,7 +94,6 @@
   }
 }
 
-// ─── Right Actions ────────────────────────────────────────────────────────────
 .actions {
   display: flex;
   align-items: center;
@@ -113,13 +110,9 @@
     text-decoration: none;
     transition: background 0.15s;
 
-    .material-icons {
-      font-size: 22px;
-    }
+    .material-icons { font-size: 22px; }
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.05);
-    }
+    &:hover { background: rgba(0, 0, 0, 0.05); }
   }
 
   &__profile {
@@ -135,9 +128,7 @@
     padding: 0;
     transition: background 0.15s;
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.05);
-    }
+    &:hover { background: rgba(0, 0, 0, 0.05); }
   }
 
   &__profile-icon {
@@ -157,5 +148,27 @@
     font-weight: 700;
     color: #555;
     text-transform: uppercase;
+  }
+}
+
+// ─── Cart Badge ───────────────────────────────────────────────────────────────
+.actions__cart {
+  position: relative;
+
+  .actions__badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: #e53e3e;
+    color: #fff;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 16px;
+    text-align: center;
+    pointer-events: none;
   }
 }

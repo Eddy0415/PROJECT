@@ -17,11 +17,15 @@
     <nav class="links">
       <a class="links__item" [routerLink]="['/']">Products</a>
       <a class="links__item" [routerLink]="['/']">About Us</a>
+      <a class="links__item" [routerLink]="['/']">Contact Us</a>
     </nav>
 
     <div class="actions">
       <a class="actions__cart" [routerLink]="['/cart']" aria-label="Cart">
         <span class="material-icons">shopping_cart</span>
+        @if (cartCount() > 0) {
+          <span class="actions__badge">{{ cartCount() }}</span>
+        }
       </a>
 
       @if (!isAuthenticated()) {

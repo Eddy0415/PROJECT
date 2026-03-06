@@ -1,37 +1,40 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core'; // signals + DI                     // why: rules
-import { Router, RouterLink } from '@angular/router'; // routing                                                        // why: navigate
-import { AuthService } from '../../../core/auth/auth-service'; // auth signals                                          // why: existing
-import { UiButton } from '../ui-button/ui-button'; // shared button                                                     // why: existing
-import { ProductsCatalogStore } from '../../services/products-store'; // prefetch products                      // why: instant search
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../core/auth/auth-service';
+import { UiButton } from '../ui-button/ui-button';
+import { ProductsCatalogStore } from '../../services/products-store';
+import { CartStore } from '../../services/cart.store';
 
 @Component({
-  selector: 'ui-navbar', // shared navbar                                                                               // why: layout
-  standalone: true, // no module                                                                                        // why: rules
-  imports: [RouterLink, UiButton], // deps                                                                              // why: template
-  templateUrl: './ui-navbar.html', // html                                                                              // why: separation
-  styleUrl: './ui-navbar.scss', // scss                                                                                 // why: rules
-  changeDetection: ChangeDetectionStrategy.OnPush, // optimized                                                         // why: perf
+  selector: 'ui-navbar',
+  standalone: true,
+  imports: [RouterLink, UiButton],
+  templateUrl: './ui-navbar.html',
+  styleUrl: './ui-navbar.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiNavbarComponent {
-  private readonly router = inject(Router); // router instance                                                          // why: rules
-  private readonly auth = inject(AuthService); // auth service                                                          // why: existing
-  private readonly catalog = inject(ProductsCatalogStore); // prefetch store                                             // why: fast search
+  private readonly router = inject(Router);
+  private readonly auth = inject(AuthService);
+  private readonly catalog = inject(ProductsCatalogStore);
+  private readonly cart = inject(CartStore);
 
-  readonly isAuthenticated = this.auth.isAuthenticated; // computed signal                                               // why: template
-  readonly currentUser = this.auth.currentUser; // readonly signal                                                      // why: template
+  readonly isAuthenticated = this.auth.isAuthenticated;
+  readonly currentUser = this.auth.currentUser;
+  readonly cartCount = this.cart.totalItems;
 
-  readonly searchText = signal(''); // navbar search text                                                               // why: global search
+  readonly searchText = signal('');
 
   goProfile(): void {
-    this.router.navigate(['/profile']); // navigate to profile                                                          // why: existing
+    this.router.navigate(['/profile']);
   }
 
   onSearchInput(value: string): void {
-    this.searchText.set(value); // update search text                                                                    // why: signal state
+    this.searchText.set(value);
   }
 
   submitSearch(): void {
-    const q = this.searchText().trim(); // normalize                                                                     // why: clean URL
-    this.router.navigate(['/search'], { queryParams: { q } }); // go to results                                          // why: global search
+    const q = this.searchText().trim();
+    this.router.navigate(['/search'], { queryParams: { q } });
   }
 }
