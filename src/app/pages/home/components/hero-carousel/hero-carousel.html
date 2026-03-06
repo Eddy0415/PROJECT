@@ -1,15 +1,12 @@
 <section class="hero" (mouseenter)="stopAutoPlay()" (mouseleave)="startAutoPlay()">
-  <!-- background slide -->
   <img class="bg" [src]="slides()[active()]" alt="Hero slide" />
 
-  <!-- dark overlay for text readability -->
-  <div class="shade"></div>
-
-  <!-- LEFT overlay content (on top of the carousel) -->
   <div class="content">
     <h1>FIND ITEMS THAT MATCHES YOUR STYLE</h1>
-    <p>Browse our best selling items and discover deals that fit your taste.</p>
-
+    <p>
+      Browse through our diverse range of meticulously crafted garments, designed to bring out your
+      individuality and cater to your sense of style.
+    </p>
     <button type="button" class="cta">Shop Now</button>
 
     <div class="stats">
@@ -17,30 +14,16 @@
         <div class="num">200+</div>
         <div class="lbl">International Brands</div>
       </div>
+      <div class="divider"></div>
       <div class="stat">
         <div class="num">2,000+</div>
         <div class="lbl">High-Quality Products</div>
       </div>
+      <div class="divider"></div>
       <div class="stat">
         <div class="num">30,000+</div>
         <div class="lbl">Happy Customers</div>
       </div>
     </div>
-  </div>
-
-  <!-- arrows -->
-  <button class="nav left" type="button" (click)="prev()">‹</button>
-  <button class="nav right" type="button" (click)="next()">›</button>
-
-  <!-- dots -->
-  <div class="dots">
-    @for (s of slides(); track $index) {
-      <button
-        type="button"
-        class="dot"
-        [class.active]="$index === active()"
-        (click)="goTo($index)">
-      </button>
-    }
   </div>
 </section>

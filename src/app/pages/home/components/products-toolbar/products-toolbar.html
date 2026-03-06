@@ -1,94 +1,20 @@
 <div class="bar">
-  <!-- why: toolbar wrapper -->
-
-  <div class="left">
-    <!-- why: left side -->
-
-    <select class="select" [value]="sortMode()" (change)="onSortChange($any($event.target).value)">
-      <!-- why: sort dropdown -->
-      <option value="best">Best Selling</option>
-      <!-- why: default -->
-      <option value="priceAsc">Price: Low → High</option>
-      <!-- why: asc -->
-      <option value="priceDesc">Price: High → Low</option>
-      <!-- why: desc -->
-      <option value="categoryAz">Category: A → Z</option>
-      <!-- why: category sort -->
-    </select>
-    <!-- why: matches mockup dropdown position -->
+  <div class="categories">
+    @for (c of categoryOptions(); track c) {
+      <ui-pill
+        [label]="c"
+        [active]="(selectedCategory() ?? 'All') === c"
+        (clicked)="onCategoryChange(c)"
+      ></ui-pill>
+    }
   </div>
 
-  <div class="right">
-    <!-- why: right side -->
-
-    <button type="button" class="filterBtn" (click)="toggleFilter()">
-      <!-- why: open panel -->
-      ⛃
-      <!-- why: filter icon -->
-    </button>
-
-    @if (filterOpen()) {
-      <!-- why: modern control flow -->
-      <div class="panel" (click)="$event.stopPropagation()">
-        <!-- why: dropdown panel -->
-
-        <div class="row">
-          <!-- why: category row -->
-          <label class="label">Category</label>
-          <!-- why: label -->
-          <select
-            class="select"
-            [value]="selectedCategory() ?? 'All'"
-            (change)="onCategoryChange($any($event.target).value)"
-          >
-            <!-- why: category dropdown -->
-            @for (c of categoryOptions(); track c) {
-              <!-- why: loop -->
-              <option [value]="c">{{ c }}</option>
-              <!-- why: option -->
-            }
-          </select>
-        </div>
-
-        <div class="row grid2">
-          <!-- why: min/max row -->
-          <div class="field">
-            <!-- why: min field -->
-            <label class="label">Min</label>
-            <!-- why: label -->
-            <input
-              class="input"
-              type="number"
-              [value]="minPrice() ?? ''"
-              (input)="onMinChange($any($event.target).value)"
-              placeholder="0"
-            />
-            <!-- why: min input -->
-          </div>
-
-          <div class="field">
-            <!-- why: max field -->
-            <label class="label">Max</label>
-            <!-- why: label -->
-            <input
-              class="input"
-              type="number"
-              [value]="maxPrice() ?? ''"
-              (input)="onMaxChange($any($event.target).value)"
-              placeholder="999"
-            />
-            <!-- why: max input -->
-          </div>
-        </div>
-
-        <div class="actions">
-          <!-- why: actions row -->
-          <button type="button" class="ghost" (click)="clearFilters()">Clear</button>
-          <!-- why: reset -->
-          <button type="button" class="primary" (click)="closeFilter()">Apply</button>
-          <!-- why: close panel -->
-        </div>
-      </div>
-    }
+  <div class="sort">
+    <select class="select" [value]="sortMode()" (change)="onSortChange($any($event.target).value)">
+      <option value="best">Best Selling</option>
+      <option value="priceAsc">Price: Low → High</option>
+      <option value="priceDesc">Price: High → Low</option>
+      <option value="categoryAz">Category: A → Z</option>
+    </select>
   </div>
 </div>

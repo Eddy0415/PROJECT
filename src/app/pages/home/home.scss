@@ -1,44 +1,45 @@
-.page { // page wrapper                                                                                                   // why: page layout
-  display: grid; // vertical stacking                                                                                     // why: sections
-  gap: 22px; // spacing between sections                                                                                  // why: design
-  padding: 18px; // page padding                                                                                          // why: consistent
-  max-width: 1500px; // container width                                                                                   // why: align with navbar/footer
-  margin: 0 auto; // center page                                                                                          // why: layout
+.page {
+  display: grid;
+  gap: 22px;
 }
 
-.products { // products section                                                                                            // why: section styles
-  display: grid; // vertical                                                                                                // why: layout
-  gap: 14px; // spacing                                                                                                   // why: rhythm
+.products {
+  display: grid;
+  gap: 14px;
+  padding: 0 18px;
+  max-width: 1520px;
+  margin: 0 auto;
+  width: 100%;
 
-  .products-bar { // title row                                                                                             // why: header row
-    display: flex; // horizontal                                                                                            // why: split row
-    justify-content: space-between; // split                                                                               // why: layout
-    align-items: center; // align                                                                                          // why: polish
+  .products-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    h2 { // title                                                                                                          // why: reset margin
-      margin: 0; // remove default                                                                                         // why: clean
+    h2 {
+      margin: 0;
     }
 
-    .actions { // right side actions                                                                                       // why: placeholder
-      opacity: 0.75; // subtle                                                                                             // why: UI
-    }
-  }
-
-  .state { // loading/error box                                                                                             // why: feedback
-    padding: 18px; // spacing                                                                                              // why: UI
-    border: 1px solid #eee; // border                                                                                      // why: separation
-    border-radius: 14px; // rounding                                                                                       // why: design
-    background: #fff; // background                                                                                        // why: clean
-
-    &.error { // error style                                                                                                // why: error differentiation
-      border-color: #ffd2d2; // red-ish border                                                                              // why: error
-      background: #fff5f5; // soft red background                                                                           // why: error
+    .actions {
+      opacity: 0.75;
     }
   }
 
-  .grid { // products grid                                                                                                  // why: layout
-    display: grid; // grid                                                                                                  // why: cards
-    grid-template-columns: repeat(4, 1fr); // 4 columns                                                                     // why: like your current
-    gap: 14px; // spacing                                                                                                   // why: design
+  .state {
+    padding: 18px;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    background: #fff;
+
+    &.error {
+      border-color: #ffd2d2;
+      background: #fff5f5;
+    }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
   }
 }

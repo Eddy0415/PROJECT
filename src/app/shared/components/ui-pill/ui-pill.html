@@ -1,0 +1,9 @@
+<button
+  class="pill"
+  [class.active]="active()"
+  [attr.type]="type()"
+  [disabled]="disabled()"
+  (click)="clicked.emit($event)"
+>
+  {{ label() }}
+</button>

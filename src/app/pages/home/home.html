@@ -3,21 +3,15 @@
 
   <section class="products">
     <div class="products-bar">
-      <h2>Best Selling</h2>
-
+      <h2>Products</h2>
       <app-products-toolbar
         class="toolbar"
         [categories]="categories()"
         [selectedCategory]="selectedCategory()"
         [sortMode]="sortMode()"
-        [minPrice]="minPrice()"
-        [maxPrice]="maxPrice()"
         (selectedCategoryChange)="setCategory($event)"
         (sortModeChange)="setSortMode($event)"
-        (minPriceChange)="setMinPrice($event)"
-        (maxPriceChange)="setMaxPrice($event)"
       ></app-products-toolbar>
-      <!-- why: real sorting/filtering UI -->
     </div>
 
     @if (loading()) {

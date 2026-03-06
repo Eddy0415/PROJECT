@@ -1,118 +1,102 @@
-.hero { // whole hero carousel container
-  position: relative; // allows overlay layers
-  height: 420px; // control how “huge” it is (change to 380/520 as you want)
-  border-radius: 18px; // rounded corners
-  overflow: hidden; // crop image edges
+:host {
+  display: block;        // make host fill its parent
+  width: 100%;
 }
 
-.bg { // background image
-  position: absolute; // fill container
-  inset: 0; // stretch to all sides
-  width: 100%; // full width
-  height: 100%; // full height
-  object-fit: cover; // ✅ makes it look correct, not stretched
-  object-position: center; // focus center
+.hero {
+  position: relative;
+  width: 100%;
+  max-width: 1520px;
+  height: calc(100vh - 64px);
+  max-height: 860px;
+  overflow: hidden;
+  margin: 0 auto;
 }
 
-.shade { // readability overlay
-  position: absolute; // full overlay
-  inset: 0; // stretch
-  background: linear-gradient( // nicer than a flat dark layer
-    90deg,
-    rgba(0, 0, 0, 0.55) 0%,
-    rgba(0, 0, 0, 0.25) 45%,
-    rgba(0, 0, 0, 0.05) 100%
-  );
-}
-
-.content { // left text overlay
-  position: absolute; // on top of image
-  inset: 0; // use whole area
-  display: grid; // vertical layout
-  align-content: center; // center vertically
-  padding: 42px; // spacing
-  max-width: 720px; // keep left block width
-  color: #fff; // white text
-  gap: 14px; // spacing
-}
-
-.content h1 { // headline
-  margin: 0;
-  font-size: 44px;
-  line-height: 1.05;
-  font-weight: 900;
-}
-
-.content p { // subtitle
-  margin: 0;
-  max-width: 520px;
-  opacity: 0.92;
-}
-
-.cta { // button
-  width: fit-content;
-  padding: 12px 18px;
-  border-radius: 999px;
-  border: 0;
-  cursor: pointer;
-  font-weight: 800;
-}
-
-.stats { // stats row
-  margin-top: 18px;
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-
-.stat { // one stat box
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 12px 14px;
-  border-radius: 14px;
-  min-width: 180px;
-}
-
-.num { font-size: 20px; font-weight: 900; } // stat number
-.lbl { font-size: 12px; opacity: 0.9; } // stat label
-
-.nav { // arrow buttons
+.bg {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
-  border-radius: 999px;
-  border: 0;
-  cursor: pointer;
-  background: rgba(255, 255, 255, 0.22);
-  color: #fff;
-  font-size: 26px;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: opacity 0.5s ease;
 }
 
-.nav.left { left: 14px; } // left arrow position
-.nav.right { right: 14px; } // right arrow position
-
-.dots { // dots container
+.content {
   position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 14px;
+  inset: 0;
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  gap: 8px;
+  padding: 0 80px;
+  max-width: 600px;
+  gap: 20px;
+  color: #111;
 }
 
-.dot { // one dot
-  width: 10px;
-  height: 10px;
+.content h1 {
+  margin: 0;
+  font-size: clamp(32px, 3.5vw, 52px);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: #111;
+}
+
+.content p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #444;
+  max-width: 380px;
+}
+
+.cta {
+  width: fit-content;
+  padding: 14px 28px;
   border-radius: 999px;
-  border: 0;
+  border: none;
+  background: #111;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.45);
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: #333;
+  }
 }
 
-.dot.active { // active dot
-  background: rgba(255, 255, 255, 0.95);
-  width: 22px;
+.stats {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 12px;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.num {
+  font-size: clamp(22px, 2.5vw, 32px);
+  font-weight: 900;
+  color: #111;
+  line-height: 1;
+}
+
+.lbl {
+  font-size: 0.78rem;
+  color: #666;
+}
+
+.divider {
+  width: 1px;
+  height: 40px;
+  background: #ccc;
+  flex-shrink: 0;
 }
