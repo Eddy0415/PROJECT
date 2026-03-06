@@ -1,42 +1,41 @@
 <header class="nav">
   <div class="inner">
-    <a class="logo" [routerLink]="['/']">SHOP.CO</a>
+    <a class="logo" [routerLink]="['/']">Item Store</a>
 
     <div class="search">
+      <span class="search__icon material-icons">search</span>
       <input
-        class="searchInput"
+        class="search__input"
         type="text"
         [value]="searchText()"
         (input)="onSearchInput($any($event.target).value)"
         (keydown.enter)="submitSearch()"
         placeholder="Search for products..."
       />
-
-      <button class="searchBtn" type="button" (click)="submitSearch()">🔎</button>
     </div>
 
     <nav class="links">
-      <a [routerLink]="['/']">Products</a>
-      <a [routerLink]="['/']">About Us</a>
+      <a class="links__item" [routerLink]="['/']">Products</a>
+      <a class="links__item" [routerLink]="['/']">About Us</a>
     </nav>
 
-    <div class="right">
-      <a class="cart" [routerLink]="['/cart']">🛒</a>
+    <div class="actions">
+      <a class="actions__cart" [routerLink]="['/cart']" aria-label="Cart">
+        <span class="material-icons">shopping_cart</span>
+      </a>
 
       @if (!isAuthenticated()) {
-        <!-- Shared UI Button used here -->
         <ui-button [text]="'Log in'" [type]="'button'" [routerLink]="['/login']"></ui-button>
       } @else {
-        <button class="profileBtn" type="button" (click)="goProfile()">
-          <span class="avatar">
-            @if (currentUser()?.imageUrl) {
-              <img [src]="currentUser()?.imageUrl!" alt="Profile" />
-            } @else {
-              <span class="initials">
-                {{ (currentUser()?.firstName?.[0] ?? 'U') + (currentUser()?.lastName?.[0] ?? '') }}
-              </span>
-            }
-          </span>
+        <button class="actions__profile" type="button" (click)="goProfile()" aria-label="Profile">
+          <span class="material-icons actions__profile-icon">account_circle</span>
+          @if (currentUser()?.imageUrl) {
+            <img class="actions__avatar" [src]="currentUser()?.imageUrl!" alt="Profile" />
+          } @else {
+            <span class="actions__initials">
+              {{ (currentUser()?.firstName?.[0] ?? 'U') + (currentUser()?.lastName?.[0] ?? '') }}
+            </span>
+          }
         </button>
       }
     </div>
