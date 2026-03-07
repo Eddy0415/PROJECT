@@ -1,10 +1,15 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core'; // component + perf                                 // why: standalone
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { NavService } from '../../services/nav.service';
 
 @Component({
-  selector: 'ui-footer', // shared footer                                                                               // why: global footer
-  standalone: true, // no NgModule                                                                                      // why: rules
-  templateUrl: './ui-footer.html', // template                                                                           // why: split files
-  styleUrl: './ui-footer.scss', // scss                                                                                  // why: rules
-  changeDetection: ChangeDetectionStrategy.OnPush, // optimized                                                          // why: perf
+  selector: 'ui-footer',
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './ui-footer.html',
+  styleUrl: './ui-footer.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class UiFooter {} // presentational                                                                      // why: simple
+export class UiFooter {
+  readonly nav = inject(NavService);
+}

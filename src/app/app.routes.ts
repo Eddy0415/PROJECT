@@ -1,9 +1,13 @@
-import { Routes } from '@angular/router'; // routes type                                                                  // why: routing
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./pages/home/home').then((m) => m.HomeComponent), // why: existing home
+    loadComponent: () => import('./pages/home/home').then((m) => m.HomeComponent),
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/routes').then((m) => m.ABOUT_ROUTES),
   },
   {
     path: 'cart',
@@ -16,7 +20,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
-    loadChildren: () => import('./pages/admin/routes').then((m) => m.ADMIN_ROUTES), // ✅ lazy admin                      // why: optimize
+    loadChildren: () => import('./pages/admin/routes').then((m) => m.ADMIN_ROUTES),
   },
   {
     path: 'login',

@@ -1,6 +1,6 @@
 <header class="nav">
   <div class="inner">
-    <a class="logo" [routerLink]="['/']">Item Store</a>
+    <a class="logo" (click)="nav.goHome()" href="javascript:void(0)">Item Store</a>
 
     <div class="search">
       <span class="search__icon material-icons">search</span>
@@ -15,9 +15,9 @@
     </div>
 
     <nav class="links">
-      <a class="links__item" [routerLink]="['/']">Products</a>
-      <a class="links__item" [routerLink]="['/']">About Us</a>
-      <a class="links__item" [routerLink]="['/']">Contact Us</a>
+      <a class="links__item" (click)="nav.goProducts()" href="javascript:void(0)">Products</a>
+      <a class="links__item" [routerLink]="['/about']">About Us</a>
+      <a class="links__item" (click)="nav.goContact()" href="javascript:void(0)">Contact Us</a>
     </nav>
 
     <div class="actions">

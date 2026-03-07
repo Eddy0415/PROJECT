@@ -1,3 +1,48 @@
-<footer class="footer"> <!-- global footer -->                                                                          <!-- why: site-wide -->
-  <div class="inner">Footer placeholder</div>                                                                            <!-- why: matches your current -->
+<footer class="footer" id="footer">
+  <div class="inner">
+    <div class="brand">
+      <a class="logo" (click)="nav.goHome()" href="javascript:void(0)">Item Store</a>
+      <p class="tagline">
+        We have items that suits your style and which you're proud to own. From women to men.
+      </p>
+      <a class="support" href="tel:+96181207487">Support: +961 81 207 487</a>
+      <div class="socials">
+        <a class="social" href="https://twitter.com" target="_blank" aria-label="Twitter">
+          <span class="material-icons">close</span>
+        </a>
+        <a
+          class="social social--filled"
+          href="https://facebook.com"
+          target="_blank"
+          aria-label="Facebook"
+        >
+          <span class="material-icons">facebook</span>
+        </a>
+        <a class="social" href="https://instagram.com" target="_blank" aria-label="Instagram">
+          <span class="material-icons">photo_camera</span>
+        </a>
+        <a class="social" href="https://github.com" target="_blank" aria-label="GitHub">
+          <span class="material-icons">code</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="col">
+      <h4 class="col__title">COMPANY</h4>
+      <a class="col__link" (click)="nav.goHome()" href="javascript:void(0)">Home</a>
+      <a class="col__link" [routerLink]="['/about']">About Us</a>
+      <a class="col__link" (click)="nav.goProducts()" href="javascript:void(0)">Products</a>
+      <a class="col__link" (click)="nav.goContact()" href="javascript:void(0)">Contact Us</a>
+    </div>
+
+    <div class="col">
+      <h4 class="col__title">USER</h4>
+      <a class="col__link" [routerLink]="['/profile']">Account</a>
+      <a class="col__link" [routerLink]="['/cart']">Cart</a>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <span>Item Store &copy; 2026, All Rights Reserved</span>
+  </div>
 </footer>

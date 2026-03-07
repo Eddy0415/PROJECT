@@ -4,6 +4,7 @@ import { AuthService } from '../../../core/auth/auth-service';
 import { UiButton } from '../ui-button/ui-button';
 import { ProductsCatalogStore } from '../../services/products-store';
 import { CartStore } from '../../services/cart.store';
+import { NavService } from '../../services/nav.service';
 
 @Component({
   selector: 'ui-navbar',
@@ -18,6 +19,7 @@ export class UiNavbarComponent {
   private readonly auth = inject(AuthService);
   private readonly catalog = inject(ProductsCatalogStore);
   private readonly cart = inject(CartStore);
+  readonly nav = inject(NavService);
 
   readonly isAuthenticated = this.auth.isAuthenticated;
   readonly currentUser = this.auth.currentUser;
