@@ -1,0 +1,12 @@
+.support {
+  font-size: 0.85rem;
+  color: #111;
+  text-decoration: none;
+  display: block;
+  margin-bottom: 16px;
+  transition: font-weight 0.15s;
+
+  &:hover {
+    font-weight: 700;
+  }
+}

@@ -13,17 +13,13 @@
   align-items: start;
 }
 
-// ─── Brand col ────────────────────────────────────────────────────────────────
-.logo {
-  font-family: 'Abril Fatface', 'Playfair Display', Georgia, serif;
-  font-size: 1.5rem;
-  font-weight: 900;
-  font-style: italic;
-  color: #111;
-  text-decoration: none;
-  letter-spacing: -0.02em;
-  display: block;
-  margin-bottom: 12px;
+.brand {
+  display: flex;
+  flex-direction: column;
+
+  navbar-logo {
+    margin-bottom: 12px;
+  }
 }
 
 .tagline {
@@ -32,78 +28,4 @@
   line-height: 1.6;
   max-width: 260px;
   margin: 0 0 20px;
-}
-
-.socials {
-  display: flex;
-  gap: 10px;
-}
-
-.social {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid #ccc;
-  color: #111;
-  text-decoration: none;
-  transition: background 0.15s, border-color 0.15s;
-
-  .material-icons {
-    font-size: 16px;
-  }
-
-  &:hover {
-    border-color: #111;
-    background: #f0f0f0;
-  }
-  }
-
-// ─── Link cols ────────────────────────────────────────────────────────────────
-.col {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-
-  &__title {
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    color: #111;
-    margin: 0 0 4px;
-  }
-
-  &__link {
-    font-size: 0.875rem;
-    color: #444;
-    text-decoration: none;
-    cursor: pointer;
-    transition: color 0.15s;
-
-    &:hover {
-      color: #111;
-    }
-  }
-}
-.support {
-  font-size: 0.85rem;
-  color: #111;
-  text-decoration: none;
-  display: block;
-  margin-bottom: 16px;
-
-  &:hover {
-    text-decoration: underline;
-  }
-}
-
-// ─── Bottom bar ───────────────────────────────────────────────────────────────
-.bottom {
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 18px 32px;
-  border-top: 1px solid #e0e0e0;
-  font-size: 0.8rem;
-  color: #888;
 }

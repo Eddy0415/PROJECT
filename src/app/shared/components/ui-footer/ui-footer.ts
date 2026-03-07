@@ -1,15 +1,31 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { NavService } from '../../services/nav.service';
+import { NavbarLogo } from '../ui-navbar/components/navbar-logo/navbar-logo';
+import { FooterSocials } from './components/footer-socials/footer-socials';
+import { FooterSupport } from './components/footer-support/footer-support';
+import { FooterLinkCol, FooterLink } from './components/footer-link-col/footer-link-col';
+import { FooterBottom } from './components/footer-bottom/footer-bottom';
 
 @Component({
   selector: 'ui-footer',
   standalone: true,
-  imports: [RouterLink],
+  imports: [NavbarLogo, FooterSocials, FooterSupport, FooterLinkCol, FooterBottom],
   templateUrl: './ui-footer.html',
   styleUrl: './ui-footer.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiFooter {
-  readonly nav = inject(NavService);
+  private readonly nav = inject(NavService);
+
+  readonly companyLinks: FooterLink[] = [
+    { label: 'Home', action: () => this.nav.goHome() },
+    { label: 'About Us', routerLink: '/about' },
+    { label: 'Products', action: () => this.nav.goProducts() },
+    { label: 'Contact Us', action: () => this.nav.goContact() },
+  ];
+
+  readonly userLinks: FooterLink[] = [
+    { label: 'Account', routerLink: '/profile' },
+    { label: 'Cart', routerLink: '/cart' },
+  ];
 }

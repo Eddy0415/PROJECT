@@ -1,0 +1,10 @@
+<div class="col">
+  <h4 class="col__title">{{ title() }}</h4>
+  @for (link of links(); track link.label) {
+    @if (link.routerLink) {
+      <a class="col__link" [routerLink]="link.routerLink">{{ link.label }}</a>
+    } @else {
+      <a class="col__link" href="javascript:void(0)" (click)="link.action?.()">{{ link.label }}</a>
+    }
+  }
+</div>

@@ -1,0 +1,25 @@
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  &__title {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #111;
+    margin: 0 0 4px;
+  }
+
+  &__link {
+    font-size: 0.875rem;
+    color: #444;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color 0.15s;
+
+    &:hover {
+      color: #111;
+    }
+  }
+}
