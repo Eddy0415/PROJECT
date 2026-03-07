@@ -1,0 +1,19 @@
+<div class="visible-products">
+  @if (showToolbar()) {
+    <products-toolbar
+      [categories]="categories()"
+      [selectedCategory]="activeCategory()"
+      [sortMode]="sortMode()"
+      (selectedCategoryChange)="activeCategory.set($event)"
+      (sortModeChange)="sortMode.set($event)"
+    ></products-toolbar>
+  }
+
+  @if (loading()) {
+    <div class="state">Loading products...</div>
+  } @else if (error()) {
+    <div class="state state--error">{{ error() }}</div>
+  } @else {
+    <products-grid [products]="visibleProducts()"></products-grid>
+  }
+</div>

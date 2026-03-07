@@ -1,0 +1,16 @@
+<div class="toolbar">
+  <h2 class="toolbar__title">Products</h2>
+
+  <div class="toolbar__controls">
+    <toolbar-categories
+      [categories]="categories()"
+      [selectedCategory]="selectedCategory()"
+      (selectedCategoryChange)="selectedCategoryChange.emit($event)"
+    ></toolbar-categories>
+
+    <toolbar-select
+      [sortMode]="sortMode()"
+      (sortModeChange)="sortModeChange.emit($event)"
+    ></toolbar-select>
+  </div>
+</div>

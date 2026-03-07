@@ -1,0 +1,23 @@
+<div class="card">
+  <img
+    class="card__img"
+    [src]="line().product?.image ?? ''"
+    [alt]="line().product?.title ?? 'Product'"
+  />
+
+  <div class="card__meta">
+    <h3 class="card__name">{{ line().product?.title ?? 'Loading...' }}</h3>
+    <span class="card__price">{{ (line().product?.price ?? 0) | currency: 'USD' }}</span>
+
+    <div class="card__row">
+      <ui-counter-pill
+        [value]="line().entry.qty"
+        [min]="1"
+        (decClick)="decClick.emit(line().entry.id)"
+        (incClick)="incClick.emit(line().entry.id)"
+      ></ui-counter-pill>
+    </div>
+  </div>
+
+  <cart-bin-button (removeClick)="removeClick.emit(line().entry.id)"></cart-bin-button>
+</div>

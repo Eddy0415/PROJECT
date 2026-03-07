@@ -1,0 +1,73 @@
+.summary {
+  position: sticky;
+  top: 84px;
+  padding: 24px;
+  border-radius: 16px;
+  border: 1px solid #f0f0f0;
+  background: #fff;
+
+  &__title {
+    margin: 0 0 16px;
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: #111;
+  }
+
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 0.9rem;
+    color: #444;
+
+    strong {
+      color: #111;
+      font-weight: 700;
+    }
+
+    &--total {
+      border-bottom: none;
+      padding-top: 14px;
+      font-size: 1rem;
+
+      strong {
+        font-size: 1.2rem;
+        font-weight: 900;
+      }
+    }
+  }
+
+  &__cta {
+    margin-top: 16px;
+
+    // override ui-button to be full width
+    ::ng-deep ui-button button {
+      width: 100%;
+      justify-content: center;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    // success state — green
+    ::ng-deep .btn--success ui-button button,
+    ::ng-deep ui-button.btn--success button {
+      background: #22a04a;
+      color: #fff;
+      pointer-events: none;
+    }
+
+    // loading state — muted
+    ::ng-deep ui-button.btn--loading button {
+      opacity: 0.75;
+      cursor: wait;
+    }
+  }
+
+  &__hint {
+    margin: 10px 0 0;
+    font-size: 0.75rem;
+    color: #999;
+    text-align: center;
+  }
+}

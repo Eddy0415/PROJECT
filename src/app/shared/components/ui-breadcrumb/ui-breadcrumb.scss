@@ -1,0 +1,27 @@
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+
+  &__item {
+    font-size: 0.85rem;
+    color: #888;
+    text-decoration: none;
+
+    &:hover:not(&--active) {
+      color: #111;
+    }
+
+    &--active {
+      color: #111;
+      font-weight: 500;
+      pointer-events: none;
+    }
+  }
+
+  &__sep {
+    font-size: 0.85rem;
+    color: #bbb;
+  }
+}

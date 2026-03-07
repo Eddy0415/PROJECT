@@ -1,23 +1,43 @@
-.banner {
-  margin: 0 0 14px; // spacing
-  padding: 12px 14px; // padding
-  border-radius: 14px; // rounded
-  font-weight: 700; // bold
-  background: #f6f6f6; // base
+.cart {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 18px;
 
-  &.ok {
-    background: #ecfff1; // greenish
-    border: 1px solid #b9f2c4; // border
+  &__title {
+    margin: 0 0 24px;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #111;
   }
 
-  &.err {
-    background: #fff1f1; // reddish
-    border: 1px solid #ffcccc; // border
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 24px;
+    align-items: start;
   }
-}
 
-.tinyHint {
-  margin: 10px 0 0; // spacing
-  font-size: 12px; // small
-  opacity: 0.7; // muted
+  &__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 48px 0;
+
+    p {
+      margin: 0;
+      font-size: 1rem;
+      color: #666;
+    }
+  }
+
+  &__error {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    background: #fff1f1;
+    border: 1px solid #ffcccc;
+    color: #c0392b;
+  }
 }

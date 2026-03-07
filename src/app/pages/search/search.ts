@@ -3,7 +3,7 @@ import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/c
 import { toSignal } from '@angular/core/rxjs-interop'; // observable -> signal                                         // why: router params
 import { ActivatedRoute, RouterLink } from '@angular/router'; // routing                                               // why: query param
 import { ProductsCatalogStore } from '../../shared/services/products-store'; // cached products                // why: global search
-import { ProductCardComponent } from '../../shared/components/product-card/product-card'; // product UI                // why: reuse UI
+import { ProductCardComponent } from '../../shared/components/visible-products/components/products-grid/components/product-card/product-card'; // product UI                // why: reuse UI
 
 @Component({
   selector: 'app-search', // page component                                                                           // why: routing

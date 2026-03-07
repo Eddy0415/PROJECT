@@ -1,83 +1,32 @@
 <section class="cart">
-  <div class="top">
-    <h1 class="title">My Cart</h1>
-    <p class="hint">{{ itemsCount() }} item(s)</p>
-  </div>
+  <ui-breadcrumb></ui-breadcrumb>
+  <h1 class="cart__title">Your cart</h1>
 
-  @if (orderSuccess()) {
-    <div class="banner ok">Order received ✅</div>
+  @if (!hasItems()) {
+    <div class="cart__empty">
+      <p>Your cart is empty.</p>
+      <ui-button [text]="'Shop Now'" [type]="'button'" (clicked)="goHome()"></ui-button>
+    </div>
+  } @else {
+    <div class="cart__grid">
+      <cart-table
+        [lines]="lines()"
+        (removeClick)="remove($event)"
+        (incClick)="inc($event)"
+        (decClick)="dec($event)"
+      ></cart-table>
+
+      <cart-order-summary
+        [subtotal]="subtotal()"
+        [canOrder]="canOrder()"
+        [placingOrder]="placingOrder()"
+        [orderSuccess]="orderSuccess()"
+        (checkout)="checkout()"
+      ></cart-order-summary>
+    </div>
   }
 
   @if (orderError()) {
-    <div class="banner err">{{ orderError() }}</div>
-  }
-
-  @if (!hasItems()) {
-    <div class="empty">
-      <h2>Your cart is empty</h2>
-      <p>Add some products first, then come back here.</p>
-      <a routerLink="/" class="back">Back to Home</a>
-    </div>
-  } @else {
-    <div class="grid">
-      <div class="items">
-        @for (line of lines(); track line.entry.id) {
-          <div class="item">
-            <img
-              class="img"
-              [src]="line.product?.image ?? ''"
-              [alt]="line.product?.title ?? 'Product'"
-            />
-
-            <div class="meta">
-              <h3 class="name">{{ line.product?.title ?? 'Loading...' }}</h3>
-              <p class="cat">{{ line.product?.category ?? '' }}</p>
-
-              <div class="row">
-                <span class="price">{{ line.product?.price ?? 0 | currency: 'USD' }}</span>
-
-                <ui-counter-pill
-                  [value]="line.entry.qty"
-                  [min]="1"
-                  (decClick)="dec(line.entry.id)"
-                  (incClick)="inc(line.entry.id)"
-                ></ui-counter-pill>
-              </div>
-            </div>
-
-            <div class="actions">
-              <cart-bin-button (removeClick)="remove(line.entry.id)"></cart-bin-button>
-            </div>
-          </div>
-        }
-      </div>
-
-      <aside class="summary">
-        <h2 class="summaryTitle">Order Summary</h2>
-
-        <div class="sumRow">
-          <span>Subtotal</span>
-          <strong>{{ subtotal() | currency: 'USD' }}</strong>
-        </div>
-
-        <div class="sumRow total">
-          <span>Total</span>
-          <strong>{{ subtotal() | currency: 'USD' }}</strong>
-        </div>
-
-        <div class="cta">
-          <ui-button
-            [text]="placingOrder() ? 'Ordering...' : 'Order'"
-            [type]="'button'"
-            [disabled]="!canOrder()"
-            (clicked)="checkout()"
-          ></ui-button>
-
-          @if (!placingOrder() && !canOrder() && !orderSuccess()) {
-            <p class="tinyHint">Login is required to order.</p>
-          }
-        </div>
-      </aside>
-    </div>
+    <div class="cart__error">{{ orderError() }}</div>
   }
 </section>

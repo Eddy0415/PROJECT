@@ -1,0 +1,10 @@
+<div class="table">
+  @for (line of lines(); track line.entry.id) {
+    <cart-product-card
+      [line]="line"
+      (removeClick)="removeClick.emit($event)"
+      (incClick)="incClick.emit($event)"
+      (decClick)="decClick.emit($event)"
+    ></cart-product-card>
+  }
+</div>

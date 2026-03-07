@@ -1,0 +1,37 @@
+<div class="card">
+  <div class="card__image">
+    <img [src]="product().image" [alt]="product().title" />
+  </div>
+
+  <div class="card__info">
+    <h1 class="card__title">{{ product().title }}</h1>
+
+    <div class="card__rating">
+      @for (star of stars(); track $index) {
+        <span class="star" [class.star--full]="star === 'full'" [class.star--half]="star === 'half'">
+          {{ star === 'empty' ? '☆' : '★' }}
+        </span>
+      }
+      <span class="card__rating-value">{{ product().rating?.rate }}/5</span>
+    </div>
+
+    <div class="card__price">
+      {{ product().price | currency: 'USD' }}
+    </div>
+
+    <p class="card__desc">{{ product().description }}</p>
+
+    <div class="card__divider"></div>
+
+    <div class="card__actions">
+      <ui-counter-pill
+        [value]="qty()"
+        [min]="1"
+        (decClick)="decQty.emit()"
+        (incClick)="incQty.emit()"
+      ></ui-counter-pill>
+
+      <ui-button [text]="'Add to Cart'" [type]="'button'" (clicked)="addToCart.emit()"></ui-button>
+    </div>
+  </div>
+</div>

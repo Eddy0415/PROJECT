@@ -1,7 +1,5 @@
 <div class="pill">
-  <button type="button" class="btn" [disabled]="value() <= min()" (click)="dec()">−</button>
-
-  <span class="qty">{{ value() }}</span>
-
-  <button type="button" class="btn" [disabled]="value() >= max()" (click)="inc()">+</button>
+  <counter-btn icon="remove" [disabled]="value() <= min()" (clicked)="dec()"></counter-btn>
+  <counter-value [value]="value()"></counter-value>
+  <counter-btn icon="add" [disabled]="value() >= max()" (clicked)="inc()"></counter-btn>
 </div>

@@ -1,100 +1,27 @@
 <div class="page">
-  @if (loadingProduct()) {
+  @if (loading()) {
     <div class="state">Loading product...</div>
-  } @else if (productError()) {
-    <div class="state error">{{ productError() }}</div>
+  } @else if (error()) {
+    <div class="state state--error">{{ error() }}</div>
+  } @else if (product()) {
+    <ui-breadcrumb></ui-breadcrumb>
+
+    <detail-product-card
+      [product]="product()!"
+      [qty]="qty()"
+      (decQty)="decQty()"
+      (incQty)="incQty()"
+      (addToCart)="addToCart()"
+    ></detail-product-card>
+
+    <section class="similar">
+      <h2 class="similar__title">You might also like</h2>
+      <visible-products
+        [filterCategory]="product()!.category"
+        [showToolbar]="false"
+      ></visible-products>
+    </section>
   } @else {
-    @if (product()) {
-      <div class="crumbs">
-        Home / Products / <span>{{ product()!.category }}</span>
-      </div>
-
-      <section class="top">
-        <div class="gallery">
-          <div class="thumbs">
-            <div class="thumb active">
-              <img [src]="product()!.image" [alt]="product()!.title" />
-            </div>
-            <div class="thumb">
-              <img [src]="product()!.image" [alt]="product()!.title" />
-            </div>
-            <div class="thumb">
-              <img [src]="product()!.image" [alt]="product()!.title" />
-            </div>
-          </div>
-
-          <div class="main">
-            <img [src]="product()!.image" [alt]="product()!.title" />
-          </div>
-        </div>
-
-        <div class="info">
-          <h1 class="title">{{ product()!.title }}</h1>
-
-          <div class="meta">
-            <span class="rating">★ ★ ★ ★ ☆</span>
-            <span class="cat">{{ product()!.category }}</span>
-          </div>
-
-          <div class="priceRow">
-            <div class="price">{{ product()!.price | currency }}</div>
-            <div class="old">{{ product()!.price * 1.2 | currency }}</div>
-            <div class="badge">-20%</div>
-          </div>
-
-          <p class="desc">{{ product()!.description }}</p>
-
-          <div class="divider"></div>
-
-          <div class="pick">
-            <div class="label">Select Colors</div>
-            <div class="colors">
-              <button class="dot a" type="button"></button>
-              <button class="dot b" type="button"></button>
-              <button class="dot c" type="button"></button>
-            </div>
-          </div>
-
-          <div class="pick">
-            <div class="label">Choose Size</div>
-            <div class="sizes">
-              <button class="pill" type="button">Small</button>
-              <button class="pill active" type="button">Medium</button>
-              <button class="pill" type="button">Large</button>
-              <button class="pill" type="button">X-Large</button>
-            </div>
-          </div>
-
-          <div class="actions">
-            <ui-counter-pill
-              [value]="qty()"
-              [min]="1"
-              (decClick)="decQty()"
-              (incClick)="incQty()"
-            ></ui-counter-pill>
-
-            <ui-button [text]="'Add to Cart'" [type]="'button'" (clicked)="addToCart()"></ui-button>
-          </div>
-        </div>
-      </section>
-
-      <section class="related">
-        <h2>You might also like</h2>
-
-        @if (loadingRelated()) {
-          <div class="state">Loading related products...</div>
-        } @else if (relatedError()) {
-          <div class="state error">{{ relatedError() }}</div>
-        } @else {
-          <div class="grid">
-            @for (rp of relatedProducts(); track rp.id) {
-              <app-product-card [product]="rp"></app-product-card>
-            }
-          </div>
-        }
-      </section>
-    } @else {
-      <div class="state error">Product not found.</div>
-    }
+    <div class="state state--error">Product not found.</div>
   }
 </div>

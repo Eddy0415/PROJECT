@@ -4,28 +4,8 @@
 }
 
 .products {
-  display: grid;
-  gap: 14px;
   padding: 0 18px;
   max-width: 1500px;
   margin: 0 auto;
   width: 100%;
-
-  .state {
-    padding: 18px;
-    border: 1px solid #eee;
-    border-radius: 14px;
-    background: #fff;
-
-    &.error {
-      border-color: #ffd2d2;
-      background: #fff5f5;
-    }
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 20px;
-  }
 }

@@ -1,0 +1,16 @@
+.visible-products {
+  display: grid;
+  gap: 14px;
+}
+
+.state {
+  padding: 18px;
+  border: 1px solid #eee;
+  border-radius: 14px;
+  background: #fff;
+
+  &--error {
+    border-color: #ffd2d2;
+    background: #fff5f5;
+  }
+}

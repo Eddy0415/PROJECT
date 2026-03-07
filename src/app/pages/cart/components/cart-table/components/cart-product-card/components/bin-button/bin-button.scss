@@ -1,0 +1,20 @@
+.bin {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  .material-icons {
+    font-size: 18px;
+    color: #e53e3e;
+  }
+
+  &:hover {
+    background: #fff1f1;
+  }
+}

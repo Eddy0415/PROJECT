@@ -2,24 +2,6 @@
   <app-hero-carousel></app-hero-carousel>
 
   <section class="products">
-    <app-products-toolbar
-      [categories]="categories()"
-      [selectedCategory]="selectedCategory()"
-      [sortMode]="sortMode()"
-      (selectedCategoryChange)="setCategory($event)"
-      (sortModeChange)="setSortMode($event)"
-    ></app-products-toolbar>
-
-    @if (loading()) {
-      <div class="state">Loading products...</div>
-    } @else if (error()) {
-      <div class="state error">{{ error() }}</div>
-    } @else {
-      <div class="grid">
-        @for (p of visibleProducts(); track p.id) {
-          <app-product-card [product]="p"></app-product-card>
-        }
-      </div>
-    }
+    <visible-products></visible-products>
   </section>
 </div>

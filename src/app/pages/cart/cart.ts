@@ -1,76 +1,83 @@
-import { CommonModule, CurrencyPipe } from '@angular/common'; // common + pipe
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core'; // signals + DI
-import { Router, RouterLink } from '@angular/router'; // ✅ router for redirect
-import { firstValueFrom } from 'rxjs'; // ✅ promise bridge (no subscriptions)
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
 
-import { CartStore } from '../../shared/services/cart.store'; // cart state
-import { OrdersService } from '../../shared/services/orders'; // ✅ order api
-import { AuthService } from '../../core/auth/auth-service'; // ✅ auth state
-import { UiButton } from '../../shared/components/ui-button/ui-button'; // button
-import { UiCounterPill } from '../../shared/components/ui-counter-pill/ui-counter-pill'; // pill
-import { CartBinButton } from './components/bin-button/bin-button'; // bin
+import { CartStore } from '../../shared/services/cart.store';
+import { OrdersService } from '../../shared/services/orders';
+import { AuthService } from '../../core/auth/auth-service';
+import { UiButton } from '../../shared/components/ui-button/ui-button';
+import { UiBreadcrumb } from '../../shared/components/ui-breadcrumb/ui-breadcrumb';
+import { CartTable } from './components/cart-table/cart-table';
+import { OrderSummary } from './components/order-summary/order-summary';
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [CommonModule, RouterLink, CurrencyPipe, UiButton, UiCounterPill, CartBinButton],
+  imports: [UiButton, UiBreadcrumb, CartTable, OrderSummary],
   templateUrl: './cart.html',
   styleUrl: './cart.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CartPage {
-  private readonly router = inject(Router); // DI router
-  private readonly auth = inject(AuthService); // DI auth
-  private readonly orders = inject(OrdersService); // DI orders
+  private readonly router = inject(Router);
+  private readonly auth = inject(AuthService);
+  private readonly orders = inject(OrdersService);
+  private readonly cart = inject(CartStore);
 
-  readonly cart = inject(CartStore); // DI cart store
-  readonly lines = this.cart.cartLines; // view model
-  readonly subtotal = this.cart.subtotal; // totals
-  readonly itemsCount = this.cart.totalItems; // badge
-  readonly hasItems = computed(() => this.cart.entries().length > 0); // empty check
+  readonly lines = this.cart.cartLines;
+  readonly subtotal = this.cart.subtotal;
+  readonly hasItems = computed(() => this.cart.entries().length > 0);
 
-  readonly placingOrder = signal(false); // ui loading
-  readonly orderSuccess = signal(false); // ui success banner
-  readonly orderError = signal<string | null>(null); // ui error banner
+  readonly placingOrder = signal(false);
+  readonly orderSuccess = signal(false);
+  readonly orderError = signal<string | null>(null);
 
   readonly canOrder = computed(
     () => this.hasItems() && this.auth.isAuthenticated() && !this.placingOrder(),
-  ); // button state
+  );
+
+  goHome(): void {
+    this.router.navigate(['/']);
+  }
 
   remove(id: number): void {
-    this.cart.remove(id); // drop line
+    this.cart.remove(id);
   }
 
   inc(id: number): void {
-    this.cart.inc(id); // +1
+    this.cart.inc(id);
   }
 
   dec(id: number): void {
-    this.cart.dec(id); // -1 (min 1 in store)
+    this.cart.dec(id);
   }
 
   async checkout(): Promise<void> {
-    this.orderSuccess.set(false); // reset success
-    this.orderError.set(null); // reset error
+    this.orderError.set(null);
 
     if (!this.auth.isAuthenticated()) {
-      this.router.navigate(['/login'], { queryParams: { returnUrl: '/cart' } }); // ✅ force login
-      return; // stop
+      this.router.navigate(['/login'], { queryParams: { returnUrl: '/cart' } });
+      return;
     }
 
-    if (!this.hasItems()) return; // guard
+    if (!this.hasItems()) return;
 
-    this.placingOrder.set(true); // start loading
+    this.placingOrder.set(true);
 
     try {
-      const entries = this.cart.entries(); // current entries snapshot
-      await firstValueFrom(this.orders.createCartOrder({ userId: 1, entries })); // ✅ POST /carts (FakeStore)
-      this.cart.clear(); // ✅ empty cart after success
-      this.orderSuccess.set(true); // ✅ show "order received"
+      const entries = this.cart.entries();
+      await firstValueFrom(this.orders.createCartOrder({ userId: 1, entries }));
+      this.orderSuccess.set(true);
+
+      // redirect home after 2.5s so user can read the success label
+      setTimeout(() => {
+        this.cart.clear();
+        this.router.navigate(['/']);
+      }, 2500);
     } catch {
-      this.orderError.set('Order failed. Please try again.'); // show error
+      this.orderError.set('Order failed. Please try again.');
     } finally {
-      this.placingOrder.set(false); // stop loading
+      this.placingOrder.set(false);
     }
   }
 }

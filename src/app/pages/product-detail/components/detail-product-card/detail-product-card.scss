@@ -1,0 +1,90 @@
+.card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+
+  &__image {
+    border: 1px solid #eee;
+    border-radius: 18px;
+    background: #f7f7f7;
+    height: 520px;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+
+    img {
+      max-height: 480px;
+      max-width: 100%;
+      object-fit: contain;
+    }
+  }
+
+  &__info {
+    display: grid;
+    gap: 14px;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 900;
+    line-height: 1.15;
+    color: #111;
+  }
+
+  &__rating {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__rating-value {
+    margin-left: 6px;
+    font-size: 0.85rem;
+    color: #888;
+  }
+
+  &__price {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: #111;
+  }
+
+  &__desc {
+    margin: 0;
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+
+  &__divider {
+    height: 1px;
+    background: #eee;
+  }
+
+  &__actions {
+  display: flex;
+  gap: 8px;
+  align-items: stretch;
+
+  ui-counter-pill {
+    display: flex;
+    align-items: center;
+  }
+
+  ::ng-deep ui-button button {
+    height: 100%;
+  }
+}
+}
+
+.star {
+  color: #ddd;
+  font-size: 1rem;
+
+  &--full,
+  &--half {
+    color: #f5a623;
+  }
+}
