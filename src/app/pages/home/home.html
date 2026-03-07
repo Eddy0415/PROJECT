@@ -2,17 +2,13 @@
   <app-hero-carousel></app-hero-carousel>
 
   <section class="products">
-    <div class="products-bar">
-      <h2>Products</h2>
-      <app-products-toolbar
-        class="toolbar"
-        [categories]="categories()"
-        [selectedCategory]="selectedCategory()"
-        [sortMode]="sortMode()"
-        (selectedCategoryChange)="setCategory($event)"
-        (sortModeChange)="setSortMode($event)"
-      ></app-products-toolbar>
-    </div>
+    <app-products-toolbar
+      [categories]="categories()"
+      [selectedCategory]="selectedCategory()"
+      [sortMode]="sortMode()"
+      (selectedCategoryChange)="setCategory($event)"
+      (sortModeChange)="setSortMode($event)"
+    ></app-products-toolbar>
 
     @if (loading()) {
       <div class="state">Loading products...</div>

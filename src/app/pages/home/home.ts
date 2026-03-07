@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, computed, inject, signal } from '@angular/core';
-
+import { IProduct } from '../../shared/interfaces/product';
 import { HeroCarouselComponent } from './components/hero-carousel/hero-carousel';
 import { ProductsToolbar, HomeSortMode } from './components/products-toolbar/products-toolbar';
 import { ProductCardComponent } from '../../shared/components/product-card/product-card';
@@ -31,11 +31,12 @@ export class HomeComponent {
     const filtered = cat ? list.filter((p) => p.category === cat) : list;
 
     const mode = this.sortMode();
-    if (mode === 'priceAsc') return filtered.sort((a, b) => a.price - b.price);
-    if (mode === 'priceDesc') return filtered.sort((a, b) => b.price - a.price);
-    if (mode === 'categoryAz') return filtered.sort((a, b) => a.category.localeCompare(b.category));
+    if (mode === 'priceAsc') return filtered.sort((a: IProduct, b: IProduct) => a.price - b.price);
+    if (mode === 'priceDesc') return filtered.sort((a: IProduct, b: IProduct) => b.price - a.price);
+    if (mode === 'categoryAz')
+      return filtered.sort((a: IProduct, b: IProduct) => a.category.localeCompare(b.category));
 
-    return filtered.sort((a, b) => {
+    return filtered.sort((a: IProduct, b: IProduct) => {
       const ac = a.rating?.count ?? 0;
       const bc = b.rating?.count ?? 0;
       if (bc !== ac) return bc - ac;

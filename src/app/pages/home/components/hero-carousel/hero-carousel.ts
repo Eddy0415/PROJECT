@@ -39,18 +39,4 @@ export class HeroCarouselComponent {
       this.timerId = null;
     }
   }
-
-  prev(): void {
-    const len = this.slides().length;
-    this.active.update((i) => (i - 1 + len) % len);
-  }
-
-  next(): void {
-    const len = this.slides().length;
-    this.active.update((i) => (i + 1) % len);
-  }
-
-  goTo(i: number): void {
-    this.active.set(i);
-  }
 }

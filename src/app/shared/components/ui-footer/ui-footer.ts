@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { NavService } from '../../services/nav.service';
-import { NavbarLogo } from '../ui-navbar/components/navbar-logo/navbar-logo';
+import { Logo } from '../logo/logo';
 import { FooterSocials } from './components/footer-socials/footer-socials';
 import { FooterSupport } from './components/footer-support/footer-support';
 import { FooterLinkCol, FooterLink } from './components/footer-link-col/footer-link-col';
@@ -9,7 +9,7 @@ import { FooterBottom } from './components/footer-bottom/footer-bottom';
 @Component({
   selector: 'ui-footer',
   standalone: true,
-  imports: [NavbarLogo, FooterSocials, FooterSupport, FooterLinkCol, FooterBottom],
+  imports: [Logo, FooterSocials, FooterSupport, FooterLinkCol, FooterBottom],
   templateUrl: './ui-footer.html',
   styleUrl: './ui-footer.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

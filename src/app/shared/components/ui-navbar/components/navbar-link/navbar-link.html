@@ -1,3 +1,5 @@
-<a class="link" [href]="href() || 'javascript:void(0)'" [attr.routerLink]="routerLink() || null" (click)="handleClick()">
-  {{ label() }}
-</a>
+@if (routerLink()) {
+  <a class="link" [routerLink]="routerLink()">{{ label() }}</a>
+} @else {
+  <a class="link" type="button" (click)="handleClick()">{{ label() }}</a>
+}

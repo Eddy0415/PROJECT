@@ -1,20 +1,24 @@
-<div class="bar">
-  <div class="categories">
-    @for (c of categoryOptions(); track c) {
-      <ui-pill
-        [label]="c"
-        [active]="(selectedCategory() ?? 'All') === c"
-        (clicked)="onCategoryChange(c)"
-      ></ui-pill>
-    }
-  </div>
+<div class="toolbar">
+  <h2 class="toolbar__title">Products</h2>
 
-  <div class="sort">
-    <select class="select" [value]="sortMode()" (change)="onSortChange($any($event.target).value)">
-      <option value="best">Best Selling</option>
-      <option value="priceAsc">Price: Low → High</option>
-      <option value="priceDesc">Price: High → Low</option>
-      <option value="categoryAz">Category: A → Z</option>
-    </select>
+  <div class="toolbar__controls">
+    <div class="categories">
+      @for (c of categoryOptions(); track c) {
+        <ui-pill
+          [label]="c"
+          [active]="(selectedCategory() ?? 'All') === c"
+          (clicked)="onCategoryChange(c)"
+        ></ui-pill>
+      }
+    </div>
+
+    <div class="sort">
+      <select class="select" [value]="sortMode()" (change)="onSortChange($any($event.target).value)">
+        <option value="best">Best Selling</option>
+        <option value="priceAsc">Price: Low → High</option>
+        <option value="priceDesc">Price: High → Low</option>
+        <option value="categoryAz">Category: A → Z</option>
+      </select>
+    </div>
   </div>
 </div>
