@@ -1,12 +1,13 @@
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-import { UiPill } from '../../../../shared/components/ui-pill/ui-pill';
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { ToolbarCategories } from './components/toolbar-categories/toolbar-categories';
+import { ToolbarSelect } from './components/toolbar-select/toolbar-select';
 
 export type HomeSortMode = 'best' | 'priceAsc' | 'priceDesc' | 'categoryAz';
 
 @Component({
   selector: 'app-products-toolbar',
   standalone: true,
-  imports: [UiPill],
+  imports: [ToolbarCategories, ToolbarSelect],
   templateUrl: './products-toolbar.html',
   styleUrl: './products-toolbar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,14 +19,4 @@ export class ProductsToolbar {
 
   readonly selectedCategoryChange = output<string | null>();
   readonly sortModeChange = output<HomeSortMode>();
-
-  readonly categoryOptions = computed(() => ['All', ...this.categories()]);
-
-  onSortChange(value: string): void {
-    this.sortModeChange.emit(value as HomeSortMode);
-  }
-
-  onCategoryChange(value: string): void {
-    this.selectedCategoryChange.emit(value === 'All' ? null : value);
-  }
 }
