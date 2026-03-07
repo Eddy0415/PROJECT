@@ -1,0 +1,11 @@
+<div class="search">
+  <span class="search__icon material-icons">search</span>
+  <input
+    class="search__input"
+    type="text"
+    [value]="searchText()"
+    (input)="onInput($any($event.target).value)"
+    (keydown.enter)="onSubmit()"
+    placeholder="Search for products..."
+  />
+</div>

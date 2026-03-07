@@ -1,47 +1,20 @@
 <header class="nav">
   <div class="inner">
-    <a class="logo" (click)="nav.goHome()" href="javascript:void(0)">Item Store</a>
 
-    <div class="search">
-      <span class="search__icon material-icons">search</span>
-      <input
-        class="search__input"
-        type="text"
-        [value]="searchText()"
-        (input)="onSearchInput($any($event.target).value)"
-        (keydown.enter)="submitSearch()"
-        placeholder="Search for products..."
-      />
-    </div>
+    <navbar-logo></navbar-logo>
+
+    <navbar-search></navbar-search>
 
     <nav class="links">
-      <a class="links__item" (click)="nav.goProducts()" href="javascript:void(0)">Products</a>
-      <a class="links__item" [routerLink]="['/about']">About Us</a>
-      <a class="links__item" (click)="nav.goContact()" href="javascript:void(0)">Contact Us</a>
+      <navbar-link label="Products" (clicked)="nav.goProducts()"></navbar-link>
+      <navbar-link label="About Us" routerLink="/about"></navbar-link>
+      <navbar-link label="Contact Us" (clicked)="nav.goContact()"></navbar-link>
     </nav>
 
     <div class="actions">
-      <a class="actions__cart" [routerLink]="['/cart']" aria-label="Cart">
-        <span class="material-icons">shopping_cart</span>
-        @if (cartCount() > 0) {
-          <span class="actions__badge">{{ cartCount() }}</span>
-        }
-      </a>
-
-      @if (!isAuthenticated()) {
-        <ui-button [text]="'Log in'" [type]="'button'" [routerLink]="['/login']"></ui-button>
-      } @else {
-        <button class="actions__profile" type="button" (click)="goProfile()" aria-label="Profile">
-          <span class="material-icons actions__profile-icon">account_circle</span>
-          @if (currentUser()?.imageUrl) {
-            <img class="actions__avatar" [src]="currentUser()?.imageUrl!" alt="Profile" />
-          } @else {
-            <span class="actions__initials">
-              {{ (currentUser()?.firstName?.[0] ?? 'U') + (currentUser()?.lastName?.[0] ?? '') }}
-            </span>
-          }
-        </button>
-      }
+      <navbar-cart></navbar-cart>
+      <navbar-pfp></navbar-pfp>
     </div>
+
   </div>
 </header>
