@@ -1,53 +1,84 @@
-.card { // card container                                                                                                 // why: clickable card
-  border: 1px solid #eee; // light border                                                                                 // why: style
-  border-radius: 14px; // rounded corners                                                                                 // why: design
-  padding: 12px; // inner spacing                                                                                          // why: spacing
-  background: #fff; // white background                                                                                    // why: clean
-  display: grid; // simple layout                                                                                          // why: layout
-  gap: 10px; // spacing between sections                                                                                   // why: spacing
-  text-decoration: none; // remove link underline                                                                          // why: anchor
-  color: inherit; // keep text color                                                                                       // why: anchor
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+  width: 100%;
+  max-width: 220px;
+  transition: transform 0.15s ease;
 
-  &:hover { // hover state                                                                                                 // why: UX
-    border-color: #ddd; // subtle highlight                                                                                // why: feedback
+  &:hover {
+    transform: translateY(-2px);
+  }
+}
+
+.img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: #f4f4f4;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 16px;
+  }
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 0 4px 8px;
+}
+
+.title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #111;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+
+  &__score {
+    font-size: 0.78rem;
+    color: #666;
+    margin-left: 4px;
+  }
+}
+
+.star {
+  font-size: 14px;
+  color: #d1d1d1;
+
+  &.full {
+    color: #f5a623;
   }
 
-  .img { // image wrapper                                                                                                  // why: image area
-    height: 170px; // fixed height                                                                                         // why: consistent grid
-    border-radius: 12px; // rounded wrapper                                                                                // why: design
-    background: #f7f7f7; // soft background                                                                                // why: placeholder
-    display: grid; // center image                                                                                         // why: alignment
-    place-items: center; // center image                                                                                   // why: alignment
-    overflow: hidden; // crop overflow                                                                                     // why: neat
-    img { // product image                                                                                                 // why: img fit
-      max-height: 160px; // keep inside                                                                                    // why: fit
-      max-width: 100%; // keep inside                                                                                      // why: fit
-      object-fit: contain; // show full image                                                                              // why: ecommerce look
-    }
-
+  &.half {
+    color: #f5a623;
   }
+}
 
-  .body { // info area                                                                                                     // why: content
-    display: grid; // vertical layout                                                                                      // why: layout
-    gap: 8px; // spacing                                                                                                   // why: spacing
-    .title { // product title                                                                                              // why: typography
-      font-weight: 700; // bold                                                                                             // why: emphasis
-      font-size: 14px; // size                                                                                              // why: UI
-      line-height: 1.2; // tight                                                                                            // why: clamp
-      height: 34px; // clamp height                                                                                         // why: consistent cards
-      overflow: hidden; // hide overflow                                                                                    // why: clamp
-    }
-    .row { // category + price row                                                                                          // why: layout
-      display: flex; // horizontal                                                                                          // why: split
-      justify-content: space-between; // split                                                                              // why: layout
-      align-items: center; // align center                                                                                  // why: polish
-      font-size: 13px; // small text                                                                                        // why: UI
-      .cat { // category                                                                                                    // why: style
-        opacity: 0.7; // subtle                                                                                             // why: hierarchy
-      }
-      .price { // price                                                                                                     // why: emphasis
-        font-weight: 800; // strong                                                                                         // why: hierarchy
-      }
-    }
-  }
+.price {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #111;
 }

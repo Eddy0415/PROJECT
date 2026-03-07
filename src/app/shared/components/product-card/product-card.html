@@ -1,6 +1,4 @@
 <a class="card" [routerLink]="['/products', product().id]">
-  <!-- navigate to details -->
-  <!-- why: click routes to /products/:id -->
   <div class="img">
     <img [src]="product().image" [alt]="product().title" />
   </div>
@@ -8,9 +6,17 @@
   <div class="body">
     <div class="title" title="{{ product().title }}">{{ product().title }}</div>
 
-    <div class="row">
-      <span class="cat">{{ product().category }}</span>
-      <span class="price">{{ product().price | currency }}</span>
-    </div>
+    @if (product().rating) {
+      <div class="rating">
+        @for (s of stars(); track $index) {
+          <span class="star" [class.full]="s === 'full'" [class.half]="s === 'half'">
+            {{ s === 'full' ? '★' : s === 'half' ? '½' : '☆' }}
+          </span>
+        }
+        <span class="rating__score">{{ product().rating!.rate }}/5</span>
+      </div>
+    }
+
+    <div class="price">${{ product().price }}</div>
   </div>
 </a>

@@ -1,15 +1,23 @@
-import { Component, input } from '@angular/core'; // component + signal input                                             // why: rules
-import { CommonModule, CurrencyPipe } from '@angular/common'; // common + pipe                                            // why: template uses currency
-import { RouterLink } from '@angular/router'; // routerLink directive                                                     // why: navigation
-import { IProduct } from '../../interfaces/product'; // interface                                                          // why: typing
+import { Component, computed, input } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { IProduct } from '../../interfaces/product';
 
 @Component({
-  selector: 'app-product-card', // selector                                                                              // why: shared card
-  standalone: true, // standalone                                                                                        // why: rules
-  imports: [CommonModule, CurrencyPipe, RouterLink], // add RouterLink                                                   // why: clickable routing
-  templateUrl: './product-card.html', // html                                                                            // why: split
-  styleUrl: './product-card.scss', // scss                                                                               // why: rules
+  selector: 'app-product-card',
+  standalone: true,
+  imports: [RouterLink],
+  templateUrl: './product-card.html',
+  styleUrl: './product-card.scss',
 })
 export class ProductCardComponent {
-  product = input.required<IProduct>(); // required signal input                                                         // why: rules
+  product = input.required<IProduct>();
+
+  readonly stars = computed(() => {
+    const rate = this.product().rating?.rate ?? 0;
+    return Array.from({ length: 5 }, (_, i) => {
+      if (rate >= i + 1) return 'full';
+      if (rate >= i + 0.5) return 'half';
+      return 'empty';
+    });
+  });
 }
