@@ -10,8 +10,5 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   if (auth.isAuthenticated()) return true; // allow route                                 // why: logged in
 
-  return router.createUrlTree(['/login'], {
-    // redirect to login                           // why: block access
-    queryParams: { returnUrl: state.url }, // remember where user wanted to go             // why: better UX
-  });
+  return router.createUrlTree([{ outlets: { modal: ['login'] } }]);
 };

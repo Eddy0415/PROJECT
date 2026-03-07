@@ -1,71 +1,31 @@
 <ui-modal [imageUrl]="'/hero/1.jpg'">
   <form class="auth" [formGroup]="form" (ngSubmit)="submit()">
-    <h2 class="title">Sign Up</h2>
+    <h2 class="auth__title">Sign Up</h2>
 
-    <div class="fields">
-      <div class="row2">
-        <ui-input
-          [control]="form.controls.firstName"
-          [submitted]="submitted()"
-          [placeholder]="'First Name'"
-          [type]="'text'"
-          [icon]="'user'"
-        ></ui-input>
-
-        <ui-input
-          [control]="form.controls.lastName"
-          [submitted]="submitted()"
-          [placeholder]="'Last Name'"
-          [type]="'text'"
-          [icon]="'user'"
-        ></ui-input>
+    <div class="auth__fields">
+      <div class="auth__row2">
+        <ui-input [control]="form.controls.firstName" [submitted]="submitted()" [placeholder]="'Full Name'" [type]="'text'" [icon]="'user'"></ui-input>
+        <ui-input [control]="form.controls.username" [submitted]="submitted()" [placeholder]="'Username'" [type]="'text'" [icon]="'user'"></ui-input>
       </div>
 
-      <ui-input
-        [control]="form.controls.username"
-        [submitted]="submitted()"
-        [placeholder]="'Username'"
-        [type]="'text'"
-        [icon]="'user'"
-      ></ui-input>
+      <ui-input [control]="form.controls.email" [submitted]="submitted()" [placeholder]="'Email Address'" [type]="'email'" [icon]="'mail'"></ui-input>
 
-      <ui-input
-        [control]="form.controls.email"
-        [submitted]="submitted()"
-        [placeholder]="'Email Address'"
-        [type]="'email'"
-        [icon]="'mail'"
-      ></ui-input>
-
-      <div class="row2">
-        <ui-input
-          [control]="form.controls.password"
-          [submitted]="submitted()"
-          [placeholder]="'Password'"
-          [type]="'password'"
-          [icon]="'lock'"
-        ></ui-input>
-
-        <ui-input
-          [control]="form.controls.confirmPassword"
-          [submitted]="submitted()"
-          [placeholder]="'Confirm Password'"
-          [type]="'password'"
-          [icon]="'lock'"
-        ></ui-input>
+      <div class="auth__row2">
+        <ui-input [control]="form.controls.password" [submitted]="submitted()" [placeholder]="'Password'" [type]="'password'" [icon]="'lock'"></ui-input>
+        <ui-input [control]="form.controls.confirmPassword" [submitted]="submitted()" [placeholder]="'Confirm Password'" [type]="'password'" [icon]="'lock'"></ui-input>
       </div>
     </div>
 
-    <div class="actions">
-      @if (apiError()) {
-        <p class="error">{{ apiError() }}</p>
-      }
+    @if (apiError()) {
+      <p class="auth__error">{{ apiError() }}</p>
+    }
 
+    <div class="auth__actions">
       <ui-button [text]="'Create Account'" [type]="'submit'"></ui-button>
 
-      <p class="hint">
+      <p class="auth__hint">
         Already have an account?
-        <a routerLink="/login" class="link">Login</a>
+        <a class="auth__link" (click)="goLogin()" href="javascript:void(0)">Login</a>
       </p>
     </div>
   </form>

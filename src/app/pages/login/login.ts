@@ -5,15 +5,14 @@ import {
   effect,
   inject,
   signal,
-} from '@angular/core'; // signals + effect
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'; // typed reactive forms
-import { Router, RouterLink } from '@angular/router'; // navigation
-import { firstValueFrom } from 'rxjs'; // convert Observable -> Promise (no manual subscribe)
-import { AuthService } from '../../core/auth/auth-service'; // auth logic
-import { IAuthError } from '../../core/auth/Interfaces/AuthError'; // typed backend error
-import { UiModal } from '../../shared/components/ui-modal/ui-modal'; // modal shell
-import { UiInput } from '../../shared/components/ui-input/ui-input'; // shared input
-import { UiButton } from '../../shared/components/ui-button/ui-button'; // shared button
+} from '@angular/core';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { AuthService } from '../../core/auth/auth-service';
+import { UiModal } from '../../shared/components/ui-modal/ui-modal';
+import { UiInput } from '../../shared/components/ui-input/ui-input';
+import { UiButton } from '../../shared/components/ui-button/ui-button';
 
 type LoginFormModel = {
   email: FormControl<string>;
@@ -23,61 +22,53 @@ type LoginFormModel = {
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink, UiModal, UiInput, UiButton],
+  imports: [ReactiveFormsModule, UiModal, UiInput, UiButton],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Login {
-  private readonly fb = inject(FormBuilder); // DI via inject()
-  private readonly auth = inject(AuthService); // auth service
-  private readonly router = inject(Router); // router
-  readonly isSubmitting = signal(false); // UI loading state
-  readonly apiError = signal<string | null>(null); // UI error message (string for template)
+  private readonly fb = inject(FormBuilder);
+  private readonly auth = inject(AuthService);
+  private readonly router = inject(Router);
+
+  readonly isSubmitting = signal(false);
+  readonly apiError = signal<string | null>(null);
 
   readonly form = this.fb.nonNullable.group<LoginFormModel>({
-    email: this.fb.nonNullable.control('', { validators: [Validators.required] }), // required
-    password: this.fb.nonNullable.control('', { validators: [Validators.required] }), // required
+    email: this.fb.nonNullable.control('', { validators: [Validators.required] }),
+    password: this.fb.nonNullable.control('', { validators: [Validators.required] }),
   });
 
-  readonly canSubmit = computed(() => this.form.valid && !this.isSubmitting()); // enable/disable logic
+  readonly canSubmit = computed(() => this.form.valid && !this.isSubmitting());
 
   constructor() {
     effect(() => {
-      // react to auth state
       if (this.auth.isAuthenticated()) {
-        // already logged in
-        this.router.navigateByUrl('/'); // send home
+        this.router.navigate([{ outlets: { modal: null } }]);
       }
-    }); // single effect (no lifecycle hooks)
+    });
+  }
+
+  goSignup(): void {
+    this.router.navigate([{ outlets: { modal: ['signup'] } }]);
   }
 
   async submit(): Promise<void> {
-    // called by ngSubmit
-    this.apiError.set(null); // clear error
-
-    if (this.isSubmitting()) return; // avoid double submit
+    this.apiError.set(null);
+    if (this.isSubmitting()) return;
     if (this.form.invalid) {
-      // mark for UI errors
-      this.form.markAllAsTouched(); // show validation
-      return; // stop
+      this.form.markAllAsTouched();
+      return;
     }
-
-    this.isSubmitting.set(true); // start loading
-
+    this.isSubmitting.set(true);
     try {
-      await firstValueFrom(this.auth.login(this.form.getRawValue())); // call login (no subscribe)
-      await this.router.navigateByUrl('/'); // success -> home
-    } catch (err: unknown) {
-      const { message } = this.parseLoginError(err); // map backend error
-      this.apiError.set(message); // show message
+      await firstValueFrom(this.auth.login(this.form.getRawValue()));
+      this.router.navigate([{ outlets: { modal: null } }]);
+    } catch {
+      this.apiError.set('Login failed. Please try again.');
     } finally {
-      this.isSubmitting.set(false); // stop loading
+      this.isSubmitting.set(false);
     }
-  }
-
-  private parseLoginError(err: unknown): { message: string } {
-    const msg = 'Login failed. Please try again.'; // fallback
-    return { message: msg };
   }
 }

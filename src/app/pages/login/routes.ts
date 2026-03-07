@@ -1,6 +1,6 @@
-import { Routes } from '@angular/router'; // routes type
-import { Login } from './login'; // standalone page
+import { Routes } from '@angular/router';
+import { Login } from './login';
 
 export const LOGIN_ROUTES: Routes = [
-  { path: '', component: Login }, // /login
+  { path: '', component: Login, outlet: 'modal' },
 ];

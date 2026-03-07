@@ -1,5 +1,5 @@
 @if (!isAuthenticated()) {
-  <ui-button [text]="'Log in'" [type]="'button'" routerLink="/login"></ui-button>
+  <ui-button [text]="'Log in'" [type]="'button'" (click)="openLogin()"></ui-button>
 } @else {
   <button class="pfp" type="button" (click)="goProfile()" aria-label="Profile">
     <span class="material-icons pfp__icon">account_circle</span>

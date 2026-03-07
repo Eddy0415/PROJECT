@@ -1,10 +1,11 @@
 <ui-modal [imageUrl]="'/hero/1.jpg'">
   <form class="auth" [formGroup]="form" (ngSubmit)="submit()">
-    <h2 class="title">Log in</h2>
-    <div class="fields">
+    <h2 class="auth__title">Log in</h2>
+
+    <div class="auth__fields">
       <ui-input
         [control]="form.controls.email"
-        [placeholder]="'Email'"
+        [placeholder]="'Username'"
         [type]="'text'"
         [icon]="'user'"
       ></ui-input>
@@ -18,17 +19,15 @@
     </div>
 
     @if (apiError()) {
-      <p class="error">
-        {{ apiError() }}
-      </p>
+      <p class="auth__error">{{ apiError() }}</p>
     }
 
-    <div class="actions">
+    <div class="auth__actions">
       <ui-button [text]="'Log in'" [type]="'submit'"></ui-button>
 
-      <p class="hint">
-        Don’t have an account?
-        <a routerLink="/signup" class="link">Sign up</a>
+      <p class="auth__hint">
+        Don't have an account?
+        <a class="auth__link" (click)="goSignup()" href="javascript:void(0)">Sign up</a>
       </p>
     </div>
   </form>

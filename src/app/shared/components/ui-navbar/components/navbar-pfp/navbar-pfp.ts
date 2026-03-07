@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Router} from '@angular/router';
 import { AuthService } from '../../../../../core/auth/auth-service';
 import { UiButton } from '../../../ui-button/ui-button';
 
 @Component({
   selector: 'navbar-pfp',
   standalone: true,
-  imports: [RouterLink, UiButton],
+  imports: [UiButton],
   templateUrl: './navbar-pfp.html',
   styleUrl: './navbar-pfp.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,5 +20,8 @@ export class NavbarPfp {
 
   goProfile(): void {
     this.router.navigate(['/profile']);
+  }
+  openLogin(): void {
+    this.router.navigate([{ outlets: { modal: ['login'] } }]);
   }
 }

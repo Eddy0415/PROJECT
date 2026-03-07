@@ -1,18 +1,40 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core'; // standalone + signal inputs
-import { ReactiveFormsModule, FormControl } from '@angular/forms'; // typed reactive forms
+import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';
+import { ReactiveFormsModule, FormControl } from '@angular/forms';
 
 @Component({
-  selector: 'ui-input', // reusable input
-  standalone: true, // no NgModule
-  imports: [ReactiveFormsModule], // formControl binding
-  templateUrl: './ui-input.html', // external template
-  styleUrl: './ui-input.scss', // scss only
-  changeDetection: ChangeDetectionStrategy.OnPush, // optimized
+  selector: 'ui-input',
+  standalone: true,
+  imports: [ReactiveFormsModule],
+  templateUrl: './ui-input.html',
+  styleUrl: './ui-input.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiInput {
-  readonly control = input.required<FormControl<string>>(); // typed control passed from page
-  readonly placeholder = input<string>(''); // placeholder text
-  readonly type = input<'text' | 'password' | 'email'>('text'); // input type
-  readonly icon = input<'user' | 'mail' | 'lock'>('user'); // left icon variant
+  readonly control = input.required<FormControl<string>>();
+  readonly placeholder = input<string>('');
+  readonly type = input<'text' | 'password' | 'email'>('text');
+  readonly icon = input<'user' | 'mail' | 'lock'>('user');
   readonly submitted = input<boolean>(false);
+
+  readonly visible = signal(false);
+
+  readonly iconName = computed(() => {
+    switch (this.icon()) {
+      case 'user': return 'person';
+      case 'mail': return 'mail';
+      case 'lock': return 'lock';
+    }
+  });
+
+  readonly inputType = computed(() =>
+    this.type() === 'password' && this.visible() ? 'text' : this.type()
+  );
+
+  readonly showError = computed(() =>
+    this.submitted() && this.control().invalid
+  );
+
+  toggleVisible(): void {
+    this.visible.update(v => !v);
+  }
 }

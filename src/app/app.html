@@ -1,14 +1,9 @@
 <ui-navbar></ui-navbar>
-<!-- global fixed navbar -->
-<!-- why: shared everywhere -->
 
 <main class="shell">
-  <!-- page content region -->
-  <!-- why: padding for fixed header -->
   <router-outlet></router-outlet>
-  <!-- why: route pages render here -->
 </main>
 
+<router-outlet name="modal"></router-outlet>
+
 <ui-footer></ui-footer>
-<!-- global footer -->
-<!-- why: shared everywhere -->

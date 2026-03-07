@@ -1,22 +1,16 @@
-<label class="field">
-  <!-- whole input row -->
-  <span class="icon">
-    <!-- left icon -->
-    @switch (icon()) {
-      @case ('user') {
-        <span class="i">👤</span>
-      }
-      <!-- simple icon placeholder -->
-      @case ('mail') {
-        <span class="i">✉️</span>
-      }
-      <!-- simple icon placeholder -->
-      @case ('lock') {
-        <span class="i">🔒</span>
-      }
-      <!-- simple icon placeholder -->
-    }
-  </span>
+<label class="field" [class.field--error]="showError()">
+  <span class="field__icon material-icons">{{ iconName() }}</span>
 
-  <input class="control" [type]="type()" [placeholder]="placeholder()" [formControl]="control()" />
+  <input
+    class="field__input"
+    [type]="inputType()"
+    [placeholder]="placeholder()"
+    [formControl]="control()"
+  />
+
+  @if (type() === 'password') {
+    <button type="button" class="field__toggle" (click)="toggleVisible()">
+      <span class="material-icons">{{ visible() ? 'visibility_off' : 'visibility' }}</span>
+    </button>
+  }
 </label>

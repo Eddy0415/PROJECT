@@ -1,12 +1,18 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core'; // standalone + signal inputs
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'ui-modal', // reusable modal
-  standalone: true, // no NgModule
-  templateUrl: './ui-modal.html', // external template
-  styleUrl: './ui-modal.scss', // scss only
-  changeDetection: ChangeDetectionStrategy.OnPush, // optimized
+  selector: 'ui-modal',
+  standalone: true,
+  templateUrl: './ui-modal.html',
+  styleUrl: './ui-modal.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UiModal {
-  readonly imageUrl = input<string>(); // right panel image
+  private readonly router = inject(Router);
+  readonly imageUrl = input<string>();
+
+  closeModal(): void {
+    this.router.navigate([{ outlets: { modal: null } }]);
+  }
 }
