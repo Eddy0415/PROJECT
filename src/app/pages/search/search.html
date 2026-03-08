@@ -3,27 +3,11 @@
     <h2 class="title">Search</h2>
 
     @if (q()) {
-      <p class="sub">
-        Results for: <span class="q">"{{ q() }}"</span>
-      </p>
+      <p class="sub">Results for: <span class="q">"{{ q() }}"</span></p>
     } @else {
       <p class="sub">Type a product name in the navbar search.</p>
     }
   </div>
 
-  @if (catalog.loading()) {
-    <p class="state">Loading products...</p>
-  } @else if (catalog.error()) {
-    <p class="state err">{{ catalog.error() }}</p>
-  } @else {
-    @if (results().length === 0) {
-      <p class="state">No products found.</p>
-    } @else {
-      <div class="grid">
-        @for (p of results(); track p.id) {
-          <app-product-card [product]="p"></app-product-card>
-        }
-      </div>
-    }
-  }
+  <visible-products [filterName]="q()"></visible-products>
 </section>
