@@ -1,30 +1,28 @@
-<div class="admin">
-  <admin-sidebar [active]="'products'"></admin-sidebar>
+<section class="page">
+  <ui-breadcrumb></ui-breadcrumb>
 
-  <main class="content">
-    <header class="top">
-      <div class="title">
-        <h2>Products</h2>
-        <p>Manage products with sorting, filtering, pagination, and inline editing.</p>
-      </div>
+  <h1 class="title">Admin</h1>
 
-      @if (loading()) {
-        <div class="badge">Loading…</div>
+  <div class="layout">
+    <page-sidebar
+      [items]="sidebarItems"
+      [active]="active()"
+      (action)="onSidebarAction($event)"
+    ></page-sidebar>
+
+    <div class="content">
+
+      @if (active() === 'products') {
+        <products-dashboard></products-dashboard>
       }
-    </header>
 
-    @if (error()) {
-      <div class="error">{{ error() }}</div>
-    }
+      @if (active() === 'users') {
+        <div class="coming-soon">
+          <span class="material-icons coming-soon__icon">group</span>
+          <p class="coming-soon__text">User management coming soon.</p>
+        </div>
+      }
 
-    <div class="gridCard">
-      <ag-grid-angular
-        class="ag-theme-quartz"
-        style="width: 100%; height: 620px"
-        [rowData]="rowData()"
-        [columnDefs]="colDefs"
-        [gridOptions]="gridOptions"
-      />
     </div>
-  </main>
-</div>
+  </div>
+</section>

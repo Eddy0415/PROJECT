@@ -5,9 +5,10 @@
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 18px;
   background: #fff;
+  align-content: start;
 }
 
-.logout-pill {
+.danger-pill {
   ::ng-deep button {
     color: #d32f2f !important;
     border-color: rgba(211, 47, 47, 0.3) !important;
@@ -16,5 +17,13 @@
       background: rgba(211, 47, 47, 0.06) !important;
       border-color: #d32f2f !important;
     }
+  }
+}
+
+.disabled-pill {
+  ::ng-deep button {
+    opacity: 0.45;
+    cursor: default !important;
+    pointer-events: none;
   }
 }

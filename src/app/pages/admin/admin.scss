@@ -1,67 +1,45 @@
-.admin {
-  display: grid; // 2 columns                                                                                             // why: layout
-  grid-template-columns: 240px 1fr; // sidebar + content                                                                  // why: layout
-  gap: 16px; // spacing                                                                                                    // why: UI
-  padding: 20px; // page padding                                                                                           // why: UI
+.page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 18px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 18px;
+  color: #111;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 14px;
+  align-items: start;
 }
 
 .content {
-  border-radius: 16px; // soft                                                                                              // why: UI
-  padding: 16px; // spacing                                                                                                 // why: UI
-  background: #0b1220; // dark panel                                                                                        // why: admin look
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25); // depth                                                                     // why: UI
+  min-width: 0;
 }
 
-.top {
-  display: flex; // row                                                                                                     // why: layout
-  align-items: center; // align                                                                                             // why: layout
-  justify-content: space-between; // split                                                                                  // why: layout
-  margin-bottom: 12px; // space                                                                                             // why: UI
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  background: #fff;
+  color: #aaa;
+
+  &__icon { font-size: 40px; }
+  &__text  { margin: 0; font-size: 1rem; font-weight: 500; }
 }
 
-.title h2 {
-  margin: 0; // reset                                                                                                        // why: UI
-  font-size: 20px; // heading                                                                                                // why: hierarchy
-  font-weight: 800; // bold                                                                                                  // why: UI
-  color: #e2e8f0; // light                                                                                                   // why: contrast
-}
-
-.title p {
-  margin: 6px 0 0; // spacing                                                                                                // why: UI
-  color: rgba(226, 232, 240, 0.7); // muted                                                                                 // why: UI
-  font-size: 13px; // small                                                                                                  // why: UI
-}
-
-.badge {
-  padding: 6px 10px; // size                                                                                                 // why: UI
-  border-radius: 999px; // pill                                                                                              // why: UI
-  border: 1px solid rgba(56, 189, 248, 0.35); // accent                                                                      // why: UI
-  background: rgba(56, 189, 248, 0.12); // accent                                                                            // why: UI
-  color: #e2e8f0; // readable                                                                                                 // why: contrast
-  font-size: 12px; // small                                                                                                  // why: UI
-}
-
-.error {
-  margin: 10px 0; // spacing                                                                                                 // why: UI
-  padding: 10px 12px; // spacing                                                                                             // why: UI
-  border-radius: 12px; // soft                                                                                               // why: UI
-  border: 1px solid rgba(244, 63, 94, 0.35); // red-ish                                                                      // why: error
-  background: rgba(244, 63, 94, 0.1); // red-ish                                                                             // why: error
-  color: #ffe4e6; // readable                                                                                                // why: error
-}
-
-.gridCard {
-  border-radius: 16px; // card                                                                                               // why: UI
-  overflow: hidden; // clip grid                                                                                             // why: UI
-  border: 1px solid rgba(226, 232, 240, 0.12); // border                                                                     // why: UI
-}
-
-/* AG Grid theme overrides (color + font) */
-:host ::ng-deep .ag-theme-quartz {
-  --ag-foreground-color: #e2e8f0; // text                                                                                    // why: contrast
-  --ag-background-color: #0b1220; // bg                                                                                     // why: admin
-  --ag-header-background-color: #0f172a; // header bg                                                                       // why: UI
-  --ag-row-hover-color: rgba(56, 189, 248, 0.08); // hover                                                                   // why: UX
-  --ag-border-color: rgba(226, 232, 240, 0.12); // borders                                                                   // why: subtle
-   font-size: 13px; // compact                                                                                                // why: admin
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
 }

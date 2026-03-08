@@ -1,13 +1,11 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/auth/auth-guard';
+import { adminGuard } from './core/auth/admin.guard';
 
 export const routes: Routes = [
   {
     path: '',
     loadComponent: () => import('./pages/home/home').then((m) => m.HomeComponent),
-  },
-  {
-    path: 'about',
-    loadChildren: () => import('./pages/about/routes').then((m) => m.ABOUT_ROUTES),
   },
   {
     path: 'cart',
@@ -20,20 +18,20 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
+    canActivate: [authGuard, adminGuard],
     loadChildren: () => import('./pages/admin/routes').then((m) => m.ADMIN_ROUTES),
   },
   {
     path: 'login',
-    loadComponent: () => import('./pages/login/login').then((m) => m.Login),
-    outlet: 'modal',
+    loadChildren: () => import('./pages/login/routes').then((m) => m.LOGIN_ROUTES),
   },
   {
     path: 'signup',
-    loadComponent: () => import('./pages/signup/signup').then((m) => m.Signup),
-    outlet: 'modal',
+    loadChildren: () => import('./pages/signup/routes').then((m) => m.SIGNUP_ROUTES),
   },
   {
     path: 'profile',
+    canActivate: [authGuard],
     loadChildren: () => import('./pages/profile/routes').then((m) => m.PROFILE_ROUTES),
   },
   {

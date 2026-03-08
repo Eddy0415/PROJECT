@@ -1,31 +1,46 @@
-import { ChangeDetectionStrategy, Component, signal } from '@angular/core'; // signals                                   // why: rules
-import type { ICellRendererAngularComp } from 'ag-grid-angular'; // renderer interface                                   // why: ag grid
-import type { ICellRendererParams } from 'ag-grid-community'; // params type                                             // why: typing
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import type { ICellRendererAngularComp } from 'ag-grid-angular';
+import type { ICellRendererParams } from 'ag-grid-community';
+import { IProduct } from '../../../../shared/interfaces/product';
+import { UiButton } from '../../../../shared/components/ui-button/ui-button';
 
-type DeleteCb = (id: number) => void; // callback type                                                                    // why: clean typing
+interface ActionParams extends ICellRendererParams {
+  onDelete?: (id: number) => void;
+  onEdit?: (product: IProduct) => void;
+}
 
 @Component({
-  selector: 'delete-button-renderer', // renderer                                                                        // why: ag grid
-  standalone: true, // no NgModule                                                                                        // why: rules
-  templateUrl: './delete-button-renderer.html', // template                                                               // why: clean
-  styleUrl: './delete-button-renderer.scss', // scss only                                                                 // why: rules
-  changeDetection: ChangeDetectionStrategy.OnPush, // perf                                                                // why: grid perf
+  selector: 'delete-button-renderer',
+  standalone: true,
+  imports: [UiButton],
+  templateUrl: './delete-button-renderer.html',
+  styleUrl: './delete-button-renderer.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DeleteButtonRendererComponent implements ICellRendererAngularComp {
-  readonly id = signal<number>(0); // row id                                                                              // why: callback
-  readonly onDelete = signal<DeleteCb>(() => {}); // callback                                                             // why: passed in
+export class DeleteButtonRenderer implements ICellRendererAngularComp {
+  readonly id = signal<number>(0);
+  readonly rowData = signal<IProduct | null>(null);
+  private onDelete: (id: number) => void = () => {};
+  private onEdit: (product: IProduct) => void = () => {};
 
-  agInit(params: ICellRendererParams & { onDelete?: DeleteCb }): void {
-    this.id.set(Number(params?.data?.id ?? 0)); // row id                                                                 // why: delete needs id
-    this.onDelete.set(params?.onDelete ?? (() => {})); // callback                                                       // why: wire-up
+  agInit(params: ActionParams): void {
+    this.id.set(Number(params?.data?.id ?? 0));
+    this.rowData.set(params?.data ?? null);
+    this.onDelete = params?.onDelete ?? (() => {});
+    this.onEdit = params?.onEdit ?? (() => {});
   }
 
-  refresh(params: ICellRendererParams & { onDelete?: DeleteCb }): boolean {
-    this.agInit(params); // update                                                                                       // why: keep simple
-    return true; // ok                                                                                                    // why: ag grid
+  refresh(params: ActionParams): boolean {
+    this.agInit(params);
+    return true;
   }
 
-  click(): void {
-    this.onDelete()(this.id()); // trigger                                                                               // why: delete action
+  clickEdit(): void {
+    const row = this.rowData();
+    if (row) this.onEdit(row);
+  }
+
+  clickDelete(): void {
+    this.onDelete(this.id());
   }
 }

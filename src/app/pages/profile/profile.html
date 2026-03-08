@@ -4,7 +4,11 @@
   <h1 class="title">Account</h1>
 
   <div class="layout">
-    <profile-sidebar [active]="active()" (action)="onSidebarAction($event)"></profile-sidebar>
+    <page-sidebar
+      [items]="sidebarItems"
+      [active]="active()"
+      (action)="onSidebarAction($event)"
+    ></page-sidebar>
 
     @if (active() === 'edit') {
       <profile-edit [user]="user()"></profile-edit>

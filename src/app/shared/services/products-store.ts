@@ -22,12 +22,10 @@ export class ProductsCatalogStore {
 
   constructor() {
     this.hydrateFromStorage();
-
     effect(() => {
       const list = this.products();
       untracked(() => this.persistToStorage(list));
     });
-
     effect(() => {
       if (this._loaded()) return;
       untracked(() => void this.loadAll());
@@ -42,7 +40,6 @@ export class ProductsCatalogStore {
     if (this._loaded()) return;
     this.loading.set(true);
     this.error.set(null);
-
     try {
       const data = await firstValueFrom(this.api.getAll());
       this.products.set(data ?? []);
@@ -55,13 +52,39 @@ export class ProductsCatalogStore {
   }
 
   updateDescription(id: number, description: string): void {
-    this.products.update(
-      (list) => list.map((p) => (p.id === id ? { ...p, description } : p)),
+    this.products.update((list) =>
+      list.map((p) => (p.id === id ? { ...p, description } : p)),
     );
   }
 
   removeById(id: number): void {
     this.products.update((list) => list.filter((p) => p.id !== id));
+  }
+
+  async createOnServer(payload: Omit<IProduct, 'id' | 'rating'>): Promise<void> {
+    this.error.set(null);
+    try {
+      const created = await firstValueFrom(this.api.create(payload));
+      // FakeStore returns the new product — prepend to list
+      this.products.update((list) => [created, ...list]);
+    } catch {
+      this.error.set('Failed to create product');
+      throw new Error('create_failed');
+    }
+  }
+
+  async updateOnServer(id: number, payload: Omit<IProduct, 'id' | 'rating'>): Promise<void> {
+    this.error.set(null);
+    try {
+      const updated = await firstValueFrom(this.api.update(id, payload));
+      // Merge server response back, keep original id guaranteed
+      this.products.update((list) =>
+        list.map((p) => (p.id === id ? { ...p, ...updated, id } : p)),
+      );
+    } catch {
+      this.error.set('Failed to update product');
+      throw new Error('update_failed');
+    }
   }
 
   async deleteOnServer(id: number): Promise<void> {
@@ -83,16 +106,12 @@ export class ProductsCatalogStore {
       if (!Array.isArray(parsed) || parsed.length === 0) return;
       this.products.set(parsed);
       this._loaded.set(true);
-    } catch {
-      // ignore broken cache
-    }
+    } catch { /* ignore broken cache */ }
   }
 
   private persistToStorage(list: IProduct[]): void {
     try {
       localStorage.setItem(this.STORAGE_KEY, JSON.stringify(list));
-    } catch {
-      // ignore quota / blocked storage
-    }
+    } catch { /* ignore quota */ }
   }
 }

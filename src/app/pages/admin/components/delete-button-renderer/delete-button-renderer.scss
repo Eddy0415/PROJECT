@@ -1,12 +1,43 @@
-.btn {
-  padding: 6px 10px; // size                                                                                              // why: compact
-  border-radius: 10px; // soft                                                                                            // why: UI
-  border: 1px solid rgba(244, 63, 94, 0.45); // red-ish                                                                   // why: destructive
-  background: rgba(244, 63, 94, 0.12); // red-ish                                                                         // why: destructive
-  color: #ffe4e6; // light                                                                                                 // why: contrast
-  cursor: pointer; // clickable                                                                                            // why: UX
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 100%;
 }
 
-.btn:hover {
-  background: rgba(244, 63, 94, 0.18); // hover                                                                           // why: feedback
+// Scale down and restyle UiButton for use inside grid rows
+.btn-edit {
+  ::ng-deep .btn {
+    padding: 3px 12px;
+    min-height: unset;
+    font-size: 0.72rem;
+    box-shadow: none;
+    background: transparent;
+    color: #333;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
+    &:hover:not(:disabled) {
+      background: rgba(0, 0, 0, 0.05);
+      box-shadow: none;
+      transform: none;
+    }
+  }
+}
+
+.btn-delete {
+  ::ng-deep .btn {
+    padding: 3px 12px;
+    min-height: unset;
+    font-size: 0.72rem;
+    box-shadow: none;
+    background: transparent;
+    color: #d32f2f;
+    border: 1px solid rgba(211, 47, 47, 0.35);
+
+    &:hover:not(:disabled) {
+      background: rgba(211, 47, 47, 0.06);
+      box-shadow: none;
+      transform: none;
+    }
+  }
 }

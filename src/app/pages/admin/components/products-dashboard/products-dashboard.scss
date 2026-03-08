@@ -1,0 +1,80 @@
+.panel {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  background: #fff;
+  padding: 24px;
+
+  &__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 4px;
+    color: #111;
+  }
+
+  &__sub {
+    margin: 0;
+    font-size: 0.8rem;
+    color: #888;
+  }
+}
+
+.add-btn {
+  flex-shrink: 0;
+  padding: 9px 18px;
+  border-radius: 999px;
+  background: #111;
+  color: #fff;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.15s;
+
+  &:hover { opacity: 0.8; }
+}
+
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: #f0f0f0;
+  font-size: 0.75rem;
+  color: #555;
+  margin-bottom: 12px;
+}
+
+.error-msg {
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(211, 47, 47, 0.07);
+  border: 1px solid rgba(211, 47, 47, 0.2);
+  color: #d32f2f;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.grid-wrap {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+}
+
+:host ::ng-deep .ag-theme-quartz {
+  --ag-foreground-color: #111;
+  --ag-background-color: #fff;
+  --ag-header-background-color: #f8f8f8;
+  --ag-row-hover-color: rgba(0, 0, 0, 0.03);
+  --ag-border-color: rgba(0, 0, 0, 0.08);
+  --ag-font-family: inherit;
+  font-size: 13px;
+}

@@ -1,0 +1,12 @@
+<aside class="side">
+  @for (item of items(); track item.key) {
+    <ui-pill
+      [label]="item.label"
+      [active]="!item.danger && !item.disabled && active() === item.key"
+      [disabled]="item.disabled ?? false"
+      [class.danger-pill]="item.danger"
+      [class.disabled-pill]="item.disabled"
+      (clicked)="!item.disabled && action.emit(item.key)"
+    ></ui-pill>
+  }
+</aside>

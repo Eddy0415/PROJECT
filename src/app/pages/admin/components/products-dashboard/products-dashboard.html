@@ -1,0 +1,34 @@
+<div class="panel">
+  <div class="panel__header">
+    <div>
+      <h2 class="panel__title">Products</h2>
+      <p class="panel__sub">Manage products — sort, filter, inline-edit descriptions, add or remove.</p>
+    </div>
+    <button type="button" class="add-btn" (click)="openAdd()">+ Add product</button>
+  </div>
+
+  @if (loading()) {
+    <div class="badge">Loading…</div>
+  }
+  @if (error()) {
+    <div class="error-msg">{{ error() }}</div>
+  }
+
+  <div class="grid-wrap">
+    <ag-grid-angular
+      class="ag-theme-quartz"
+      style="width: 100%; height: 600px"
+      [rowData]="rowData()"
+      [columnDefs]="colDefs"
+      [gridOptions]="gridOptions"
+    />
+  </div>
+</div>
+
+@if (modalOpen()) {
+  <product-form-modal
+    [product]="editingProduct()"
+    (saved)="onSaved($event)"
+    (cancelled)="closeModal()"
+  ></product-form-modal>
+}

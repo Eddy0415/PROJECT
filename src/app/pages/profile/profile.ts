@@ -1,13 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../core/auth/auth-service';
-import { ProfileSidebar, ProfileSidebarAction } from './components/profile-sidebar/profile-sidebar';
 import { ProfileEdit } from './components/profile-edit/profile-edit';
 import { UiBreadcrumb } from '../../shared/components/ui-breadcrumb/ui-breadcrumb';
+import { PageSidebar, SidebarItem } from '../../shared/components/page-sidebar/page-sidebar';
+
+type ProfileView = 'edit' | 'payments';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [UiBreadcrumb, ProfileSidebar, ProfileEdit],
+  imports: [UiBreadcrumb, PageSidebar, ProfileEdit],
   templateUrl: './profile.html',
   styleUrl: './profile.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,13 +18,19 @@ export class ProfileComponent {
   private readonly auth = inject(AuthService);
 
   readonly user = this.auth.currentUser;
-  readonly active = signal<ProfileSidebarAction>('edit');
+  readonly active = signal<ProfileView>('edit');
 
-  onSidebarAction(action: ProfileSidebarAction): void {
-    if (action === 'logout') {
+  readonly sidebarItems: SidebarItem[] = [
+    { key: 'edit',     label: 'Edit profile' },
+    { key: 'payments', label: 'Payment options', disabled: true },
+    { key: 'logout',   label: 'Logout', danger: true },
+  ];
+
+  onSidebarAction(key: string): void {
+    if (key === 'logout') {
       this.auth.logout();
       return;
     }
-    this.active.set(action);
+    this.active.set(key as ProfileView);
   }
 }

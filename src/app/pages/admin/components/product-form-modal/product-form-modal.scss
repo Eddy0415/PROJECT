@@ -1,0 +1,108 @@
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 100;
+}
+
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+  width: min(560px, 92vw);
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  padding: 28px;
+
+  &__title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin: 0 0 20px;
+    color: #111;
+  }
+}
+
+.form {
+  display: grid;
+  gap: 14px;
+
+  &__row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+
+  &__field {
+    display: grid;
+    gap: 6px;
+  }
+
+  &__label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &__input {
+    background: #f0f0f0;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    padding: 10px 16px;
+    color: #111;
+    font-size: 0.875rem;
+    outline: none;
+    transition: border-color 0.15s;
+    font-family: inherit;
+    width: 100%;
+    box-sizing: border-box;
+
+    &::placeholder { color: #aaa; }
+    &:focus { border-color: #111; background: #f0f0f0; }
+  }
+
+  &__textarea {
+    border-radius: 16px;
+    resize: vertical;
+    min-height: 90px;
+  }
+
+  &__field--error &__input {
+    border-color: #d32f2f;
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 4px;
+  }
+}
+
+.btn {
+  padding: 10px 22px;
+  border-radius: 999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  font-family: inherit;
+  transition: opacity 0.15s;
+
+  &:hover { opacity: 0.8; }
+
+  &--ghost {
+    background: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    color: #333;
+  }
+
+  &--primary {
+    background: #111;
+    color: #fff;
+  }
+}
