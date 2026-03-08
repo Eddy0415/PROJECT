@@ -1,14 +1,20 @@
 <aside class="side">
-  <!-- sidebar wrapper -->
+  <ui-pill
+    [label]="'Edit profile'"
+    [active]="active() === 'edit'"
+    (clicked)="action.emit('edit')"
+  ></ui-pill>
 
-  <button
-    type="button"
-    class="item"
-    [class.active]="active() === 'edit'"
-    (click)="action.emit('edit')"
-  >
-    Edit profile
-  </button>
+  <ui-pill
+    [label]="'Payment options'"
+    [active]="active() === 'payments'"
+    (clicked)="action.emit('payments')"
+  ></ui-pill>
 
-  <button type="button" class="item danger" (click)="action.emit('logout')">Logout</button>
+  <ui-pill
+    [label]="'Logout'"
+    [active]="false"
+    class="logout-pill"
+    (clicked)="action.emit('logout')"
+  ></ui-pill>
 </aside>

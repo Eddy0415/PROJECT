@@ -4,18 +4,58 @@
 
     <div class="auth__fields">
       <div class="auth__row2">
-        <ui-input [control]="form.controls.firstName" [submitted]="submitted()" [placeholder]="'First Name'" [type]="'text'" [icon]="'user'"></ui-input>
-        <ui-input [control]="form.controls.lastName" [submitted]="submitted()" [placeholder]="'Last Name'" [type]="'text'" [icon]="'user'"></ui-input>
+        <ui-input
+          [control]="form.controls.firstName"
+          [error]="submitted() && form.controls.firstName.invalid"
+          [placeholder]="'First Name'"
+          [type]="'text'"
+          [icon]="'user'"
+        ></ui-input>
+        <ui-input
+          [control]="form.controls.lastName"
+          [error]="submitted() && form.controls.lastName.invalid"
+          [placeholder]="'Last Name'"
+          [type]="'text'"
+          [icon]="'user'"
+        ></ui-input>
       </div>
 
-      <ui-input [control]="form.controls.username" [submitted]="submitted()" [placeholder]="'Username'" [type]="'text'" [icon]="'user'"></ui-input>
+      <ui-input
+        [control]="form.controls.username"
+        [error]="submitted() && form.controls.username.invalid"
+        [placeholder]="'Username'"
+        [type]="'text'"
+        [icon]="'user'"
+      ></ui-input>
 
-      <ui-input [control]="form.controls.email" [submitted]="submitted()" [placeholder]="'Email Address'" [type]="'email'" [icon]="'mail'"></ui-input>
+      <ui-input
+        [control]="form.controls.email"
+        [error]="submitted() && form.controls.email.invalid"
+        [placeholder]="'Email Address'"
+        [type]="'email'"
+        [icon]="'mail'"
+      ></ui-input>
 
       <div class="auth__row2">
-        <ui-input [control]="form.controls.password" [submitted]="submitted()" [placeholder]="'Password'" [type]="'password'" [icon]="'lock'"></ui-input>
-        <ui-input [control]="form.controls.confirmPassword" [submitted]="submitted()" [placeholder]="'Confirm Password'" [type]="'password'" [icon]="'lock'"></ui-input>
+        <ui-input
+          [control]="form.controls.password"
+          [error]="submitted() && (form.controls.password.invalid || passwordMismatch())"
+          [placeholder]="'Password'"
+          [type]="'password'"
+          [icon]="'lock'"
+        ></ui-input>
+        <ui-input
+          [control]="form.controls.confirmPassword"
+          [error]="submitted() && (form.controls.confirmPassword.invalid || passwordMismatch())"
+          [placeholder]="'Confirm Password'"
+          [type]="'password'"
+          [icon]="'lock'"
+        ></ui-input>
       </div>
+
+      @if (passwordMismatch()) {
+        <p class="auth__error">Passwords do not match.</p>
+      }
     </div>
 
     @if (apiError()) {
@@ -23,7 +63,7 @@
     }
 
     <div class="auth__actions">
-      <ui-button [text]="'Create Account'" [type]="'submit'"></ui-button>
+      <ui-button [text]="isSubmitting() ? 'Creating...' : 'Create Account'" [type]="'submit'"></ui-button>
 
       <p class="auth__hint">
         Already have an account?

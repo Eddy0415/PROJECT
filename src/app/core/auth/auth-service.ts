@@ -37,6 +37,7 @@ export class AuthService {
   register(userData: ISignupRequ): Observable<void> {
     return this.http.post<IResp>(`${this.API_BASE}/auth/register`, userData).pipe(
       tap((res) => this.handleAuthResponse(res)),
+      tap(() => this._isAuthenticated.set(true)), // ← add this
       map(() => void 0),
       catchError((err) => throwError(() => err)),
     );
@@ -82,6 +83,7 @@ export class AuthService {
     return this.http.delete<void>(`${this.API_BASE}/user`).pipe(
       tap(() => {
         this.clearSession();
+        this._isAuthenticated.set(false); // ← add this
         this.router.navigate(['/']);
       }),
       map(() => void 0),

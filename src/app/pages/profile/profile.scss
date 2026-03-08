@@ -1,76 +1,47 @@
-.page { // page wrapper                                                                                                  // why: spacing
-  max-width: 1100px; // container                                                                                        // why: wider for 2 cols
-  margin: 0 auto; // center                                                                                              // why: layout
-  padding: 18px; // padding                                                                                              // why: breathing room
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 18px;
 }
 
-.top { // header row                                                                                                     // why: title area
-  display: flex; // row                                                                                                  // why: layout
-  align-items: center; // center                                                                                         // why: align
-  gap: 12px; // spacing                                                                                                  // why: clean
-  margin-bottom: 14px; // space                                                                                          // why: separation
+.title {
+  font-size: 22px;
+  font-weight: 800;
+  margin: 0 0 18px;
 }
 
-.back { // back link                                                                                                     // why: nav
-  text-decoration: none; // no underline                                                                                // why: style
-  color: #000; // dark                                                                                                   // why: readable
-  opacity: 0.7; // soft                                                                                                  // why: subtle
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 14px;
+  align-items: start;
 }
 
-.title { // title                                                                                                        // why: hierarchy
-  font-size: 22px; // size                                                                                               // why: heading
-  font-weight: 800; // bold                                                                                              // why: heading
+.coming-soon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 48px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  background: #fff;
+  color: #aaa;
+
+  &__icon {
+    font-size: 40px;
+  }
+
+  &__text {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 500;
+  }
 }
 
-.headerCard { // top mini card                                                                                            // why: profile summary
-  display: flex; // row                                                                                                  // why: layout
-  align-items: center; // center                                                                                         // why: align
-  gap: 14px; // spacing                                                                                                  // why: clean
-  padding: 16px; // padding                                                                                              // why: card
-  border: 1px solid rgba(0, 0, 0, 0.08); // border                                                                        // why: separation
-  border-radius: 18px; // round                                                                                           // why: modern
-  background: #fff; // white                                                                                              // why: clean
-  margin-bottom: 14px; // space                                                                                           // why: separation
-}
-
-.avatar { // avatar circle                                                                                                // why: identity
-  width: 52px; // size                                                                                                   // why: profile page
-  height: 52px; // size                                                                                                  // why: profile page
-  border-radius: 50%; // circle                                                                                          // why: avatar
-  background: rgba(0, 0, 0, 0.08); // soft                                                                               // why: neutral
-  overflow: hidden; // crop image                                                                                        // why: avatar
-  display: grid; // center                                                                                                // why: center
-  place-items: center; // center                                                                                          // why: center
-}
-
-.avatar img { // image                                                                                                   // why: cover
-  width: 100%; // full                                                                                                   // why: cover
-  height: 100%; // full                                                                                                  // why: cover
-  object-fit: cover; // crop                                                                                              // why: avatar crop
-}
-
-.initials { // initials                                                                                                  // why: fallback
-  font-weight: 800; // bold                                                                                              // why: avatar
-}
-
-.name { // name                                                                                                          // why: emphasis
-  font-weight: 800; // bold                                                                                              // why: emphasis
-}
-
-.email { // email                                                                                                        // why: secondary
-  opacity: 0.7; // soft                                                                                                  // why: hierarchy
-  font-size: 13px; // small                                                                                               // why: secondary
-}
-
-.layout { // 2-column layout                                                                                             // why: sidebar + content
-  display: grid; // grid                                                                                                  // why: layout
-  grid-template-columns: 280px 1fr; // sidebar + main                                                                     // why: mockup
-  gap: 14px; // spacing                                                                                                   // why: clean
-  align-items: start; // top align                                                                                        // why: layout
-}
-
-@media (max-width: 900px) { // responsive                                                                                // why: mobile
-  .layout { // stack on small                                                                                             // why: responsive
-    grid-template-columns: 1fr; // one column                                                                             // why: fit
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
   }
 }

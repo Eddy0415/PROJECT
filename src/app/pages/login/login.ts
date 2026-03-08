@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   effect,
   inject,
   signal,
@@ -39,14 +38,11 @@ export class Login {
   readonly apiError = signal<string | null>(null);
 
   readonly form = this.fb.nonNullable.group<LoginFormModel>({
-    email: this.fb.nonNullable.control('', { validators: [Validators.required, Validators.email] }),
+    email:    this.fb.nonNullable.control('', { validators: [Validators.required, Validators.email] }),
     password: this.fb.nonNullable.control('', { validators: [Validators.required] }),
   });
 
-  readonly canSubmit = computed(() => this.form.valid && !this.isSubmitting());
-
   constructor() {
-    // consume any error passed from signup (e.g. 409 account exists)
     const pending = this.authModal.consumeError();
     if (pending) this.apiError.set(pending);
 
@@ -64,16 +60,12 @@ export class Login {
   async submit(): Promise<void> {
     this.submitted.set(true);
     this.apiError.set(null);
-    if (this.isSubmitting()) return;
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+    if (this.isSubmitting() || this.form.invalid) return;
     this.isSubmitting.set(true);
     try {
       await firstValueFrom(this.auth.login(this.form.getRawValue()));
       this.router.navigate([{ outlets: { modal: null } }]);
-    } catch (err: unknown) {
+    } catch {
       this.apiError.set('Wrong email or password.');
     } finally {
       this.isSubmitting.set(false);

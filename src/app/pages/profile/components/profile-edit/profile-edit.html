@@ -1,82 +1,120 @@
-<p>profile-edit works!</p>
 <section class="panel">
-  <h2 class="title">Edit profile</h2>
+  <h2 class="panel__title">Personal Details</h2>
 
   @if (apiError()) {
-    <div class="error">{{ apiError() }}</div>
+    <p class="panel__error">{{ apiError() }}</p>
   }
 
-  <form class="grid" [formGroup]="form" (ngSubmit)="update()">
-    <div class="row2">
+  <form class="form" [formGroup]="form" (ngSubmit)="update()">
+
+    <!-- Avatar picker -->
+    <div class="form__avatar-row">
+      <div class="form__avatar" (click)="fileInput.click()">
+        @if (previewUrl()) {
+          <img class="form__avatar-img" [src]="previewUrl()!" alt="Profile preview" />
+        } @else if (user()?.imageUrl) {
+          <img class="form__avatar-img" [src]="user()!.imageUrl!" alt="Current profile" />
+        } @else {
+          <span class="form__avatar-initials">
+            {{ (user()?.firstName?.[0] ?? 'U') + (user()?.lastName?.[0] ?? '') }}
+          </span>
+        }
+        <div class="form__avatar-overlay">
+          <span class="material-icons">photo_camera</span>
+        </div>
+      </div>
+      <input #fileInput type="file" accept="image/*" class="form__file-hidden" (change)="onFileSelected($event)" />
+    </div>
+
+    <div class="form__row2">
       <ui-input
         [control]="form.controls.firstName"
-        [placeholder]="'First name'"
+        [error]="submitted() && form.controls.firstName.invalid"
+        [placeholder]="'First Name'"
         [type]="'text'"
         [icon]="'user'"
       ></ui-input>
       <ui-input
         [control]="form.controls.lastName"
-        [placeholder]="'Last name'"
+        [error]="submitted() && form.controls.lastName.invalid"
+        [placeholder]="'Last Name'"
         [type]="'text'"
         [icon]="'user'"
       ></ui-input>
     </div>
 
-    <ui-input
-      [control]="form.controls.username"
-      [placeholder]="'Username'"
-      [type]="'text'"
-      [icon]="'user'"
-    ></ui-input>
+    <div class="form__row2">
+      <ui-input
+        [control]="form.controls.username"
+        [error]="submitted() && form.controls.username.invalid"
+        [placeholder]="'Username'"
+        [type]="'text'"
+        [icon]="'user'"
+      ></ui-input>
+      <ui-input
+        [control]="form.controls.email"
+        [error]="submitted() && form.controls.email.invalid"
+        [placeholder]="'Email Address'"
+        [type]="'email'"
+        [icon]="'mail'"
+      ></ui-input>
+    </div>
 
-    <ui-input
-      [control]="form.controls.role"
-      [placeholder]="'Role'"
-      [type]="'text'"
-      [icon]="'user'"
-    ></ui-input>
+    <div class="form__row2">
+      <ui-input
+        [control]="form.controls.dateOfBirth"
+        [placeholder]="'Date of Birth'"
+        [type]="'date'"
+        [icon]="'calendar'"
+      ></ui-input>
+      <ui-input
+        [control]="form.controls.role"
+        [placeholder]="'Role (optional)'"
+        [type]="'text'"
+        [icon]="'user'"
+      ></ui-input>
+    </div>
 
-    <ui-input
-      [control]="form.controls.email"
-      [placeholder]="'Email'"
-      [type]="'email'"
-      [icon]="'mail'"
-    ></ui-input>
+    <h2 class="panel__title">Change Password</h2>
 
-    <div class="row2">
-      <label class="native">
-        <span class="lab">Date of birth</span>
-        <input class="date" type="date" [formControl]="form.controls.dateOfBirth" />
-      </label>
-
+    <div class="form__row2">
       <ui-input
         [control]="form.controls.password"
-        [placeholder]="'New password (optional)'"
+        [error]="submitted() && (form.controls.password.invalid || passwordMismatch())"
+        [placeholder]="'New Password (optional)'"
+        [type]="'password'"
+        [icon]="'lock'"
+      ></ui-input>
+      <ui-input
+        [control]="form.controls.confirmPassword"
+        [error]="submitted() && (form.controls.confirmPassword.invalid || passwordMismatch())"
+        [placeholder]="'Confirm New Password'"
         [type]="'password'"
         [icon]="'lock'"
       ></ui-input>
     </div>
 
-    <label class="native">
-      <span class="lab">Profile image (optional)</span>
-      <input class="file" type="file" accept="image/*" (change)="onFileSelected($event)" />
-    </label>
+    @if (passwordMismatch()) {
+      <p class="panel__error">Passwords do not match.</p>
+    }
 
-    <div class="actions">
+    <div class="form__actions">
       <ui-button
-        [text]="'Update'"
+        [text]="saveState() === 'saving' ? 'Updating...' : saveState() === 'success' ? 'Updated!' : 'Update'"
         [type]="'submit'"
         [disabled]="isSaving() || isDeleting()"
+        class="form__update-btn"
+        [class.form__update-btn--success]="saveState() === 'success'"
       ></ui-button>
 
-      <button
-        type="button"
-        class="dangerBtn"
+      <ui-button
+        [text]="isDeleting() ? 'Deleting...' : 'Delete Account'"
+        [type]="'button'"
         [disabled]="isSaving() || isDeleting()"
         (click)="deleteAccount()"
-      >
-        Delete account
-      </button>
+        class="form__delete-btn"
+      ></ui-button>
     </div>
+
   </form>
 </section>

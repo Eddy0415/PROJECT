@@ -1,63 +1,136 @@
-.panel { // right panel                                                                                                  // why: main content area
-  border: 1px solid rgba(0, 0, 0, 0.08); // border                                                                       // why: card style
-  border-radius: 18px; // rounded                                                                                        // why: modern
-  background: #fff; // white                                                                                            // why: clean
-  padding: 16px; // spacing                                                                                              // why: breathable
+.panel {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 18px;
+  background: #fff;
+  padding: 24px;
+
+  &__title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 0 0 16px;
+    color: #111;
+
+    & + & { margin-top: 8px; }
+  }
+
+  &__error {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #d32f2f;
+  }
+
+  &__success {
+    margin: 0 0 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #2e7d32;
+  }
 }
 
-.title { // section title                                                                                                // why: hierarchy
-  font-size: 18px; // size                                                                                               // why: match mockup
-  font-weight: 800; // bold                                                                                              // why: title
-  margin: 0 0 12px; // spacing                                                                                           // why: layout
-}
+.form {
+  display: grid;
+  gap: 12px;
 
-.error { // error box                                                                                                    // why: feedback
-  border: 1px solid rgba(220, 0, 0, 0.25); // red hint                                                                    // why: error
-  background: rgba(220, 0, 0, 0.06); // light red                                                                         // why: readable
-  border-radius: 12px; // round                                                                                           // why: modern
-  padding: 10px 12px; // padding                                                                                          // why: spacing
-  margin-bottom: 12px; // separation                                                                                      // why: layout
-}
+  &__avatar-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
 
-.grid { // form layout                                                                                                   // why: spacing
-  display: grid; // grid                                                                                                 // why: stack
-  gap: 12px; // spacing                                                                                                   // why: clean
-}
+  &__avatar {
+    position: relative;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #f0f0f0;
+    overflow: hidden;
+    cursor: pointer;
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
 
-.row2 { // two columns                                                                                                   // why: mockup
-  display: grid; // grid                                                                                                 // why: columns
-  grid-template-columns: 1fr 1fr; // 2 cols                                                                              // why: layout
-  gap: 12px; // spacing                                                                                                   // why: clean
-}
+    &:hover .form__avatar-overlay {
+      opacity: 1;
+    }
+  }
 
-.native { // native label + input                                                                                        // why: date/file
-  display: grid; // stack                                                                                                 // why: label above
-  gap: 6px; // spacing                                                                                                    // why: clean
-}
+  &__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
 
-.lab { // label text                                                                                                     // why: readability
-  font-size: 12px; // small                                                                                              // why: subtle label
-  opacity: 0.7; // soft                                                                                                   // why: hierarchy
-}
+  &__avatar-initials {
+    font-size: 22px;
+    font-weight: 700;
+    color: #333;
+    text-transform: uppercase;
+    user-select: none;
+  }
 
-.date, .file { // native inputs                                                                                          // why: consistent style
-  border: 1px solid rgba(0, 0, 0, 0.12); // border                                                                        // why: input
-  border-radius: 14px; // round                                                                                            // why: modern
-  padding: 12px 14px; // padding                                                                                          // why: match ui-input height
-  background: #fff; // white                                                                                              // why: clean
-}
+  &__avatar-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transition: opacity 0.15s;
+    border-radius: 50%;
 
-.actions { // buttons row                                                                                                // why: actions
-  display: flex; // row                                                                                                   // why: align
-  gap: 12px; // spacing                                                                                                   // why: clean
-  align-items: center; // center                                                                                          // why: align
-  margin-top: 6px; // spacing                                                                                             // why: separation
-}
+    .material-icons {
+      color: #fff;
+      font-size: 22px;
+    }
+  }
 
-.dangerBtn { // delete button                                                                                            // why: destructive
-  border: 1px solid rgba(220, 0, 0, 0.25); // red hint                                                                    // why: destructive
-  background: #fff; // white                                                                                              // why: consistent
-  padding: 12px 14px; // padding                                                                                          // why: match
-  border-radius: 14px; // round                                                                                            // why: modern
-  cursor: pointer; // pointer                                                                                              // why: UX
+  &__avatar-name {
+    font-size: 0.75rem;
+    color: #666;
+    max-width: 160px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__file-hidden {
+    display: none;
+  }
+
+  &__row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+
+    > * { min-width: 0; }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+    gap: 12px;
+  }
+
+  &__delete-btn {
+    ::ng-deep button {
+      background: #d32f2f !important;
+      border-color: #d32f2f !important;
+      color: #fff !important;
+
+      &:hover { background: #b71c1c !important; }
+    }
+  }
+
+  &__update-btn--success {
+    ::ng-deep button {
+      background: #2e7d32 !important;
+      border-color: #2e7d32 !important;
+      color: #fff !important;
+    }
+  }
 }

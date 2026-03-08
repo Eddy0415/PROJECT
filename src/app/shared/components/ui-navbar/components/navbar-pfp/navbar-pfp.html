@@ -2,9 +2,8 @@
   <ui-button [text]="'Log in'" [type]="'button'" (click)="openLogin()"></ui-button>
 } @else {
   <button class="pfp" type="button" (click)="goProfile()" aria-label="Profile">
-    <span class="material-icons pfp__icon">account_circle</span>
     @if (currentUser()?.imageUrl) {
-      <img class="pfp__avatar" [src]="currentUser()?.imageUrl!" alt="Profile" />
+      <img class="pfp__avatar" [src]="currentUser()!.imageUrl!" alt="Profile" />
     } @else {
       <span class="pfp__initials">
         {{ (currentUser()?.firstName?.[0] ?? 'U') + (currentUser()?.lastName?.[0] ?? '') }}

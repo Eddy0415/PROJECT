@@ -5,7 +5,7 @@
     <div class="auth__fields">
       <ui-input
         [control]="form.controls.email"
-        [submitted]="submitted()"
+        [error]="submitted() && form.controls.email.invalid"
         [placeholder]="'Email'"
         [type]="'email'"
         [icon]="'mail'"
@@ -13,7 +13,7 @@
 
       <ui-input
         [control]="form.controls.password"
-        [submitted]="submitted()"
+        [error]="submitted() && form.controls.password.invalid"
         [placeholder]="'Password'"
         [type]="'password'"
         [icon]="'lock'"
@@ -25,7 +25,7 @@
     }
 
     <div class="auth__actions">
-      <ui-button [text]="'Log in'" [type]="'submit'"></ui-button>
+      <ui-button [text]="isSubmitting() ? 'Logging in...' : 'Log in'" [type]="'submit'"></ui-button>
 
       <p class="auth__hint">
         Don't have an account?

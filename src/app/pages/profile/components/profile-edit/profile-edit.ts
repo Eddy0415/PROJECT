@@ -1,134 +1,168 @@
-import { ChangeDetectionStrategy, Component, effect, inject, input, signal } from '@angular/core'; // signals + effect     // why: rules
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms'; // typed forms                 // why: rules
-import { firstValueFrom } from 'rxjs'; // await observables                                                               // why: no manual subscriptions
-import { UiInput } from '../../../../shared/components/ui-input/ui-input'; // ui input                                    // why: shared component
-import { UiButton } from '../../../../shared/components/ui-button/ui-button'; // ui button                                // why: shared component
-import { IUser } from '../../../../shared/interfaces/user'; // types                                                      // why: type safety
-import { AuthService } from '../../../../core/auth/auth-service'; // api + persist                                       // why: update/delete
-import { Router } from '@angular/router'; // navigation                                                                  // why: home after delete
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  input,
+  signal,
+} from '@angular/core';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
+import { firstValueFrom } from 'rxjs';
+import { UiInput } from '../../../../shared/components/ui-input/ui-input';
+import { UiButton } from '../../../../shared/components/ui-button/ui-button';
+import { IUser } from '../../../../shared/interfaces/user';
+import { AuthService } from '../../../../core/auth/auth-service';
 
 type ProfileFormModel = {
-  firstName: FormControl<string>;
-  lastName: FormControl<string>;
-  username: FormControl<string>;
-  email: FormControl<string>;
-  dateOfBirth: FormControl<string>;
-  password: FormControl<string>;
-  role: FormControl<string>;
+  firstName:       FormControl<string>;
+  lastName:        FormControl<string>;
+  username:        FormControl<string>;
+  email:           FormControl<string>;
+  dateOfBirth:     FormControl<string>;
+  password:        FormControl<string>;
+  confirmPassword: FormControl<string>;
+  role:            FormControl<string>;
 };
 
 @Component({
-  selector: 'profile-edit', // component                                                                                 // why: profile page body
-  standalone: true, // standalone                                                                                        // why: rules
-  imports: [ReactiveFormsModule, UiInput, UiButton], // deps                                                              // why: form + UI
-  templateUrl: './profile-edit.html', // template                                                                        // why: clean
-  styleUrl: './profile-edit.scss', // scss                                                                               // why: rules
-  changeDetection: ChangeDetectionStrategy.OnPush, // perf                                                               // why: signals
+  selector: 'profile-edit',
+  standalone: true,
+  imports: [ReactiveFormsModule, UiInput, UiButton],
+  templateUrl: './profile-edit.html',
+  styleUrl: './profile-edit.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileEdit {
-  private readonly fb = inject(FormBuilder); // DI                                                                       // why: rules
-  private readonly auth = inject(AuthService); // DI                                                                     // why: calls + persist
-  private readonly router = inject(Router); // DI                                                                        // why: navigate after delete
+  private readonly fb = inject(FormBuilder);
+  private readonly auth = inject(AuthService);
 
-  readonly user = input.required<IUser | null>(); // passed from Profile page                                            // why: prefill
+  readonly user = input.required<IUser | null>();
 
-  readonly isSaving = signal(false); // loading                                                                          // why: disable buttons
-  readonly isDeleting = signal(false); // loading                                                                        // why: disable buttons
-  readonly apiError = signal<string | null>(null); // error text                                                         // why: show message
-  readonly selectedFile = signal<File | null>(null); // optional avatar                                                  // why: PATCH supports file
+  readonly isSaving = signal(false);
+  readonly isDeleting = signal(false);
+  readonly submitted = signal(false);
+  readonly apiError = signal<string | null>(null);
+  readonly saveState = signal<'idle' | 'saving' | 'success'>('idle');
+  readonly selectedFile = signal<File | null>(null);
+  readonly previewUrl = signal<string | null>(null);
 
-  readonly form = this.fb.group<ProfileFormModel>({
-    firstName: this.fb.control('', { nonNullable: true, validators: [Validators.required] }), // required                // why: basic validation
-    lastName: this.fb.control('', { nonNullable: true, validators: [Validators.required] }), // required                 // why: basic validation
-    username: this.fb.control('', { nonNullable: true, validators: [Validators.required] }), // required                 // why: basic validation
-    email: this.fb.control('', {
-      nonNullable: true,
-      validators: [Validators.required, Validators.email],
-    }), // email     // why: email format
-    dateOfBirth: this.fb.control('', { nonNullable: true }), // optional                                                   // why: backend accepts string
-    password: this.fb.control('', { nonNullable: true }), // optional new password
-    role: this.fb.control('', { nonNullable: true }),
-  });
+  readonly form = this.fb.nonNullable.group<ProfileFormModel>(
+    {
+      firstName:       this.fb.nonNullable.control('', { validators: [Validators.required] }),
+      lastName:        this.fb.nonNullable.control('', { validators: [Validators.required] }),
+      username:        this.fb.nonNullable.control('', { validators: [Validators.required] }),
+      email:           this.fb.nonNullable.control('', { validators: [Validators.required, Validators.email] }),
+      dateOfBirth:     this.fb.nonNullable.control(''),   // optional
+      password:        this.fb.nonNullable.control(''),   // optional
+      confirmPassword: this.fb.nonNullable.control(''),   // optional
+      role:            this.fb.nonNullable.control(''),   // optional
+    },
+    { validators: [passwordMatchValidator] },
+  );
+
+  // true when submitted AND the two password values don't match
+  readonly passwordMismatch = computed(() =>
+    this.submitted() && !!this.form.errors?.['passwordMismatch']
+  );
 
   constructor() {
     effect(() => {
-      const u = this.user(); // read input                                                                               // why: react to changes
-      if (!u) return; // safe                                                                                            // why: no crash
-
-      this.apiError.set(null); // clear error                                                                            // why: fresh state
-
-      this.form.patchValue(
-        {
-          firstName: u.firstName ?? '', // set                                                                            // why: prefill
-          lastName: u.lastName ?? '', // set                                                                              // why: prefill
-          username: u.username ?? '', // set                                                                              // why: prefill
-          email: u.email ?? '', // set                                                                                    // why: prefill
-          dateOfBirth: this.toDateInputValue(u.dateOfBirth), // yyyy-mm-dd                                                // why: input value
-          password: '', // keep empty
-          role: u.role ?? '', // why: avoid undefined in control
-        },
-        { emitEvent: false }, // avoid extra events                                                                       // why: clean patch
-      );
+      const u = this.user();
+      if (!u) return;
+      this.apiError.set(null);
+      this.form.patchValue({
+        firstName:       u.firstName       ?? '',
+        lastName:        u.lastName        ?? '',
+        username:        u.username        ?? '',
+        email:           u.email           ?? '',
+        dateOfBirth:     this.toDateInputValue(u.dateOfBirth),
+        password:        '',
+        confirmPassword: '',
+        role:            u.role            ?? '',
+      }, { emitEvent: false });
     });
   }
 
   onFileSelected(ev: Event): void {
-    const inputEl = ev.target as HTMLInputElement; // cast                                                                // why: TS
-    const file = inputEl.files?.[0] ?? null; // first file                                                               // why: single file
-    this.selectedFile.set(file); // store                                                                                // why: submit later
+    const input = ev.target as HTMLInputElement;
+    const file = input.files?.[0] ?? null;
+    this.selectedFile.set(file);
+    const old = this.previewUrl();
+    if (old) URL.revokeObjectURL(old);
+    this.previewUrl.set(file ? URL.createObjectURL(file) : null);
   }
 
   async update(): Promise<void> {
-    this.apiError.set(null); // reset                                                                                    // why: clean UX
-    if (this.form.invalid) {
-      this.form.markAllAsTouched(); // show validation                                                                    // why: UX
-      return; // stop                                                                                                     // why: invalid
-    }
-
-    this.isSaving.set(true); // loading                                                                                  // why: disable
+    this.submitted.set(true);
+    this.apiError.set(null);
+    this.saveState.set('idle');
+    if (this.form.invalid || this.isSaving()) return;
+    this.isSaving.set(true);
+    this.saveState.set('saving');
     try {
-      const v = this.form.getRawValue(); // read values                                                                   // why: payload
+      const v = this.form.getRawValue();
+      const pw = v.password.trim();
       await firstValueFrom(
         this.auth.updateUser({
-          firstName: v.firstName.trim(), // send                                                                          // why: patch
-          lastName: v.lastName.trim(), // send                                                                            // why: patch
-          username: v.username.trim(), // send                                                                            // why: patch
-          email: v.email.trim(), // send                                                                                  // why: patch
-          dateOfBirth: v.dateOfBirth ? v.dateOfBirth : undefined, // optional                                             // why: patch minimal
-          password: v.password.trim() ? v.password.trim() : undefined,
-          role: v.role.trim(),
-          file: this.selectedFile(), // optional                                                                          // why: supported by API
+          firstName:   v.firstName.trim(),
+          lastName:    v.lastName.trim(),
+          username:    v.username.trim(),
+          email:       v.email.trim(),
+          dateOfBirth: v.dateOfBirth || undefined,
+          password:    pw || undefined,
+          role:        v.role.trim() || undefined,
+          file:        this.selectedFile(),
         }),
       );
-
-      this.form.controls.password.setValue(''); // clear password field                                                   // why: security + UX
-      this.selectedFile.set(null); // clear file                                                                          // why: UX
-    } catch (e: any) {
-      this.apiError.set(e?.error?.message ?? 'Update failed'); // show backend message if available                       // why: UX
+      this.form.controls.password.setValue('');
+      this.form.controls.confirmPassword.setValue('');
+      this.selectedFile.set(null);
+      this.previewUrl.set(null);
+      this.submitted.set(false);
+      this.saveState.set('success');
+      setTimeout(() => this.saveState.set('idle'), 1000);
+    } catch (e: unknown) {
+      const err = e as { error?: { message?: string } };
+      this.apiError.set(err?.error?.message ?? 'Update failed. Please try again.');
     } finally {
-      this.isSaving.set(false); // stop loading                                                                           // why: UX
+      this.isSaving.set(false);
     }
   }
 
   async deleteAccount(): Promise<void> {
-    this.apiError.set(null); // reset                                                                                    // why: clean UX
-    this.isDeleting.set(true); // loading                                                                                // why: disable
+    this.apiError.set(null);
+    this.isDeleting.set(true);
     try {
-      await firstValueFrom(this.auth.deleteAccount()); // clears session + navigates home                                 // why: required
-      this.router.navigate(['/']); // extra safety                                                                        // why: ensure home
-    } catch (e: any) {
-      this.apiError.set(e?.error?.message ?? 'Delete failed'); // show backend message if available                       // why: UX
+      await firstValueFrom(this.auth.deleteAccount());
+    } catch (e: unknown) {
+      const err = e as { error?: { message?: string } };
+      this.apiError.set(err?.error?.message ?? 'Delete failed. Please try again.');
     } finally {
-      this.isDeleting.set(false); // stop                                                                                // why: UX
+      this.isDeleting.set(false);
     }
   }
 
-  private toDateInputValue(d: any): string {
-    const date = d instanceof Date ? d : new Date(d); // normalize                                                       // why: api sometimes returns string
-    if (Number.isNaN(date.getTime())) return ''; // invalid                                                               // why: safe
-    const yyyy = String(date.getFullYear()); // year                                                                     // why: format
-    const mm = String(date.getMonth() + 1).padStart(2, '0'); // month                                                     // why: format
-    const dd = String(date.getDate()).padStart(2, '0'); // day                                                           // why: format
-    return `${yyyy}-${mm}-${dd}`; // yyyy-mm-dd                                                                           // why: input type date
+  private toDateInputValue(d: unknown): string {
+    const date = d instanceof Date ? d : new Date(d as string);
+    if (Number.isNaN(date.getTime())) return '';
+    const yyyy = String(date.getFullYear());
+    const mm   = String(date.getMonth() + 1).padStart(2, '0');
+    const dd   = String(date.getDate()).padStart(2, '0');
+    return `${yyyy}-${mm}-${dd}`;
   }
+}
+
+function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+  const pw  = group.get('password')?.value as string;
+  const cpw = group.get('confirmPassword')?.value as string;
+  if (!pw || !cpw) return null;
+  return pw === cpw ? null : { passwordMismatch: true };
 }

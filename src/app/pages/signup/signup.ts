@@ -24,11 +24,11 @@ import { UiButton } from '../../shared/components/ui-button/ui-button';
 import { AuthModalService } from '../../shared/services/auth-modal.service';
 
 type SignupFormModel = {
-  firstName: FormControl<string>;
-  lastName: FormControl<string>;
-  username: FormControl<string>;
-  email: FormControl<string>;
-  password: FormControl<string>;
+  firstName:       FormControl<string>;
+  lastName:        FormControl<string>;
+  username:        FormControl<string>;
+  email:           FormControl<string>;
+  password:        FormControl<string>;
   confirmPassword: FormControl<string>;
 };
 
@@ -47,26 +47,25 @@ export class Signup {
   private readonly authModal = inject(AuthModalService);
 
   readonly isSubmitting = signal(false);
-  readonly apiError = signal<string | null>(null);
   readonly submitted = signal(false);
+  readonly apiError = signal<string | null>(null);
 
   readonly form = this.fb.nonNullable.group<SignupFormModel>(
     {
-      firstName: this.fb.nonNullable.control('', { validators: [Validators.required] }),
-      lastName: this.fb.nonNullable.control('', { validators: [Validators.required] }),
-      username: this.fb.nonNullable.control('', { validators: [Validators.required] }),
-      email: this.fb.nonNullable.control('', {
-        validators: [Validators.required, Validators.email],
-      }),
-      password: this.fb.nonNullable.control('', {
-        validators: [Validators.required, Validators.minLength(6)],
-      }),
+      firstName:       this.fb.nonNullable.control('', { validators: [Validators.required] }),
+      lastName:        this.fb.nonNullable.control('', { validators: [Validators.required] }),
+      username:        this.fb.nonNullable.control('', { validators: [Validators.required] }),
+      email:           this.fb.nonNullable.control('', { validators: [Validators.required, Validators.email] }),
+      password:        this.fb.nonNullable.control('', { validators: [Validators.required, Validators.minLength(6)] }),
       confirmPassword: this.fb.nonNullable.control('', { validators: [Validators.required] }),
     },
-    { validators: [this.passwordMatchValidator] },
+    { validators: [passwordMatchValidator] },
   );
 
-  readonly canSubmit = computed(() => this.form.valid && !this.isSubmitting());
+  // true when submitted AND the two password values don't match
+  readonly passwordMismatch = computed(() =>
+    this.submitted() && !!this.form.errors?.['passwordMismatch']
+  );
 
   constructor() {
     effect(() => {
@@ -83,22 +82,18 @@ export class Signup {
   async submit(): Promise<void> {
     this.submitted.set(true);
     this.apiError.set(null);
-    if (this.isSubmitting()) return;
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+    if (this.isSubmitting() || this.form.invalid) return;
     this.isSubmitting.set(true);
     try {
       const raw = this.form.getRawValue();
       const payload: ISignupRequ = {
-        username: raw.username.trim(),
-        email: raw.email.trim(),
-        password: raw.password,
-        firstName: raw.firstName.trim(),
-        lastName: raw.lastName.trim(),
+        username:    raw.username.trim(),
+        email:       raw.email.trim(),
+        password:    raw.password,
+        firstName:   raw.firstName.trim(),
+        lastName:    raw.lastName.trim(),
         dateOfBirth: new Date('2000-01-01'),
-        imageUrl: '',
+        imageUrl:    '',
       };
       await firstValueFrom(this.auth.register(payload));
       this.router.navigate([{ outlets: { modal: null } }]);
@@ -114,11 +109,11 @@ export class Signup {
       this.isSubmitting.set(false);
     }
   }
+}
 
-  private passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
-    const password = group.get('password')?.value as string | null;
-    const confirm = group.get('confirmPassword')?.value as string | null;
-    if (!password || !confirm) return null;
-    return password === confirm ? null : { passwordMismatch: true };
-  }
+function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+  const pw  = group.get('password')?.value as string;
+  const cpw = group.get('confirmPassword')?.value as string;
+  if (!pw || !cpw) return null;
+  return pw === cpw ? null : { passwordMismatch: true };
 }

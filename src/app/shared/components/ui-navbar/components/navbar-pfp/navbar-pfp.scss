@@ -5,19 +5,14 @@
   height: 38px;
   border-radius: 50%;
   border: none;
-  background: transparent;
+  background: #e0e0e0;
   cursor: pointer;
   overflow: hidden;
   padding: 0;
-  transition: background 0.15s;
+  transition: opacity 0.15s;
 
   &:hover {
-    background: rgba(0, 0, 0, 0.05);
-  }
-
-  &__icon {
-    font-size: 26px;
-    color: #555;
+    opacity: 0.85;
   }
 
   &__avatar {
@@ -28,9 +23,10 @@
   }
 
   &__initials {
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
-    color: #555;
+    color: #333;
     text-transform: uppercase;
+    user-select: none;
   }
 }

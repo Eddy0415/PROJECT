@@ -12,26 +12,23 @@ import { ReactiveFormsModule, FormControl } from '@angular/forms';
 export class UiInput {
   readonly control = input.required<FormControl<string>>();
   readonly placeholder = input<string>('');
-  readonly type = input<'text' | 'password' | 'email'>('text');
-  readonly icon = input<'user' | 'mail' | 'lock'>('user');
-  readonly submitted = input<boolean>(false);
+  readonly type = input<'text' | 'password' | 'email' | 'date'>('text');
+  readonly icon = input<'user' | 'mail' | 'lock' | 'calendar'>('user');
+  readonly error = input<boolean>(false); // parent decides when to show red
 
   readonly visible = signal(false);
 
   readonly iconName = computed(() => {
     switch (this.icon()) {
-      case 'user': return 'person';
-      case 'mail': return 'mail';
-      case 'lock': return 'lock';
+      case 'user':     return 'person';
+      case 'mail':     return 'mail';
+      case 'lock':     return 'lock';
+      case 'calendar': return 'calendar_today';
     }
   });
 
   readonly inputType = computed(() =>
     this.type() === 'password' && this.visible() ? 'text' : this.type()
-  );
-
-  readonly showError = computed(() =>
-    this.submitted() && this.control().invalid
   );
 
   toggleVisible(): void {

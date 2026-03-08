@@ -1,31 +1,19 @@
 <section class="page">
-  <div class="top">
-    <a class="back" [routerLink]="['/']">← Back</a>
-    <h1 class="title">Profile</h1>
-  </div>
+  <ui-breadcrumb></ui-breadcrumb>
 
-  <div class="headerCard">
-    <div class="avatar">
-      @if (user()?.imageUrl) {
-        <img [src]="user()?.imageUrl!" alt="Profile" />
-      } @else {
-        <span class="initials">
-          {{ (user()?.firstName?.[0] ?? 'U') + (user()?.lastName?.[0] ?? '') }}
-        </span>
-      }
-    </div>
-
-    <div class="meta">
-      <div class="name">{{ fullName() }}</div>
-      <div class="email">{{ user()?.email ?? 'No email' }}</div>
-    </div>
-  </div>
+  <h1 class="title">Account</h1>
 
   <div class="layout">
     <profile-sidebar [active]="active()" (action)="onSidebarAction($event)"></profile-sidebar>
 
     @if (active() === 'edit') {
       <profile-edit [user]="user()"></profile-edit>
+    }
+    @if (active() === 'payments') {
+      <div class="coming-soon">
+        <span class="material-icons coming-soon__icon">credit_card</span>
+        <p class="coming-soon__text">Payment options coming soon.</p>
+      </div>
     }
   </div>
 </section>
