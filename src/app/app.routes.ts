@@ -23,11 +23,17 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/routes').then((m) => m.LOGIN_ROUTES),
+    loadComponent: () => import('./pages/login/login').then((m) => m.Login),
+    outlet: 'modal',
   },
   {
     path: 'signup',
-    loadChildren: () => import('./pages/signup/routes').then((m) => m.SIGNUP_ROUTES),
+    loadComponent: () => import('./pages/signup/signup').then((m) => m.Signup),
+    outlet: 'modal',
+  },
+  {
+    path: 'about',
+    loadChildren: () => import('./pages/about/routes').then((m) => m.ABOUT_ROUTES),
   },
   {
     path: 'profile',

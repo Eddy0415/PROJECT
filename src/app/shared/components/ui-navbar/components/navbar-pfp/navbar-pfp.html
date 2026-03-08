@@ -1,5 +1,5 @@
 @if (!isAuthenticated()) {
-  <ui-button [text]="'Log in'" [type]="'button'" (click)="openLogin()"></ui-button>
+  <ui-button [text]="'Log in'" [type]="'button'" (clicked)="openLogin()"></ui-button>
 } @else {
   <button class="pfp" type="button" (click)="goProfile()" aria-label="Profile">
     @if (currentUser()?.imageUrl) {
