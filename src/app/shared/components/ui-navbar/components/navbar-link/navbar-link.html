@@ -1,5 +1,5 @@
-@if (link()) {
-  <a class="link" [routerLink]="link()">{{ label() }}</a>
+@if (routerLink()) {
+  <a class="link" [routerLink]="routerLink()">{{ label() }}</a>
 } @else {
-  <a class="link" (click)="clicked.emit()">{{ label() }}</a>
+  <a class="link" type="button" (click)="handleClick()">{{ label() }}</a>
 }

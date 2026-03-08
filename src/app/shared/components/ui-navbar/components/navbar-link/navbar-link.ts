@@ -11,6 +11,11 @@ import { RouterLink } from '@angular/router';
 })
 export class NavbarLink {
   readonly label = input.required<string>();
-  readonly link = input<string | null>(null);
+  readonly routerLink = input<string | null>(null);  // for router navigation
+  readonly href = input<string | null>(null);        // for external or void links
   readonly clicked = output<void>();
+
+  handleClick(): void {
+    this.clicked.emit();
+  }
 }

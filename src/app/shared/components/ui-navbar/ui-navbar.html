@@ -7,10 +7,10 @@
 
     <nav class="links">
       @if (currentUser()?.role === 'admin') {
-        <navbar-link label="Admin" [link]="'/admin'"></navbar-link>
+        <navbar-link label="Admin" routerLink="/admin"></navbar-link>
       }
       <navbar-link label="Products" (clicked)="nav.goProducts()"></navbar-link>
-      <navbar-link label="About Us" [link]="'/about'"></navbar-link>
+      <navbar-link label="About Us" routerLink="/about"></navbar-link>
       <navbar-link label="Contact Us" (clicked)="nav.goContact()"></navbar-link>
     </nav>
 
