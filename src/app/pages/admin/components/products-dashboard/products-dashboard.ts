@@ -16,10 +16,12 @@ import { DeleteButtonRenderer } from '../delete-button-renderer/delete-button-re
 import { ProductFormModal, ProductFormValue } from '../product-form-modal/product-form-modal';
 import { IProduct } from '../../../../shared/interfaces/product';
 
+import { UiButton } from '../../../../shared/components/ui-button/ui-button';
+
 @Component({
   selector: 'products-dashboard',
   standalone: true,
-  imports: [AgGridAngular, ProductFormModal],
+  imports: [AgGridAngular, ProductFormModal, UiButton],
   templateUrl: './products-dashboard.html',
   styleUrl: './products-dashboard.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

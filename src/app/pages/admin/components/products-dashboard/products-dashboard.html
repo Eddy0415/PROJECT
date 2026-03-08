@@ -4,7 +4,7 @@
       <h2 class="panel__title">Products</h2>
       <p class="panel__sub">Manage products — sort, filter, inline-edit descriptions, add or remove.</p>
     </div>
-    <button type="button" class="add-btn" (click)="openAdd()">+ Add product</button>
+    <ui-button [text]="'+ Add product'" (clicked)="openAdd()"></ui-button>
   </div>
 
   @if (loading()) {

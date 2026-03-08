@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavService } from '../../services/nav.service';
+import { AuthService } from '../../../core/auth/auth-service';
 import { Logo } from '../logo/logo';
 import { NavbarSearch } from './components/navbar-search/navbar-search';
 import { NavbarLink } from './components/navbar-link/navbar-link';
@@ -17,4 +18,5 @@ import { NavbarPfp } from './components/navbar-pfp/navbar-pfp';
 })
 export class UiNavbarComponent {
   readonly nav = inject(NavService);
+  readonly currentUser = inject(AuthService).currentUser;
 }
