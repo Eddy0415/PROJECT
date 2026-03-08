@@ -4,9 +4,11 @@
 
     <div class="auth__fields">
       <div class="auth__row2">
-        <ui-input [control]="form.controls.firstName" [submitted]="submitted()" [placeholder]="'Full Name'" [type]="'text'" [icon]="'user'"></ui-input>
-        <ui-input [control]="form.controls.username" [submitted]="submitted()" [placeholder]="'Username'" [type]="'text'" [icon]="'user'"></ui-input>
+        <ui-input [control]="form.controls.firstName" [submitted]="submitted()" [placeholder]="'First Name'" [type]="'text'" [icon]="'user'"></ui-input>
+        <ui-input [control]="form.controls.lastName" [submitted]="submitted()" [placeholder]="'Last Name'" [type]="'text'" [icon]="'user'"></ui-input>
       </div>
+
+      <ui-input [control]="form.controls.username" [submitted]="submitted()" [placeholder]="'Username'" [type]="'text'" [icon]="'user'"></ui-input>
 
       <ui-input [control]="form.controls.email" [submitted]="submitted()" [placeholder]="'Email Address'" [type]="'email'" [icon]="'mail'"></ui-input>
 

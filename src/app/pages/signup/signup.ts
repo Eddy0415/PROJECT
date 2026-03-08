@@ -21,6 +21,7 @@ import { ISignupRequ } from '../../core/auth/Interfaces/Signup';
 import { UiModal } from '../../shared/components/ui-modal/ui-modal';
 import { UiInput } from '../../shared/components/ui-input/ui-input';
 import { UiButton } from '../../shared/components/ui-button/ui-button';
+import { AuthModalService } from '../../shared/services/auth-modal.service';
 
 type SignupFormModel = {
   firstName: FormControl<string>;
@@ -43,6 +44,7 @@ export class Signup {
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
+  private readonly authModal = inject(AuthModalService);
 
   readonly isSubmitting = signal(false);
   readonly apiError = signal<string | null>(null);
@@ -53,8 +55,12 @@ export class Signup {
       firstName: this.fb.nonNullable.control('', { validators: [Validators.required] }),
       lastName: this.fb.nonNullable.control('', { validators: [Validators.required] }),
       username: this.fb.nonNullable.control('', { validators: [Validators.required] }),
-      email: this.fb.nonNullable.control('', { validators: [Validators.required, Validators.email] }),
-      password: this.fb.nonNullable.control('', { validators: [Validators.required, Validators.minLength(6)] }),
+      email: this.fb.nonNullable.control('', {
+        validators: [Validators.required, Validators.email],
+      }),
+      password: this.fb.nonNullable.control('', {
+        validators: [Validators.required, Validators.minLength(6)],
+      }),
       confirmPassword: this.fb.nonNullable.control('', { validators: [Validators.required] }),
     },
     { validators: [this.passwordMatchValidator] },
@@ -99,7 +105,7 @@ export class Signup {
     } catch (err: unknown) {
       const http = err as { status?: number };
       if (http?.status === 409) {
-        this.apiError.set('Account already exists. Please login.');
+        this.authModal.setPendingError('Account already exists. Please log in.');
         this.router.navigate([{ outlets: { modal: ['login'] } }]);
       } else {
         this.apiError.set('Signup failed. Please check your information.');

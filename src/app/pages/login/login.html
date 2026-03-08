@@ -5,13 +5,15 @@
     <div class="auth__fields">
       <ui-input
         [control]="form.controls.email"
-        [placeholder]="'Username'"
-        [type]="'text'"
-        [icon]="'user'"
+        [submitted]="submitted()"
+        [placeholder]="'Email'"
+        [type]="'email'"
+        [icon]="'mail'"
       ></ui-input>
 
       <ui-input
         [control]="form.controls.password"
+        [submitted]="submitted()"
         [placeholder]="'Password'"
         [type]="'password'"
         [icon]="'lock'"
