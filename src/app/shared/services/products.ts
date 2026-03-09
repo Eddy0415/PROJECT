@@ -12,14 +12,6 @@ export class ProductsService {
     return this.http.get<IProduct[]>(`${this.API}/products`);
   }
 
-  getById(id: number): Observable<IProduct> {
-    return this.http.get<IProduct>(`${this.API}/products/${id}`);
-  }
-
-  getByCategory(category: string): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>(`${this.API}/products/category/${category}`);
-  }
-
   create(payload: Omit<IProduct, 'id' | 'rating'>): Observable<IProduct> {
     return this.http.post<IProduct>(`${this.API}/products`, payload);
   }

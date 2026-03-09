@@ -1,21 +1,28 @@
-import { Injectable, inject } from '@angular/core'; // DI
-import { HttpClient } from '@angular/common/http'; // http
-import { Observable } from 'rxjs'; // return type
-import { CartEntry } from './cart.store'; // cart model
+import { Injectable, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { CartEntry } from './cart.store';
 
-export interface CreateCartProduct { productId: number; quantity: number } // fakestore format
-export interface CreateCartBody { userId: number; date: string; products: CreateCartProduct[] } // fakestore body
+export interface CreateCartProduct {
+  productId: number;
+  quantity: number;
+}
+export interface CreateCartBody {
+  userId: number;
+  date: string;
+  products: CreateCartProduct[];
+}
 export interface CreateCartResp {
   id: number;
   userId: number;
   date: string;
   products: CreateCartProduct[];
-} // response shape
+}
 
-@Injectable({ providedIn: 'root' }) // app singleton
+@Injectable({ providedIn: 'root' })
 export class OrdersService {
-  private readonly http = inject(HttpClient); // DI http
-  private readonly API = 'https://fakestoreapi.com'; // base url
+  private readonly http = inject(HttpClient);
+  private readonly API = 'https://fakestoreapi.com';
 
   createCartOrder(args: {
     userId: number;
@@ -23,11 +30,11 @@ export class OrdersService {
     date?: Date;
   }): Observable<CreateCartResp> {
     const body: CreateCartBody = {
-      userId: args.userId, // required by API
-      date: (args.date ?? new Date()).toISOString().slice(0, 10), // yyyy-mm-dd
-      products: args.entries.map((e) => ({ productId: e.id, quantity: e.qty })), // map to API format
+      userId: args.userId,
+      date: (args.date ?? new Date()).toISOString().slice(0, 10),
+      products: args.entries.map((e) => ({ productId: e.id, quantity: e.qty })),
     };
 
-    return this.http.post<CreateCartResp>(`${this.API}/carts`, body); // POST /carts
+    return this.http.post<CreateCartResp>(`${this.API}/carts`, body);
   }
 }

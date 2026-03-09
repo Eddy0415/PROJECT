@@ -14,7 +14,7 @@ export class UiInput {
   readonly placeholder = input<string>('');
   readonly type = input<'text' | 'password' | 'email' | 'date'>('text');
   readonly icon = input<'user' | 'mail' | 'lock' | 'calendar'>('user');
-  readonly error = input<boolean>(false); // parent decides when to show red
+  readonly error = input<boolean>(false);
 
   readonly visible = signal(false);
 
