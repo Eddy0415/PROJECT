@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { IProduct } from '../../../../../../interfaces/product';
 
@@ -8,6 +8,7 @@ import { IProduct } from '../../../../../../interfaces/product';
   imports: [RouterLink],
   templateUrl: './product-card.html',
   styleUrl: './product-card.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCardComponent {
   product = input.required<IProduct>();

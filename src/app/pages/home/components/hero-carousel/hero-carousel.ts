@@ -1,4 +1,4 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UiButton } from '../../../../shared/components/ui-button/ui-button';
 import { NavService } from '../../../../shared/services/nav.service';
@@ -9,6 +9,7 @@ import { NavService } from '../../../../shared/services/nav.service';
   imports: [CommonModule, UiButton],
   templateUrl: './hero-carousel.html',
   styleUrl: './hero-carousel.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeroCarouselComponent {
   private readonly destroyRef = inject(DestroyRef);
