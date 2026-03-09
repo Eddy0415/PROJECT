@@ -14,10 +14,10 @@ import { UiInput } from '../../shared/components/ui-input/ui-input';
 import { UiButton } from '../../shared/components/ui-button/ui-button';
 import { AuthModalService } from '../../shared/services/auth-modal.service';
 
-type LoginFormModel = {
+interface LoginFormModel {
   email: FormControl<string>;
   password: FormControl<string>;
-};
+}
 
 @Component({
   selector: 'app-login',

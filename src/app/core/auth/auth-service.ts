@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, tap, map, catchError, throwError, firstValueFrom } from 'rxjs';
+import { Observable, tap, map, catchError, throwError } from 'rxjs';
 import { IUser } from '../../shared/interfaces/user';
 import { ILoginRequ } from './Interfaces/Login';
 import { ISignupRequ } from './Interfaces/Signup';

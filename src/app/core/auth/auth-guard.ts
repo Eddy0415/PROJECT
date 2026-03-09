@@ -3,7 +3,7 @@ import { inject } from '@angular/core'; // DI helper                            
 import { Router } from '@angular/router'; // navigation / UrlTree                          // why: redirect
 import { AuthService } from './auth-service'; // auth state                                // why: check login
 
-export const authGuard: CanActivateFn = (route, state) => {
+export const authGuard: CanActivateFn = (_route, _state) => {
   // functional guard            // why: rules
   const auth = inject(AuthService); // get auth service                                   // why: signals
   const router = inject(Router); // get router                                            // why: create redirect

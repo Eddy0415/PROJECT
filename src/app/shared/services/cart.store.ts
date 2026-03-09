@@ -1,7 +1,7 @@
 import { Injectable, computed, effect, inject, signal } from '@angular/core';
 import { ProductsCatalogStore } from './products-store';
 
-export type CartEntry = { id: number; qty: number };
+export interface CartEntry { id: number; qty: number }
 
 @Injectable({ providedIn: 'root' })
 export class CartStore {
@@ -33,7 +33,7 @@ export class CartStore {
     });
   }
 
-  add(id: number, qty: number = 1): void {
+  add(id: number, qty = 1): void {
     if (qty <= 0) return;
     this.entriesSig.update((prev) => {
       const idx = prev.findIndex((x) => x.id === id);
@@ -79,6 +79,8 @@ export class CartStore {
   private writeToStorage(entries: CartEntry[]): void {
     try {
       localStorage.setItem(this.LS_KEY, JSON.stringify(entries));
-    } catch {}
+    } catch {
+      // storage unavailable, silently ignore
+    }
   }
 }

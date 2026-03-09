@@ -1,5 +1,5 @@
-<div class="overlay" (click)="closeModal()">
-  <section class="modal" (click)="$event.stopPropagation()">
+<div class="overlay" role="button" tabindex="0" (click)="closeModal()" (keydown.enter)="closeModal()" (keydown.space)="closeModal()">
+  <section class="modal" role="presentation" (click)="$event.stopPropagation()" (keydown.enter)="$event.stopPropagation()" (keydown.space)="$event.stopPropagation()">
     <div class="left">
       <ng-content></ng-content>
     </div>

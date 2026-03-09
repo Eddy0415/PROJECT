@@ -9,7 +9,7 @@
 
     <!-- Avatar picker -->
     <div class="form__avatar-row">
-      <div class="form__avatar" (click)="fileInput.click()">
+      <div class="form__avatar" role="button" tabindex="0" (click)="fileInput.click()" (keydown.enter)="fileInput.click()" (keydown.space)="fileInput.click()">
         @if (previewUrl()) {
           <img class="form__avatar-img" [src]="previewUrl()!" alt="Profile preview" />
         } @else if (user()?.imageUrl) {

@@ -23,14 +23,14 @@ import { UiInput } from '../../shared/components/ui-input/ui-input';
 import { UiButton } from '../../shared/components/ui-button/ui-button';
 import { AuthModalService } from '../../shared/services/auth-modal.service';
 
-type SignupFormModel = {
+interface SignupFormModel {
   firstName:       FormControl<string>;
   lastName:        FormControl<string>;
   username:        FormControl<string>;
   email:           FormControl<string>;
   password:        FormControl<string>;
   confirmPassword: FormControl<string>;
-};
+}
 
 @Component({
   selector: 'app-signup',

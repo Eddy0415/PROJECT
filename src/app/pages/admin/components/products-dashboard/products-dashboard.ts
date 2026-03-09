@@ -121,7 +121,9 @@ export class ProductsDashboard {
   }
 
   private onDescriptionChanged(e: NewValueParams): void {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const id = Number((e as any)?.data?.id ?? 0);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const desc = String((e as any)?.newValue ?? '');
     if (!id) return;
     this.store.updateDescription(id, desc);

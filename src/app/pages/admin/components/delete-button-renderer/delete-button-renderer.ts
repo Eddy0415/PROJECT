@@ -20,13 +20,17 @@ interface ActionParams extends ICellRendererParams {
 export class DeleteButtonRenderer implements ICellRendererAngularComp {
   readonly id = signal<number>(0);
   readonly rowData = signal<IProduct | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onDelete: (id: number) => void = () => {};
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private onEdit: (product: IProduct) => void = () => {};
 
   agInit(params: ActionParams): void {
     this.id.set(Number(params?.data?.id ?? 0));
     this.rowData.set(params?.data ?? null);
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     this.onDelete = params?.onDelete ?? (() => {});
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     this.onEdit = params?.onEdit ?? (() => {});
   }
 

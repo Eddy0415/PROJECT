@@ -3,14 +3,14 @@ import { HttpClient } from '@angular/common/http'; // http
 import { Observable } from 'rxjs'; // return type
 import { CartEntry } from './cart.store'; // cart model
 
-export type CreateCartProduct = { productId: number; quantity: number }; // fakestore format
-export type CreateCartBody = { userId: number; date: string; products: CreateCartProduct[] }; // fakestore body
-export type CreateCartResp = {
+export interface CreateCartProduct { productId: number; quantity: number } // fakestore format
+export interface CreateCartBody { userId: number; date: string; products: CreateCartProduct[] } // fakestore body
+export interface CreateCartResp {
   id: number;
   userId: number;
   date: string;
   products: CreateCartProduct[];
-}; // response shape
+} // response shape
 
 @Injectable({ providedIn: 'root' }) // app singleton
 export class OrdersService {

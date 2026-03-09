@@ -21,7 +21,7 @@ import { UiButton } from '../../../../shared/components/ui-button/ui-button';
 import { IUser } from '../../../../shared/interfaces/user';
 import { AuthService } from '../../../../core/auth/auth-service';
 
-type ProfileFormModel = {
+interface ProfileFormModel {
   firstName:       FormControl<string>;
   lastName:        FormControl<string>;
   username:        FormControl<string>;
@@ -30,7 +30,7 @@ type ProfileFormModel = {
   password:        FormControl<string>;
   confirmPassword: FormControl<string>;
   role:            FormControl<string>;
-};
+}
 
 @Component({
   selector: 'profile-edit',
