@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
@@ -31,6 +32,10 @@ export class CartPage {
   readonly placingOrder = signal(false);
   readonly orderSuccess = signal(false);
   readonly orderError = signal<string | null>(null);
+
+  constructor() {
+    inject(Title).setTitle('Your Cart — Item Store');
+  }
 
   readonly canOrder = computed(
     () => this.hasItems() && this.auth.isAuthenticated() && !this.placingOrder(),

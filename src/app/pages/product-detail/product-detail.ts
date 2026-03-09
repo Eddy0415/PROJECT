@@ -1,4 +1,5 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { distinctUntilChanged, map } from 'rxjs';
@@ -43,6 +44,18 @@ export class ProductDetailComponent {
 
   readonly loading = computed(() => this.catalog.loading());
   readonly error = computed(() => this.catalog.error());
+
+  constructor() {
+    const title = inject(Title);
+    const meta = inject(Meta);
+    effect(() => {
+      const p = this.product();
+      if (p) {
+        title.setTitle(`${p.title} — Item Store`);
+        meta.updateTag({ name: 'description', content: p.description });
+      }
+    });
+  }
 
   decQty(): void {
     this.qty.update(v => Math.max(1, v - 1));
