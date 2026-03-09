@@ -9,17 +9,19 @@ export const routes: Routes = [
   },
   {
     path: 'cart',
-    loadChildren: () => import('./pages/cart/routes').then((m) => m.CART_ROUTES),
+    loadComponent: () => import('./pages/cart/cart').then((m) => m.CartPage),
+    title: 'My Cart',
   },
   {
     path: 'products/:id',
-    loadChildren: () =>
-      import('./pages/product-detail/routes').then((m) => m.PRODUCT_DETAIL_ROUTES),
+    loadComponent: () =>
+      import('./pages/product-detail/product-detail').then((m) => m.ProductDetailComponent),
   },
   {
     path: 'admin',
     canActivate: [authGuard, adminGuard],
-    loadChildren: () => import('./pages/admin/routes').then((m) => m.ADMIN_ROUTES),
+    loadComponent: () => import('./pages/admin/admin').then((m) => m.Admin),
+    title: 'Admin',
   },
   {
     path: 'login',
@@ -33,15 +35,17 @@ export const routes: Routes = [
   },
   {
     path: 'about',
-    loadChildren: () => import('./pages/about/routes').then((m) => m.ABOUT_ROUTES),
+    loadComponent: () => import('./pages/about/about').then((m) => m.AboutComponent),
+    title: 'About',
   },
   {
     path: 'profile',
     canActivate: [authGuard],
-    loadChildren: () => import('./pages/profile/routes').then((m) => m.PROFILE_ROUTES),
+    loadComponent: () => import('./pages/profile/profile').then((m) => m.ProfileComponent),
+    title: 'Profile',
   },
   {
     path: 'search',
-    loadChildren: () => import('./pages/search/routes').then((m) => m.SEARCH_ROUTES),
+    loadComponent: () => import('./pages/search/search').then((m) => m.SearchComponent),
   },
 ];

@@ -10,7 +10,10 @@ import { Title, Meta } from '@angular/platform-browser';
 })
 export class AboutComponent {
   constructor() {
-    inject(Title).setTitle('About Us — Item Store');
-    inject(Meta).updateTag({ name: 'description', content: 'Learn more about Item Store and our mission.' });
+    inject(Title).setTitle('About Us , Item Store');
+    inject(Meta).updateTag({
+      name: 'description',
+      content: 'Learn more about Item Store and our mission.',
+    });
   }
 }
