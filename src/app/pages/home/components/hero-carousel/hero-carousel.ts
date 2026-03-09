@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { UiButton } from '../../../../shared/components/ui-button/ui-button';
 import { NavService } from '../../../../shared/services/nav.service';
 
 @Component({
   selector: 'app-hero-carousel',
   standalone: true,
-  imports: [CommonModule, UiButton],
+  imports: [UiButton],
   templateUrl: './hero-carousel.html',
   styleUrl: './hero-carousel.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,10 +19,10 @@ export class HeroCarouselComponent {
   active = signal(0);
   private timerId: number | null = null;
 
- constructor() {
-  this.startAutoPlay();
-  this.destroyRef.onDestroy(() => this.stopAutoPlay());
-}
+  constructor() {
+    this.startAutoPlay();
+    this.destroyRef.onDestroy(() => this.stopAutoPlay());
+  }
 
   startAutoPlay(): void {
     this.stopAutoPlay();
