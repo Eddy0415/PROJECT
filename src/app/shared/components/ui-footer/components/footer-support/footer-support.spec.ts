@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UiNavbarComponent } from './ui-navbar';
+import { FooterSupport } from './footer-support';
 
-describe('UiNavbarComponent', () => {
-  let component: UiNavbarComponent;
-  let fixture: ComponentFixture<UiNavbarComponent>;
+describe('FooterSupport', () => {
+  let component: FooterSupport;
+  let fixture: ComponentFixture<FooterSupport>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiNavbarComponent],
+      imports: [FooterSupport],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UiNavbarComponent);
+    fixture = TestBed.createComponent(FooterSupport);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

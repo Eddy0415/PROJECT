@@ -1,59 +1,151 @@
-# PROJECT
+# Item Store
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+A modern Angular ecommerce application built with Angular 21, featuring a fully standalone component architecture, zoneless change detection, and reactive state management via signals.
 
-## Development server
+## Tech Stack
 
-To start a local development server, run:
+- **Framework:** Angular 21 (standalone, zoneless)
+- **State:** Angular Signals + Signal Store
+- **Styling:** SCSS
+- **Tables:** AG Grid
+- **Auth:** JWT + ngx-cookie-service
+- **Testing:** Vitest
+- **Linting:** ESLint + angular-eslint + typescript-eslint
+
+## Prerequisites
+
+- Node.js 20+
+- npm 10+
+- Angular CLI 21: `npm install -g @angular/cli`
+
+## Getting Started
 
 ```bash
+# Install dependencies
+npm install
+
+# Start the development server
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Navigate to `http://localhost:4200/`. The app reloads automatically on file changes.
 
-## Code scaffolding
+## Available Scripts
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+| Command | Description |
+|---|---|
+| `ng serve` | Start local dev server |
+| `ng build` | Production build (outputs to `dist/`) |
+| `ng test` | Run unit tests with Vitest |
+| `ng lint` | Run ESLint across all TypeScript and HTML files |
+| `ng generate component <name>` | Scaffold a new standalone component |
 
-```bash
-ng generate component component-name
+## Project Structure
+
+```
+src/
+├── main.ts
+├── index.html
+├── styles.scss
+└── app/
+    ├── app.ts
+    ├── app.config.ts
+    ├── app.routes.ts
+    ├── core/
+    │   └── auth/
+    │       ├── Interfaces/          # AuthError, Login, Signup, Resp, EditResp
+    │       ├── auth-service.ts
+    │       ├── auth-interceptor.ts
+    │       ├── auth-guard.ts
+    │       └── admin.guard.ts
+    ├── pages/
+    │   ├── home/
+    │   │   └── components/
+    │   │       ├── hero-carousel/
+    │   │       └── products-toolbar/
+    │   │           ├── toolbar-categories/
+    │   │           └── toolbar-select/
+    │   ├── about/
+    │   ├── search/
+    │   ├── cart/
+    │   │   └── components/
+    │   │       ├── cart-table/
+    │   │       │   └── cart-product-card/
+    │   │       │       └── bin-button/
+    │   │       └── order-summary/
+    │   ├── product-detail/
+    │   │   └── components/detail-product-card/
+    │   ├── profile/
+    │   │   └── components/profile-edit/
+    │   ├── login/
+    │   ├── signup/
+    │   └── admin/
+    │       └── components/
+    │           ├── products-dashboard/
+    │           ├── product-form-modal/
+    │           ├── delete-button-renderer/
+    │           └── admin-sidebar/
+    └── shared/
+        ├── interfaces/              # product.ts, user.ts
+        ├── services/                # products, cart.store, orders, nav, auth-modal
+        └── components/
+            ├── ui-navbar/
+            │   ├── navbar-cart/
+            │   ├── navbar-link/
+            │   ├── navbar-pfp/
+            │   └── navbar-search/
+            ├── ui-footer/
+            │   ├── footer-bottom/
+            │   ├── footer-link-col/
+            │   ├── footer-socials/
+            │   └── footer-support/
+            ├── visible-products/
+            │   ├── products-grid/
+            │   │   └── product-card/
+            │   └── products-toolbar/
+            │       ├── toolbar-categories/
+            │       └── toolbar-select/
+            ├── ui-modal/
+            ├── ui-button/
+            ├── ui-input/
+            ├── ui-pill/
+            ├── ui-counter-pill/
+            │   ├── counter-btn/
+            │   └── counter-value/
+            ├── ui-breadcrumb/
+            ├── page-sidebar/
+            └── logo/
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Architecture Conventions
 
-```bash
-ng generate --help
-```
+- All components are **standalone** with `OnPush` change detection
+- **No NgModules** — routing is configured per feature via `routes.ts`
+- Dependencies injected via `inject()` — no constructor injection
+- Reactive state managed with **signals** — no RxJS Subjects or `.subscribe()`
+- No lifecycle hooks (`ngOnInit` etc.) — effects and computed values used instead
+- Forms use typed reactive forms only
 
-## Building
-
-To build the project run:
+## Building for Production
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+Build artifacts are output to the `dist/` directory, optimized for performance.
 
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+## Running Tests
 
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
+Unit tests are powered by [Vitest](https://vitest.dev/) with jsdom.
 
-For end-to-end (e2e) testing, run:
+## Linting
 
 ```bash
-ng e2e
+ng lint
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+ESLint is configured with `angular-eslint` and `typescript-eslint`. All rules pass with zero errors.

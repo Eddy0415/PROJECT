@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UiNavbarComponent } from './ui-navbar';
+import { UiBreadcrumb } from './ui-breadcrumb';
 
-describe('UiNavbarComponent', () => {
-  let component: UiNavbarComponent;
-  let fixture: ComponentFixture<UiNavbarComponent>;
+describe('UiBreadcrumb', () => {
+  let component: UiBreadcrumb;
+  let fixture: ComponentFixture<UiBreadcrumb>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiNavbarComponent],
+      imports: [UiBreadcrumb],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(UiNavbarComponent);
+    fixture = TestBed.createComponent(UiBreadcrumb);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
