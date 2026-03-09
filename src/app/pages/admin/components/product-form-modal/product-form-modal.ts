@@ -1,9 +1,9 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   input,
-  OnInit,
   output,
   signal,
 } from '@angular/core';
@@ -20,7 +20,7 @@ export type ProductFormValue = Omit<IProduct, 'id' | 'rating'>;
   styleUrl: './product-form-modal.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductFormModal implements OnInit {
+export class ProductFormModal {
   private readonly fb = inject(FormBuilder);
 
   readonly product = input<IProduct | null>(null); // null = add, product = edit
@@ -30,23 +30,30 @@ export class ProductFormModal implements OnInit {
   readonly submitted = signal(false);
 
   readonly form = this.fb.nonNullable.group({
-    title:       this.fb.nonNullable.control('',  [Validators.required]),
-    price:       this.fb.nonNullable.control(0,   [Validators.required, Validators.min(0.01)]),
-    category:    this.fb.nonNullable.control('',  [Validators.required]),
-    description: this.fb.nonNullable.control('',  [Validators.required]),
-    image:       this.fb.nonNullable.control('',  [Validators.required]),
+    title: this.fb.nonNullable.control('', [Validators.required]),
+    price: this.fb.nonNullable.control(0, [Validators.required, Validators.min(0.01)]),
+    category: this.fb.nonNullable.control('', [Validators.required]),
+    description: this.fb.nonNullable.control('', [Validators.required]),
+    image: this.fb.nonNullable.control('', [Validators.required]),
   });
 
-  get isEdit(): boolean { return !!this.product(); }
+  get isEdit(): boolean {
+    return !!this.product();
+  }
 
-  ngOnInit(): void {
-    const p = this.product();
-    if (p) {
-      this.form.patchValue({
-        title: p.title, price: p.price, category: p.category,
-        description: p.description, image: p.image,
-      });
-    }
+  constructor() {
+    effect(() => {
+      const p = this.product();
+      if (p) {
+        this.form.patchValue({
+          title: p.title,
+          price: p.price,
+          category: p.category,
+          description: p.description,
+          image: p.image,
+        });
+      }
+    });
   }
 
   err(control: FormControl): boolean {

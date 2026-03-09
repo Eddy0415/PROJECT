@@ -20,10 +20,10 @@ export class HeroCarouselComponent {
   active = signal(0);
   private timerId: number | null = null;
 
-  ngOnInit(): void {
-    this.startAutoPlay();
-    this.destroyRef.onDestroy(() => this.stopAutoPlay());
-  }
+ constructor() {
+  this.startAutoPlay();
+  this.destroyRef.onDestroy(() => this.stopAutoPlay());
+}
 
   startAutoPlay(): void {
     this.stopAutoPlay();
