@@ -22,8 +22,8 @@ export class ProfileComponent {
 
   readonly sidebarItems: SidebarItem[] = [
     { key: 'edit',     label: 'Edit profile' },
-    { key: 'payments', label: 'Payment options', disabled: true },
-    { key: 'logout',   label: 'Logout', danger: true },
+    { key: 'payments', label: 'Payment options', variant: 'disabled' },
+    { key: 'logout',   label: 'Logout', variant: 'danger' },
   ];
 
   onSidebarAction(key: string): void {

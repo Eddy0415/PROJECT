@@ -1,8 +1,10 @@
 <button
   class="pill"
   [class.active]="active()"
+  [class.pill--danger]="variant() === 'danger'"
+  [class.pill--disabled]="variant() === 'disabled'"
   [attr.type]="type()"
-  [disabled]="disabled()"
+  [disabled]="variant() === 'disabled'"
   (click)="clicked.emit($event)"
 >
   {{ label() }}

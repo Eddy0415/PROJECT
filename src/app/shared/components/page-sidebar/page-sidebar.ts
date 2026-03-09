@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { UiPill } from '../ui-pill/ui-pill';
+import { UiPill, PillVariant } from '../ui-pill/ui-pill';
 
 export interface SidebarItem {
   key: string;
   label: string;
-  danger?: boolean;    // red styling (e.g. logout)
-  disabled?: boolean;  // coming soon — greyed out, not clickable
+  variant?: PillVariant;
 }
 
 @Component({

@@ -25,4 +25,20 @@
     opacity: 0.45;
     cursor: not-allowed;
   }
+
+  &--danger {
+    color: #d32f2f;
+    border-color: rgba(211, 47, 47, 0.3);
+
+    &:hover {
+      background: rgba(211, 47, 47, 0.06);
+      border-color: #d32f2f;
+    }
+  }
+
+  &--disabled {
+    opacity: 0.45;
+    cursor: default;
+    pointer-events: none;
+  }
 }

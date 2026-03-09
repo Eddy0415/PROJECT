@@ -7,23 +7,3 @@
   background: #fff;
   align-content: start;
 }
-
-.danger-pill {
-  ::ng-deep button {
-    color: #d32f2f !important;
-    border-color: rgba(211, 47, 47, 0.3) !important;
-
-    &:hover {
-      background: rgba(211, 47, 47, 0.06) !important;
-      border-color: #d32f2f !important;
-    }
-  }
-}
-
-.disabled-pill {
-  ::ng-deep button {
-    opacity: 0.45;
-    cursor: default !important;
-    pointer-events: none;
-  }
-}

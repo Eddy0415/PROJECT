@@ -18,7 +18,7 @@ export class Admin {
 
   readonly sidebarItems: SidebarItem[] = [
     { key: 'products', label: 'Products' },
-    { key: 'users',    label: 'Users', disabled: true },
+    { key: 'users',    label: 'Users', variant: 'disabled' },
   ];
 
   onSidebarAction(key: string): void {
