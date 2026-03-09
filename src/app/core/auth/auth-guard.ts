@@ -1,14 +1,13 @@
-import { CanActivateFn } from '@angular/router'; // guard type                              // why: functional guard
-import { inject } from '@angular/core'; // DI helper                                       // why: rules
-import { Router } from '@angular/router'; // navigation / UrlTree                          // why: redirect
-import { AuthService } from './auth-service'; // auth state                                // why: check login
+import { CanActivateFn } from '@angular/router';
+import { inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './auth-service';
 
 export const authGuard: CanActivateFn = (_route, _state) => {
-  // functional guard            // why: rules
-  const auth = inject(AuthService); // get auth service                                   // why: signals
-  const router = inject(Router); // get router                                            // why: create redirect
+  const auth = inject(AuthService);
+  const router = inject(Router);
 
-  if (auth.isAuthenticated()) return true; // allow route                                 // why: logged in
+  if (auth.isAuthenticated()) return true;
 
   return router.createUrlTree([{ outlets: { modal: ['login'] } }]);
 };

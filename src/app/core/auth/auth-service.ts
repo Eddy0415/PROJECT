@@ -2,7 +2,7 @@ import { inject, Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Observable, tap, map, catchError, throwError } from 'rxjs';
+import { Observable, tap, map } from 'rxjs';
 import { IUser } from '../../shared/interfaces/user';
 import { ILoginRequ } from './Interfaces/Login';
 import { ISignupRequ } from './Interfaces/Signup';
@@ -37,9 +37,8 @@ export class AuthService {
   register(userData: ISignupRequ): Observable<void> {
     return this.http.post<IResp>(`${this.API_BASE}/auth/register`, userData).pipe(
       tap((res) => this.handleAuthResponse(res)),
-      tap(() => this._isAuthenticated.set(true)), // ← add this
+      tap(() => this._isAuthenticated.set(true)),
       map(() => void 0),
-      catchError((err) => throwError(() => err)),
     );
   }
 
@@ -48,7 +47,6 @@ export class AuthService {
       tap((res) => this.handleAuthResponse(res)),
       tap(() => this._isAuthenticated.set(true)),
       map(() => void 0),
-      catchError((err) => throwError(() => err)),
     );
   }
 
@@ -75,7 +73,6 @@ export class AuthService {
     return this.http.patch<IEditResp>(`${this.API_BASE}/user`, fd).pipe(
       tap((res) => this.handleEditResponse(res)),
       map(() => void 0),
-      catchError((err) => throwError(() => err)),
     );
   }
 
@@ -83,11 +80,10 @@ export class AuthService {
     return this.http.delete<void>(`${this.API_BASE}/user`).pipe(
       tap(() => {
         this.clearSession();
-        this._isAuthenticated.set(false); // ← add this
+        this._isAuthenticated.set(false);
         this.router.navigate(['/']);
       }),
       map(() => void 0),
-      catchError((err) => throwError(() => err)),
     );
   }
 
