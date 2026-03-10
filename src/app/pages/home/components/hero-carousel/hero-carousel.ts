@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
-import { UiButton } from '../../../../shared/components/ui-button/ui-button';
+import { UiButton } from '../../../../shared/components/button/ui-button';
 import { NavService } from '../../../../shared/services/nav/nav-service';
 
 @Component({

@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core'; // root component                                                             // why: app root
 import { RouterOutlet } from '@angular/router'; // routing outlet                                                       // why: render pages
-import { UiNavbarComponent } from './shared/components/ui-navbar/ui-navbar'; // navbar                                  // why: global header
-import { UiFooter } from './shared/components/ui-footer/ui-footer'; // footer                                  // why: global footer
+import { UiNavbarComponent } from './shared/components/navbar/ui-navbar'; // navbar                                  // why: global header
+import { UiFooter } from './shared/components/footer/ui-footer'; // footer                                  // why: global footer
 
 @Component({
   selector: 'app-root', // root selector                                                                                // why: Angular bootstraps here

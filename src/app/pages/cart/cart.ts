@@ -6,8 +6,8 @@ import { firstValueFrom } from 'rxjs';
 import { CartStore } from '../../shared/stores/cart/cart-store';
 import { OrdersService } from '../../shared/services/orders/orders-service';
 import { AuthService } from '../../core/auth/auth-service';
-import { UiButton } from '../../shared/components/ui-button/ui-button';
-import { UiBreadcrumb } from '../../shared/components/ui-breadcrumb/ui-breadcrumb';
+import { UiButton } from '../../shared/components/button/ui-button';
+import { UiBreadcrumb } from '../../shared/components/breadcrumb/ui-breadcrumb';
 import { CartTable } from './components/cart-table/cart-table';
 import { OrderSummary } from './components/order-summary/order-summary';
 
@@ -61,7 +61,7 @@ export class CartPage {
     this.orderError.set(null);
 
     if (!this.auth.isAuthenticated()) {
-      this.router.navigate(['/login'], { queryParams: { returnUrl: '/cart' } });
+      this.router.navigate([{ outlets: { modal: ['login'] } }]);
       return;
     }
 

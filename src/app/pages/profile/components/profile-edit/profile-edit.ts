@@ -16,20 +16,20 @@ import {
   Validators,
 } from '@angular/forms';
 import { firstValueFrom } from 'rxjs';
-import { UiInput } from '../../../../shared/components/ui-input/ui-input';
-import { UiButton } from '../../../../shared/components/ui-button/ui-button';
+import { UiInput } from '../../../../shared/components/input/ui-input';
+import { UiButton } from '../../../../shared/components/button/ui-button';
 import { IUser } from '../../../../shared/interfaces/user';
 import { AuthService } from '../../../../core/auth/auth-service';
 
 interface ProfileFormModel {
-  firstName:       FormControl<string>;
-  lastName:        FormControl<string>;
-  username:        FormControl<string>;
-  email:           FormControl<string>;
-  dateOfBirth:     FormControl<string>;
-  password:        FormControl<string>;
+  firstName: FormControl<string>;
+  lastName: FormControl<string>;
+  username: FormControl<string>;
+  email: FormControl<string>;
+  dateOfBirth: FormControl<string>;
+  password: FormControl<string>;
   confirmPassword: FormControl<string>;
-  role:            FormControl<string>;
+  role: FormControl<string>;
 }
 
 @Component({
@@ -56,21 +56,23 @@ export class ProfileEdit {
 
   readonly form = this.fb.nonNullable.group<ProfileFormModel>(
     {
-      firstName:       this.fb.nonNullable.control('', { validators: [Validators.required] }),
-      lastName:        this.fb.nonNullable.control('', { validators: [Validators.required] }),
-      username:        this.fb.nonNullable.control('', { validators: [Validators.required] }),
-      email:           this.fb.nonNullable.control('', { validators: [Validators.required, Validators.email] }),
-      dateOfBirth:     this.fb.nonNullable.control(''),   // optional
-      password:        this.fb.nonNullable.control(''),   // optional
-      confirmPassword: this.fb.nonNullable.control(''),   // optional
-      role:            this.fb.nonNullable.control(''),   // optional
+      firstName: this.fb.nonNullable.control('', { validators: [Validators.required] }),
+      lastName: this.fb.nonNullable.control('', { validators: [Validators.required] }),
+      username: this.fb.nonNullable.control('', { validators: [Validators.required] }),
+      email: this.fb.nonNullable.control('', {
+        validators: [Validators.required, Validators.email],
+      }),
+      dateOfBirth: this.fb.nonNullable.control(''), // optional
+      password: this.fb.nonNullable.control(''), // optional
+      confirmPassword: this.fb.nonNullable.control(''), // optional
+      role: this.fb.nonNullable.control(''), // optional
     },
     { validators: [passwordMatchValidator] },
   );
 
   // true when submitted AND the two password values don't match
-  readonly passwordMismatch = computed(() =>
-    this.submitted() && !!this.form.errors?.['passwordMismatch']
+  readonly passwordMismatch = computed(
+    () => this.submitted() && !!this.form.errors?.['passwordMismatch'],
   );
 
   constructor() {
@@ -78,16 +80,19 @@ export class ProfileEdit {
       const u = this.user();
       if (!u) return;
       this.apiError.set(null);
-      this.form.patchValue({
-        firstName:       u.firstName       ?? '',
-        lastName:        u.lastName        ?? '',
-        username:        u.username        ?? '',
-        email:           u.email           ?? '',
-        dateOfBirth:     this.toDateInputValue(u.dateOfBirth),
-        password:        '',
-        confirmPassword: '',
-        role:            u.role            ?? '',
-      }, { emitEvent: false });
+      this.form.patchValue(
+        {
+          firstName: u.firstName ?? '',
+          lastName: u.lastName ?? '',
+          username: u.username ?? '',
+          email: u.email ?? '',
+          dateOfBirth: this.toDateInputValue(u.dateOfBirth),
+          password: '',
+          confirmPassword: '',
+          role: u.role ?? '',
+        },
+        { emitEvent: false },
+      );
     });
   }
 
@@ -112,14 +117,14 @@ export class ProfileEdit {
       const pw = v.password.trim();
       await firstValueFrom(
         this.auth.updateUser({
-          firstName:   v.firstName.trim(),
-          lastName:    v.lastName.trim(),
-          username:    v.username.trim(),
-          email:       v.email.trim(),
+          firstName: v.firstName.trim(),
+          lastName: v.lastName.trim(),
+          username: v.username.trim(),
+          email: v.email.trim(),
           dateOfBirth: v.dateOfBirth || undefined,
-          password:    pw || undefined,
-          role:        v.role.trim() || undefined,
-          file:        this.selectedFile(),
+          password: pw || undefined,
+          role: v.role.trim() || undefined,
+          file: this.selectedFile(),
         }),
       );
       this.form.controls.password.setValue('');
@@ -154,14 +159,14 @@ export class ProfileEdit {
     const date = d instanceof Date ? d : new Date(d as string);
     if (Number.isNaN(date.getTime())) return '';
     const yyyy = String(date.getFullYear());
-    const mm   = String(date.getMonth() + 1).padStart(2, '0');
-    const dd   = String(date.getDate()).padStart(2, '0');
+    const mm = String(date.getMonth() + 1).padStart(2, '0');
+    const dd = String(date.getDate()).padStart(2, '0');
     return `${yyyy}-${mm}-${dd}`;
   }
 }
 
 function passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
-  const pw  = group.get('password')?.value as string;
+  const pw = group.get('password')?.value as string;
   const cpw = group.get('confirmPassword')?.value as string;
   if (!pw || !cpw) return null;
   return pw === cpw ? null : { passwordMismatch: true };

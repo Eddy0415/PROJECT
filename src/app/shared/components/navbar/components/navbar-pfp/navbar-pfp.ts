@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { AuthService } from '../../../../../core/auth/auth-service';
-import { UiButton } from '../../../ui-button/ui-button';
+import { UiButton } from '../../../button/ui-button';
 
 @Component({
   selector: 'navbar-pfp',

@@ -18,9 +18,9 @@ import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 import { AuthService } from '../../core/auth/auth-service';
 import { ISignupRequ } from '../../core/auth/Interfaces/SignupRequ';
-import { UiModal } from '../../shared/components/ui-modal/ui-modal';
-import { UiInput } from '../../shared/components/ui-input/ui-input';
-import { UiButton } from '../../shared/components/ui-button/ui-button';
+import { UiModal } from '../../shared/components/modal/ui-modal';
+import { UiInput } from '../../shared/components/input/ui-input';
+import { UiButton } from '../../shared/components/button/ui-button';
 import { SigninSignupService } from '../../shared/services/signin-signup/signin-signup-service';
 
 interface SignupFormModel {

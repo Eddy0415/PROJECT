@@ -14,7 +14,7 @@ import { distinctUntilChanged, map } from 'rxjs';
 import { CartStore } from '../../shared/stores/cart/cart-store';
 import { ProductsCatalogStore } from '../../shared/stores/products/products-store';
 import { IProduct } from '../../shared/interfaces/product';
-import { UiBreadcrumb } from '../../shared/components/ui-breadcrumb/ui-breadcrumb';
+import { UiBreadcrumb } from '../../shared/components/breadcrumb/ui-breadcrumb';
 import { DetailProductCard } from './components/detail-product-card/detail-product-card';
 import { VisibleProducts } from '../../shared/components/visible-products/visible-products';
 

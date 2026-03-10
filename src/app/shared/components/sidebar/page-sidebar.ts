@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { UiPill, PillVariant } from '../ui-pill/ui-pill';
+import { UiPill, PillVariant } from '../pill/ui-pill';
 
 export interface SidebarItem {
   key: string;

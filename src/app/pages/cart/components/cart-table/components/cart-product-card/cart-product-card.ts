@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { CartBinButton } from './components/bin-button/bin-button';
-import { UiCounterPill } from '../../../../../../shared/components/ui-counter-pill/ui-counter-pill';
+import { UiCounterPill } from '../../../../../../shared/components/counter-pill/ui-counter-pill';
 
 import { CartEntry } from '../../../../../../shared/stores/cart/interfaces/cart-entry';
 import { IProduct } from '../../../../../../shared/interfaces/product';

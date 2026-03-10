@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { IProduct } from '../../../../shared/interfaces/product';
-import { UiButton } from '../../../../shared/components/ui-button/ui-button';
-import { UiCounterPill } from '../../../../shared/components/ui-counter-pill/ui-counter-pill';
+import { UiButton } from '../../../../shared/components/button/ui-button';
+import { UiCounterPill } from '../../../../shared/components/counter-pill/ui-counter-pill';
 
 @Component({
   selector: 'detail-product-card',

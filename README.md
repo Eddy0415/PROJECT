@@ -43,84 +43,84 @@ Navigate to `http://localhost:4200/`. The app reloads automatically on file chan
 ## Project Structure
 
 └───app
-├───core
-│ └───auth
-│ ├───Guards
-│ ├───Interceptors
-│ └───Interfaces
-├───pages
-│ ├───about
-│ ├───admin
-│ │ └───components
-│ │ ├───delete-button-renderer
-│ │ ├───product-form-modal
-│ │ └───products-dashboard
-│ ├───cart
-│ │ └───components
-│ │ ├───bin-button
-│ │ ├───cart-table
-│ │ │ └───components
-│ │ │ └───cart-product-card
-│ │ │ └───components
-│ │ │ └───bin-button
-│ │ └───order-summary
-│ ├───home
-│ │ └───components
-│ │ └───hero-carousel
-│ ├───login
-│ ├───product-detail
-│ │ └───components
-│ │ └───detail-product-card
-│ ├───profile
-│ │ └───components
-│ │ └───profile-edit
-│ ├───search
-│ └───signup
-└───shared
-├───components
-│ ├───logo
-│ ├───page-sidebar
-│ ├───ui-breadcrumb
-│ ├───ui-button
-│ ├───ui-counter-pill
-│ │ └───components
-│ │ ├───counter-btn
-│ │ └───counter-value
-│ ├───ui-footer
-│ │ └───components
-│ │ ├───footer-bottom
-│ │ ├───footer-link-col
-│ │ ├───footer-socials
-│ │ └───footer-support
-│ ├───ui-input
-│ ├───ui-modal
-│ ├───ui-navbar
-│ │ └───components
-│ │ ├───navbar-cart
-│ │ ├───navbar-link
-│ │ ├───navbar-pfp
-│ │ └───navbar-search
-│ ├───ui-pill
-│ └───visible-products
-│ └───components
-│ ├───products-grid
-│ │ └───components
-│ │ └───product-card
-│ └───products-toolbar
-│ └───components
-│ ├───toolbar-categories
-│ └───toolbar-select
-├───interfaces
-├───services
-│ ├───nav
-│ ├───orders
-│ │ └───interfaces
-│ ├───products
-│ └───signin-signup
-└───stores
-├───cart
-│ └───interfaces
-└───products
+    ├───core
+    │   └───auth
+    │       ├───Guards
+    │       ├───Interceptors
+    │       └───Interfaces
+    ├───pages
+    │   ├───about
+    │   ├───admin
+    │   │   └───components
+    │   │       ├───delete-button-renderer
+    │   │       ├───product-form-modal
+    │   │       └───products-dashboard
+    │   ├───cart
+    │   │   └───components
+    │   │       ├───bin-button
+    │   │       ├───cart-table
+    │   │       │   └───components
+    │   │       │       └───cart-product-card
+    │   │       │           └───components
+    │   │       │               └───bin-button
+    │   │       └───order-summary
+    │   ├───home
+    │   │   └───components
+    │   │       └───hero-carousel
+    │   ├───login
+    │   ├───product-detail
+    │   │   └───components
+    │   │       └───detail-product-card
+    │   ├───profile
+    │   │   └───components
+    │   │       └───profile-edit
+    │   ├───search
+    │   └───signup
+    └───shared
+        ├───components
+        │   ├───breadcrumb
+        │   ├───button
+        │   ├───counter-pill
+        │   │   └───components
+        │   │       ├───counter-btn
+        │   │       └───counter-value
+        │   ├───footer
+        │   │   └───components
+        │   │       ├───footer-bottom
+        │   │       ├───footer-link-col
+        │   │       ├───footer-socials
+        │   │       └───footer-support
+        │   ├───input
+        │   ├───logo
+        │   ├───modal
+        │   ├───navbar
+        │   │   └───components
+        │   │       ├───navbar-cart
+        │   │       ├───navbar-link
+        │   │       ├───navbar-pfp
+        │   │       └───navbar-search
+        │   ├───pill
+        │   ├───sidebar
+        │   └───visible-products
+        │       └───components
+        │           ├───products-grid
+        │           │   └───components
+        │           │       └───product-card
+        │           └───products-toolbar
+        │               └───components
+        │                   ├───toolbar-categories
+        │                   └───toolbar-select
+        ├───interfaces
+        ├───services
+        │   ├───nav
+        │   ├───orders
+        │   │   └───interfaces
+        │   ├───products
+        │   └───signin-signup
+        └───stores
+            ├───cart
+            │   └───interfaces
+            └───products
 
 ## Architecture Conventions
 

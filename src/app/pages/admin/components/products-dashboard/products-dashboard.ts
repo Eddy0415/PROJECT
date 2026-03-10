@@ -10,13 +10,11 @@ import {
   Signal,
 } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
-import type { ColDef, GridOptions, NewValueParams } from 'ag-grid-community';
+import type { ColDef, GridOptions, NewValueParams, ICellRendererParams } from 'ag-grid-community';
 import { ProductsCatalogStore } from '../../../../shared/stores/products/products-store';
-import { DeleteButtonRenderer } from '../delete-button-renderer/delete-button-renderer';
 import { ProductFormModal, ProductFormValue } from '../product-form-modal/product-form-modal';
 import { IProduct } from '../../../../shared/interfaces/product';
-
-import { UiButton } from '../../../../shared/components/ui-button/ui-button';
+import { UiButton } from '../../../../shared/components/button/ui-button';
 
 @Component({
   selector: 'products-dashboard',
@@ -48,9 +46,6 @@ export class ProductsDashboard {
       resizable: true,
       floatingFilter: true,
     },
-    components: {
-      actionRenderer: DeleteButtonRenderer,
-    },
   };
 
   readonly colDefs: ColDef[] = [
@@ -77,10 +72,23 @@ export class ProductsDashboard {
     {
       headerName: '',
       width: 160,
-      cellRenderer: 'actionRenderer',
-      cellRendererParams: {
-        onDelete: (id: number) => void this.deleteRow(id),
-        onEdit: (product: IProduct) => this.openEdit(product),
+      cellRenderer: (params: ICellRendererParams) => {
+        const wrapper = document.createElement('div');
+        wrapper.style.cssText = 'display:flex;align-items:center;gap:6px;height:100%';
+
+        const editBtn = document.createElement('button');
+        editBtn.textContent = 'Edit';
+        editBtn.className = 'grid-btn grid-btn--edit';
+        editBtn.onclick = () => this.openEdit(params.data as IProduct);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.textContent = 'Delete';
+        deleteBtn.className = 'grid-btn grid-btn--delete';
+        deleteBtn.onclick = () => void this.deleteRow(Number(params.data?.id ?? 0));
+
+        wrapper.appendChild(editBtn);
+        wrapper.appendChild(deleteBtn);
+        return wrapper;
       },
       filter: false,
       sortable: false,

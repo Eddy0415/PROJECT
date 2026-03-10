@@ -10,10 +10,14 @@
     justify-content: space-between;
     gap: 12px;
     margin-bottom: 16px;
+
+    ui-button ::ng-deep .btn {
+      width: auto;
+    }
   }
 
   &__title {
-    font-size: 1rem;
+    font-size: 1.8rem;
     font-weight: 700;
     margin: 0 0 4px;
     color: #111;
@@ -62,4 +66,27 @@
   --ag-border-color: rgba(0, 0, 0, 0.08);
   --ag-font-family: inherit;
   font-size: 13px;
+}
+
+.grid-btn {
+  padding: 3px 12px;
+  font-size: 0.72rem;
+  border-radius: 999px;
+  cursor: pointer;
+  background: transparent;
+  font-family: inherit;
+
+  &--edit {
+    color: #333;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
+    &:hover { background: rgba(0, 0, 0, 0.05); }
+  }
+
+  &--delete {
+    color: #d32f2f;
+    border: 1px solid rgba(211, 47, 47, 0.35);
+
+    &:hover { background: rgba(211, 47, 47, 0.06); }
+  }
 }

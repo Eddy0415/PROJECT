@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
-import { UiPill } from '../../../../../ui-pill/ui-pill';
+import { UiPill } from '../../../../../pill/ui-pill';
 
 @Component({
   selector: 'toolbar-categories',

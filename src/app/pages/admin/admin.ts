@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
-import { UiBreadcrumb } from '../../shared/components/ui-breadcrumb/ui-breadcrumb';
-import { PageSidebar, SidebarItem } from '../../shared/components/page-sidebar/page-sidebar';
+import { UiBreadcrumb } from '../../shared/components/breadcrumb/ui-breadcrumb';
+import { PageSidebar, SidebarItem } from '../../shared/components/sidebar/page-sidebar';
 import { ProductsDashboard } from './components/products-dashboard/products-dashboard';
 
 type AdminView = 'products' | 'users';

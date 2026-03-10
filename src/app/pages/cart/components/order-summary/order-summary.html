@@ -20,13 +20,8 @@
     <ui-button
       [text]="btnLabel()"
       [type]="'button'"
-      [disabled]="!canOrder() || orderSuccess()"
+      [variant]="btnVariant()"
       (clicked)="checkout.emit()"
-      [ngClass]="{ 'btn--success': orderSuccess(), 'btn--loading': placingOrder() }"
     ></ui-button>
-
-    @if (!canOrder() && !orderSuccess()) {
-      <p class="summary__hint">Login is required to order.</p>
-    }
   </div>
 </aside>

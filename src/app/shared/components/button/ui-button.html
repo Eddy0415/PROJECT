@@ -1,0 +1,12 @@
+<button
+  class="btn"
+  [attr.type]="type()"
+  [disabled]="disabled() || variant() === 'loading'"
+  [class.isDisabled]="disabled()"
+  [class.btn--success]="variant() === 'success'"
+  [class.btn--danger]="variant() === 'danger'"
+  [class.btn--loading]="variant() === 'loading'"
+  (click)="clicked.emit($event)"
+>
+  {{ text() }}
+</button>

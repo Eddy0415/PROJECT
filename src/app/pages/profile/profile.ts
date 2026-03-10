@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { AuthService } from '../../core/auth/auth-service';
 import { ProfileEdit } from './components/profile-edit/profile-edit';
-import { UiBreadcrumb } from '../../shared/components/ui-breadcrumb/ui-breadcrumb';
-import { PageSidebar, SidebarItem } from '../../shared/components/page-sidebar/page-sidebar';
+import { UiBreadcrumb } from '../../shared/components/breadcrumb/ui-breadcrumb';
+import { PageSidebar, SidebarItem } from '../../shared/components/sidebar/page-sidebar';
 
 type ProfileView = 'edit' | 'payments';
 

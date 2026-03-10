@@ -115,22 +115,4 @@
     margin-top: 8px;
     gap: 12px;
   }
-
-  &__delete-btn {
-    ::ng-deep button {
-      background: #d32f2f !important;
-      border-color: #d32f2f !important;
-      color: #fff !important;
-
-      &:hover { background: #b71c1c !important; }
-    }
-  }
-
-  &__update-btn--success {
-    ::ng-deep button {
-      background: #22a04a !important;
-      border-color: #22a04a !important;
-      color: #fff !important;
-    }
-  }
 }

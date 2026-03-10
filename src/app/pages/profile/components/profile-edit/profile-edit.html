@@ -103,16 +103,15 @@
         [text]="saveState() === 'saving' ? 'Updating...' : saveState() === 'success' ? 'Updated!' : 'Update'"
         [type]="'submit'"
         [disabled]="isSaving() || isDeleting()"
-        class="form__update-btn"
-        [class.form__update-btn--success]="saveState() === 'success'"
+        [variant]="saveState() === 'success' ? 'success' : 'default'"
       ></ui-button>
 
       <ui-button
         [text]="isDeleting() ? 'Deleting...' : 'Delete Account'"
         [type]="'button'"
         [disabled]="isSaving() || isDeleting()"
-        (click)="deleteAccount()"
-        class="form__delete-btn"
+        [variant]="'danger'"
+        (clicked)="deleteAccount()"
       ></ui-button>
     </div>
 
