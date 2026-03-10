@@ -1,4 +1,4 @@
-<ui-modal [imageUrl]="'/hero/1.jpg'">
+<ui-modal [imageUrl]="'/hero/5.jpg'">
   <form class="auth" [formGroup]="form" (ngSubmit)="submit()">
     <h2 class="auth__title">Sign Up</h2>
 
@@ -63,7 +63,10 @@
     }
 
     <div class="auth__actions">
-      <ui-button [text]="isSubmitting() ? 'Creating...' : 'Create Account'" [type]="'submit'"></ui-button>
+      <ui-button
+        [text]="isSubmitting() ? 'Creating...' : 'Create Account'"
+        [type]="'submit'"
+      ></ui-button>
 
       <p class="auth__hint">
         Already have an account?

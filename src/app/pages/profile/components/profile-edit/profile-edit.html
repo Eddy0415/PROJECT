@@ -102,14 +102,14 @@
       <ui-button
         [text]="saveState() === 'saving' ? 'Updating...' : saveState() === 'success' ? 'Updated!' : 'Update'"
         [type]="'submit'"
-        [disabled]="isSaving() || isDeleting()"
+        [disabled]="isSaving()"
         [variant]="saveState() === 'success' ? 'success' : 'default'"
       ></ui-button>
 
       <ui-button
         [text]="isDeleting() ? 'Deleting...' : 'Delete Account'"
         [type]="'button'"
-        [disabled]="isSaving() || isDeleting()"
+        [disabled]="isDeleting()"
         [variant]="'danger'"
         (clicked)="deleteAccount()"
       ></ui-button>
