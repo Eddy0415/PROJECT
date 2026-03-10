@@ -3,8 +3,8 @@ import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
 
-import { CartStore } from '../../shared/services/cart.store';
-import { OrdersService } from '../../shared/services/orders';
+import { CartStore } from '../../shared/stores/cart/cart-store';
+import { OrdersService } from '../../shared/services/orders/orders-service';
 import { AuthService } from '../../core/auth/auth-service';
 import { UiButton } from '../../shared/components/ui-button/ui-button';
 import { UiBreadcrumb } from '../../shared/components/ui-breadcrumb/ui-breadcrumb';

@@ -2,7 +2,7 @@ import { ApplicationConfig, provideZonelessChangeDetection } from '@angular/core
 import { provideRouter } from '@angular/router'; // router provider
 import { provideHttpClient, withInterceptors } from '@angular/common/http'; // http provider
 import { routes } from './app.routes'; // routes
-import { authInterceptor } from './core/auth/auth-interceptor';
+import { authInterceptor } from './core/auth/Interceptors/auth-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [

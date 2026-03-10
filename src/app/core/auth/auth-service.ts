@@ -4,9 +4,9 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { Observable, tap, map } from 'rxjs';
 import { IUser } from '../../shared/interfaces/user';
-import { ILoginRequ } from './Interfaces/Login';
-import { ISignupRequ } from './Interfaces/Signup';
-import { IResp } from './Interfaces/Resp';
+import { ILoginRequ } from './Interfaces/LoginRequ';
+import { ISignupRequ } from './Interfaces/SignupRequ';
+import { IAuthResp } from './Interfaces/AuthResp';
 import { IEditResp } from './Interfaces/EditResp';
 
 @Injectable({ providedIn: 'root' })
@@ -18,15 +18,13 @@ export class AuthService {
   private readonly TOKEN_KEY = 'auth_token';
   private readonly USER_KEY = 'auth_user';
   private readonly COOKIE_OPTIONS = { expires: 7, sameSite: 'Strict' as const, secure: true };
-
   private _token = signal<string | null>(null);
   private _currentUser = signal<IUser | null>(null);
   private _isAuthenticated = signal<boolean>(false);
-
   readonly token = this._token.asReadonly();
   readonly currentUser = this._currentUser.asReadonly();
   readonly isAuthenticated = this._isAuthenticated.asReadonly();
-
+  
   constructor() {
     const storedToken = this.cookieService.get(this.TOKEN_KEY) || null;
     this._token.set(storedToken);
@@ -35,7 +33,7 @@ export class AuthService {
   }
 
   register(userData: ISignupRequ): Observable<void> {
-    return this.http.post<IResp>(`${this.API_BASE}/auth/register`, userData).pipe(
+    return this.http.post<IAuthResp>(`${this.API_BASE}/auth/register`, userData).pipe(
       tap((res) => this.handleAuthResponse(res)),
       tap(() => this._isAuthenticated.set(true)),
       map(() => void 0),
@@ -43,7 +41,7 @@ export class AuthService {
   }
 
   login(credentials: ILoginRequ): Observable<void> {
-    return this.http.post<IResp>(`${this.API_BASE}/auth/login`, credentials).pipe(
+    return this.http.post<IAuthResp>(`${this.API_BASE}/auth/login`, credentials).pipe(
       tap((res) => this.handleAuthResponse(res)),
       tap(() => this._isAuthenticated.set(true)),
       map(() => void 0),
@@ -97,7 +95,7 @@ export class AuthService {
     return this._token();
   }
 
-  private handleAuthResponse(res: IResp): void {
+  private handleAuthResponse(res: IAuthResp): void {
     const token = res?.token;
     if (token) this.persistToken(token);
     if (res?.user) {

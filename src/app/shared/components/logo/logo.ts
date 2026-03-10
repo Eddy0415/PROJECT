@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { NavService } from '../../services/nav.service';
+import { NavService } from '../../services/nav/nav-service';
 
 @Component({
   selector: 'navbar-logo',

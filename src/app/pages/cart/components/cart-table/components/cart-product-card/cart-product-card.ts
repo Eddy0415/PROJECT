@@ -3,7 +3,7 @@ import { CurrencyPipe } from '@angular/common';
 import { CartBinButton } from './components/bin-button/bin-button';
 import { UiCounterPill } from '../../../../../../shared/components/ui-counter-pill/ui-counter-pill';
 
-import { CartEntry } from '../../../../../../shared/services/cart.store';
+import { CartEntry } from '../../../../../../shared/stores/cart/interfaces/cart-entry';
 import { IProduct } from '../../../../../../shared/interfaces/product';
 
 export interface CartLine {

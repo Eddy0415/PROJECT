@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
@@ -12,7 +6,7 @@ import { AuthService } from '../../core/auth/auth-service';
 import { UiModal } from '../../shared/components/ui-modal/ui-modal';
 import { UiInput } from '../../shared/components/ui-input/ui-input';
 import { UiButton } from '../../shared/components/ui-button/ui-button';
-import { AuthModalService } from '../../shared/services/auth-modal.service';
+import { SigninSignupService } from '../../shared/services/signin-signup/signin-signup-service';
 
 interface LoginFormModel {
   email: FormControl<string>;
@@ -31,14 +25,14 @@ export class Login {
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(AuthService);
   private readonly router = inject(Router);
-  private readonly authModal = inject(AuthModalService);
+  private readonly authModal = inject(SigninSignupService);
 
   readonly isSubmitting = signal(false);
   readonly submitted = signal(false);
   readonly apiError = signal<string | null>(null);
 
   readonly form = this.fb.nonNullable.group<LoginFormModel>({
-    email:    this.fb.nonNullable.control('', { validators: [Validators.required, Validators.email] }),
+    email: this.fb.nonNullable.control('', { validators: [Validators.required, Validators.email] }),
     password: this.fb.nonNullable.control('', { validators: [Validators.required] }),
   });
 

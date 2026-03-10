@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { NavService } from '../../services/nav.service';
+import { NavService } from '../../services/nav/nav-service';
 import { Logo } from '../logo/logo';
 import { FooterSocials } from './components/footer-socials/footer-socials';
 import { FooterSupport } from './components/footer-support/footer-support';

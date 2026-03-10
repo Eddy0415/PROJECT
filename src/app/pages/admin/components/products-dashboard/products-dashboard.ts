@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import type { ColDef, GridOptions, NewValueParams } from 'ag-grid-community';
-import { ProductsCatalogStore } from '../../../../shared/services/products-store';
+import { ProductsCatalogStore } from '../../../../shared/stores/products/products-store';
 import { DeleteButtonRenderer } from '../delete-button-renderer/delete-button-renderer';
 import { ProductFormModal, ProductFormValue } from '../product-form-modal/product-form-modal';
 import { IProduct } from '../../../../shared/interfaces/product';
@@ -54,9 +54,9 @@ export class ProductsDashboard {
   };
 
   readonly colDefs: ColDef[] = [
-    { field: 'id',       headerName: 'ID',       width: 80,  filter: 'agNumberColumnFilter' },
-    { field: 'title',    headerName: 'Title',    flex: 2,    minWidth: 200 },
-    { field: 'category', headerName: 'Category', flex: 1,    minWidth: 140 },
+    { field: 'id', headerName: 'ID', width: 80, filter: 'agNumberColumnFilter' },
+    { field: 'title', headerName: 'Title', flex: 2, minWidth: 200 },
+    { field: 'category', headerName: 'Category', flex: 1, minWidth: 140 },
     {
       field: 'price',
       headerName: 'Price',
@@ -80,7 +80,7 @@ export class ProductsDashboard {
       cellRenderer: 'actionRenderer',
       cellRendererParams: {
         onDelete: (id: number) => void this.deleteRow(id),
-        onEdit:   (product: IProduct) => this.openEdit(product),
+        onEdit: (product: IProduct) => this.openEdit(product),
       },
       filter: false,
       sortable: false,
@@ -89,9 +89,9 @@ export class ProductsDashboard {
   ];
 
   constructor() {
-    this.store   = inject(ProductsCatalogStore);
+    this.store = inject(ProductsCatalogStore);
     this.loading = this.store.loading;
-    this.error   = this.store.error;
+    this.error = this.store.error;
     this.rowData = computed(() => this.store.products());
   }
 

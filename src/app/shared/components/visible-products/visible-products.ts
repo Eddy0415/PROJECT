@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, computed, inject, input, signal } from '@angular/core';
 import { IProduct } from '../../../shared/interfaces/product';
-import { ProductsCatalogStore } from '../../../shared/services/products-store';
+import { ProductsCatalogStore } from '../../stores/products/products-store';
 import { ProductsToolbar, SortMode } from './components/products-toolbar/products-toolbar';
 import { ProductsGrid } from './components/products-grid/products-grid';
 
@@ -16,17 +16,15 @@ export class VisibleProducts {
   private readonly catalog = inject(ProductsCatalogStore);
 
   readonly filterCategory = input<string | null>(null);
-  readonly filterName = input<string | null>(null);     
-  readonly showToolbar = input<boolean>(true);        
+  readonly filterName = input<string | null>(null);
+  readonly showToolbar = input<boolean>(true);
   readonly sortMode = signal<SortMode>('best');
   readonly activeCategory = signal<string | null>(null);
 
   readonly loading = computed(() => this.catalog.loading());
   readonly error = computed(() => this.catalog.error());
 
-  readonly categories = computed(() =>
-    this.filterCategory() ? [] : this.catalog.categories()
-  );
+  readonly categories = computed(() => (this.filterCategory() ? [] : this.catalog.categories()));
 
   readonly visibleProducts = computed(() => {
     const all = this.catalog.products().slice();

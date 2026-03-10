@@ -1,9 +1,0 @@
-<div class="categories">
-  @for (c of categoryOptions(); track c) {
-    <ui-pill
-      [label]="c"
-      [active]="(selectedCategory() ?? 'All') === c"
-      (clicked)="onCategoryChange(c)"
-    ></ui-pill>
-  }
-</div>

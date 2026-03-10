@@ -21,9 +21,9 @@ export class ProfileComponent {
   readonly active = signal<ProfileView>('edit');
 
   readonly sidebarItems: SidebarItem[] = [
-    { key: 'edit',     label: 'Edit profile' },
+    { key: 'edit', label: 'Edit profile' },
     { key: 'payments', label: 'Payment options', variant: 'disabled' },
-    { key: 'logout',   label: 'Logout', variant: 'danger' },
+    { key: 'logout', label: 'Logout', variant: 'danger' },
   ];
 
   onSidebarAction(key: string): void {

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { CartStore } from '../../../../services/cart.store';
+import { CartStore } from '../../../../stores/cart/cart-store';
 
 @Component({
   selector: 'navbar-cart',

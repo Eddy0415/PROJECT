@@ -1,11 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, effect, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  effect,
+  inject,
+  signal,
+} from '@angular/core';
 import { Title, Meta } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { distinctUntilChanged, map } from 'rxjs';
 
-import { CartStore } from '../../shared/services/cart.store';
-import { ProductsCatalogStore } from '../../shared/services/products-store';
+import { CartStore } from '../../shared/stores/cart/cart-store';
+import { ProductsCatalogStore } from '../../shared/stores/products/products-store';
 import { IProduct } from '../../shared/interfaces/product';
 import { UiBreadcrumb } from '../../shared/components/ui-breadcrumb/ui-breadcrumb';
 import { DetailProductCard } from './components/detail-product-card/detail-product-card';
@@ -29,7 +36,7 @@ export class ProductDetailComponent {
   // Read id from route as a signal
   private readonly routeId = toSignal(
     this.route.paramMap.pipe(
-      map(pm => Number(pm.get('id') ?? 0)),
+      map((pm) => Number(pm.get('id') ?? 0)),
       distinctUntilChanged(),
     ),
     { initialValue: 0 },
@@ -58,11 +65,11 @@ export class ProductDetailComponent {
   }
 
   decQty(): void {
-    this.qty.update(v => Math.max(1, v - 1));
+    this.qty.update((v) => Math.max(1, v - 1));
   }
 
   incQty(): void {
-    this.qty.update(v => v + 1);
+    this.qty.update((v) => v + 1);
   }
 
   addToCart(): void {
