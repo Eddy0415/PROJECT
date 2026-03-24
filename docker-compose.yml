@@ -1,0 +1,6 @@
+services:
+  inmind-app-compose:
+    build: .
+    ports:
+      - "8081:80"
+    container_name: inmind-app-compose
